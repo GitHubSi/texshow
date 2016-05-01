@@ -7,9 +7,10 @@
  */
 
 require 'WebAutoLoader.php';
+$webApp = Http::getInstance();
 
 try {
-
+    $webApp->run();
 } catch (Exception $e) {
     // handle runtime exception
     throw $e;
