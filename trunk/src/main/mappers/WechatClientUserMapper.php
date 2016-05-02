@@ -6,7 +6,7 @@
  * Date: 2016/5/1
  * Time: 16:54
  */
-class WechatClientUserMapper
+class WeChatClientUserMapper
 {
     const UNSUBSCRIBE = 0;
     const SUBSCRIBE = 1;

@@ -6,7 +6,7 @@
  * Date: 2016/5/1
  * Time: 20:59
  */
-class WechatService
+class WeChatService
 {
     //redis
     const REDIS_KEY_JS_TICKET = "wechat_js_ticket_";
@@ -36,7 +36,7 @@ class WechatService
     {
         static $instancePool = Array();
         if (is_null($instancePool[$appId])) {
-            $instancePool[$appId] = new WechatService($appId, $appSecret);
+            $instancePool[$appId] = new WeChatService($appId, $appSecret);
         }
         return $instancePool[$appId];
     }

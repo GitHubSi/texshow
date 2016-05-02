@@ -6,7 +6,7 @@
  * Date: 2016/5/1
  * Time: 23:37
  */
-class WechatMagazineService extends WechatService
+class WeChatMagazineService extends WeChatService
 {
     private $_wechatMagazineUserMapper;
 
@@ -17,7 +17,7 @@ class WechatMagazineService extends WechatService
         $appKey = $wechatConfig["magazine"]["secret"];
         parent::__construct($appId, $appKey);
 
-        $this->_wechatMagazineUserMapper = new WechatMagazineUserMappper();
+        $this->_wechatMagazineUserMapper = new WeChatMagazineService();
     }
 
     public function subscribe($openId)
@@ -27,7 +27,7 @@ class WechatMagazineService extends WechatService
 
     public function unsubscribe($openId)
     {
-        return $this->_wechatMagazineUserMapper->updateSubscribe($openId, WechatClientUserMapper::UNSUBSCRIBE);
+        return $this->_wechatMagazineUserMapper->updateSubscribe($openId, WeChatClientUserMapper::UNSUBSCRIBE);
     }
 
     public function getUserInfo($openId, $includeUnSubscribe = false)
@@ -43,7 +43,7 @@ class WechatMagazineService extends WechatService
     }
 
     //magazine red packet only have two states:0 or 1.
-    public function updateRedPacketState($openId, $redPacketState = WechatMagazineUserMappper::RED_PACKET_SUCC)
+    public function updateRedPacketState($openId, $redPacketState = WeChatMagazineUserMappper::RED_PACKET_SUCC)
     {
         return $this->_wechatMagazineUserMapper->updateRedPacket($openId, $redPacketState);
     }

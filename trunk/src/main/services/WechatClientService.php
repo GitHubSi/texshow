@@ -6,7 +6,7 @@
  * Date: 2016/5/1
  * Time: 23:37
  */
-class WechatClientService extends WechatService
+class WeChatClientService extends WeChatService
 {
     private $_wechatClientUserMapper;
 
@@ -17,7 +17,7 @@ class WechatClientService extends WechatService
         $appKey = $wechatConfig["client"]["secret"];
         parent::__construct($appId, $appKey);
 
-        $this->_wechatClientUserMapper = new WechatClientUserMapper();
+        $this->_wechatClientUserMapper = new WeChatClientService();
     }
 
     public function subscribe($openId)
@@ -27,7 +27,7 @@ class WechatClientService extends WechatService
 
     public function unsubscribe($openId)
     {
-        return $this->_wechatClientUserMapper->updateSubscribe($openId, WechatClientUserMapper::UNSUBSCRIBE);
+        return $this->_wechatClientUserMapper->updateSubscribe($openId, WeChatClientUserMapper::UNSUBSCRIBE);
     }
 
     //red packet content
@@ -37,7 +37,7 @@ class WechatClientService extends WechatService
         return $userInfo['redpacket'];
     }
 
-    public function updateRedPacketState($openId, $redPacketState = WechatClientUserMapper::RED_PACKET_SUCC)
+    public function updateRedPacketState($openId, $redPacketState = WeChatClientUserMapper::RED_PACKET_SUCC)
     {
         return $this->_wechatClientUserMapper->updateRedPacket($openId, $redPacketState);
     }
