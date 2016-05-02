@@ -12,12 +12,21 @@ class WeChatClientService extends WeChatService
 
     protected function __construct()
     {
-        $wechatConfig = ConfigLoader::getConfig('WECHAT');
-        $appId = $wechatConfig["client"]["id"];
-        $appKey = $wechatConfig["client"]["secret"];
+        $weChatConfig = ConfigLoader::getConfig('WECHAT');
+        $appId = $weChatConfig["client"]["id"];
+        $appKey = $weChatConfig["client"]["secret"];
         parent::__construct($appId, $appKey);
 
         $this->_wechatClientUserMapper = new WeChatClientService();
+    }
+
+    public function getInstance()
+    {
+        static $instance = Array();
+        if (is_null($instance)) {
+            $instance = new WeChatClientService();
+        }
+        return $instance;
     }
 
     public function subscribe($openId)

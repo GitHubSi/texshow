@@ -31,16 +31,6 @@ class WeChatService
         $this->_appSecret = $appSecret;
     }
 
-    //to void magazine and client extends to wechat service
-    public static function getInstance($appId, $appSecret)
-    {
-        static $instancePool = Array();
-        if (is_null($instancePool[$appId])) {
-            $instancePool[$appId] = new WeChatService($appId, $appSecret);
-        }
-        return $instancePool[$appId];
-    }
-
     public function getAccessToken()
     {
         $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));

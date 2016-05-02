@@ -20,6 +20,15 @@ class WeChatMagazineService extends WeChatService
         $this->_wechatMagazineUserMapper = new WeChatMagazineService();
     }
 
+    public function getInstance()
+    {
+        static $instance = Array();
+        if (is_null($instance)) {
+            $instance = new WeChatMagazineService();
+        }
+        return $instance;
+    }
+
     public function subscribe($openId)
     {
         return $this->_wechatMagazineUserMapper->addSubscribe($openId);
