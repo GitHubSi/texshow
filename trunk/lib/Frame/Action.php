@@ -10,7 +10,7 @@
 class Action
 {
     public $useSmarty = true;
-    public $_smarty = null;
+    private $_smarty = null;
 
     public function __construct()
     {
@@ -22,12 +22,13 @@ class Action
 
     public function initSmarty()
     {
-        include_once '/Smarty.class.php';
+        $ROOT_DIR = dirname(dirname(dirname(__FILE__)));
+        include_once "{$ROOT_DIR}/bin/smarty/Smarty.class.php";
         $this->_smarty = new Smarty();
-        $this->_smarty->compile_dir = "/templates_c/";
-        $this->_smarty->config_dir = "/configs/";
-        $this->_smarty->cache_dir = "/cache/";
-        $this->_smarty->template_dir = '/tpls/';
+        $this->_smarty->compile_dir = "{$ROOT_DIR}/data/templates_c/";
+        $this->_smarty->config_dir = "{$ROOT_DIR}/data/configs/";
+        $this->_smarty->cache_dir = "{$ROOT_DIR}/data/cache/";
+        $this->_smarty->template_dir = "{$ROOT_DIR}/src/applications/views/tpls/";
         $this->_smarty->left_delimiter = "{%";
         $this->_smarty->right_delimiter = "%}";
         $this->_smarty->force_compile = false;
