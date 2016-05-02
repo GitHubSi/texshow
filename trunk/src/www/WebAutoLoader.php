@@ -8,6 +8,8 @@
 
 $ROOT_DIR = dirname(dirname(dirname(__FILE__)));
 ini_set("include_path", ini_get('include_path') . ":/{$ROOT_DIR}/lib/");
+require $ROOT_DIR . '/bin/log/Logger.php';
+
 spl_autoload_register(array("WebAutoLoader", "autoload"));
 
 class WebAutoLoader
