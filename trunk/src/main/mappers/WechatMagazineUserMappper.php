@@ -14,7 +14,6 @@ class WechatMagazineUserMappper
     //red packet state
     const RED_PACKET_INIT = 0;
     const RED_PACKET_SUCC = 1;
-    const RED_PACKET_FAIL = 2;
 
     protected $_db = NULL;
 
