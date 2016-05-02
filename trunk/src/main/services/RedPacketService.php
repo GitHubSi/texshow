@@ -8,7 +8,7 @@
  */
 class RedPacketService
 {
-    const RED_PACKET_TYPE = 1;
+    const NORMAL_RED_PACKET_TYPE = 1;
     const GROUP_RED_PACKET_TYPE = 2;
     const RED_PACKET_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
     const GROUP_RED_PACKET_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
@@ -38,7 +38,7 @@ class RedPacketService
     {
         static $instance = null;
         if (is_null($instance)) {
-            $instance = new RedPackService();
+            $instance = new RedPacketService();
         }
         return $instance;
     }
@@ -53,7 +53,7 @@ class RedPacketService
      */
     public function sendPack($type, $openId, $totalAmount, $actName, $totalNum = 1)
     {
-        if (self::RED_PACKET_TYPE == $type) {
+        if (self::NORMAL_RED_PACKET_TYPE == $type) {
             $url = self::RED_PACKET_URL;
         } else {
             $url = self::GROUP_RED_PACKET_URL;
@@ -82,7 +82,7 @@ class RedPacketService
             'act_name' => $actName,
             'remark' => self::REMARK,
         );
-        if (self::RED_PACKET_TYPE == $type) {
+        if (self::NORMAL_RED_PACKET_TYPE == $type) {
             $request['client_ip'] = $_SERVER['REMOTE_ADDR'];
         } elseif (self::GROUP_RED_PACKET_TYPE == $type) {
             $request['amt_type'] = "ALL_RAND";
@@ -144,5 +144,4 @@ class RedPacketService
             return false;
         }
     }
-
 }

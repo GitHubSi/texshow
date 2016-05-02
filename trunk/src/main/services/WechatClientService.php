@@ -20,7 +20,7 @@ class WeChatClientService extends WeChatService
         $this->_wechatClientUserMapper = new WeChatClientService();
     }
 
-    public function getInstance()
+    public static function getInstance()
     {
         static $instance = Array();
         if (is_null($instance)) {

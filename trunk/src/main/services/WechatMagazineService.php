@@ -8,19 +8,19 @@
  */
 class WeChatMagazineService extends WeChatService
 {
-    private $_wechatMagazineUserMapper;
+    private $_weChatMagazineUserMapper;
 
     protected function __construct()
     {
-        $wechatConfig = ConfigLoader::getConfig('WECHAT');
-        $appId = $wechatConfig["magazine"]["id"];
-        $appKey = $wechatConfig["magazine"]["secret"];
+        $weChatConfig = ConfigLoader::getConfig('WECHAT');
+        $appId = $weChatConfig["magazine"]["id"];
+        $appKey = $weChatConfig["magazine"]["secret"];
         parent::__construct($appId, $appKey);
 
-        $this->_wechatMagazineUserMapper = new WeChatMagazineService();
+        $this->_weChatMagazineUserMapper = new WeChatMagazineUserMapper();
     }
 
-    public function getInstance()
+    public static function getInstance()
     {
         static $instance = Array();
         if (is_null($instance)) {
@@ -31,17 +31,17 @@ class WeChatMagazineService extends WeChatService
 
     public function subscribe($openId)
     {
-        return $this->_wechatMagazineUserMapper->addSubscribe($openId);
+        return $this->_weChatMagazineUserMapper->addSubscribe($openId);
     }
 
-    public function unsubscribe($openId)
+    public function unSubscribe($openId)
     {
-        return $this->_wechatMagazineUserMapper->updateSubscribe($openId, WeChatClientUserMapper::UNSUBSCRIBE);
+        return $this->_weChatMagazineUserMapper->updateSubscribe($openId, WeChatClientUserMapper::UNSUBSCRIBE);
     }
 
     public function getUserInfo($openId, $includeUnSubscribe = false)
     {
-        return $this->_wechatMagazineUserMapper->getInfoByOpenId($openId, $includeUnSubscribe);
+        return $this->_weChatMagazineUserMapper->getInfoByOpenId($openId, $includeUnSubscribe);
     }
 
     //red packet content
@@ -54,12 +54,12 @@ class WeChatMagazineService extends WeChatService
     //magazine red packet only have two states:0 or 1.
     public function updateRedPacketState($openId, $redPacketState = WeChatMagazineUserMappper::RED_PACKET_SUCC)
     {
-        return $this->_wechatMagazineUserMapper->updateRedPacket($openId, $redPacketState);
+        return $this->_weChatMagazineUserMapper->updateRedPacket($openId, $redPacketState);
     }
 
     //user info
     public function updateUserPhone($openId, $phone)
     {
-        return $this->_wechatMagazineUserMapper->updatePhone($openId, $phone);
+        return $this->_weChatMagazineUserMapper->updatePhone($openId, $phone);
     }
 }

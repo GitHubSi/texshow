@@ -57,18 +57,17 @@ class WeChatMagazineController extends AbstractWeChatAction
     protected function unsubscribeHandler()
     {
         //update user subscribe state to not subscribe
-        WechatMagazineService::getInstance()->unsubscribe($this->_openId);
+        WechatMagazineService::getInstance()->unSubscribe($this->_openId);
     }
 
     protected function textHandler()
     {
         $response = array();
-        $userInput = $this->getValue("Content");
-        $openId = $this->getValue("FromUserName");
+        $content = $this->getValue("Content");
 
         $response["MsgType"] = "text";
-        if (strcmp($userInput, "我要抽红包") === 0) {
-            return $this->_redPack($openId, $response);
+        if (strcmp($content, "我要抽红包") === 0) {
+            return RedPacketController::GetRedPacketCode($this->_openId, $content);
         }
 
         return $response;
