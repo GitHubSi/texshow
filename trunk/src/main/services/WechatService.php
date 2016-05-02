@@ -173,7 +173,7 @@ class WeChatService
         return $result;
     }
 
-    public function makeNonceStr()
+    public static function makeNonceStr()
     {
         $codeSet = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $codes = array();

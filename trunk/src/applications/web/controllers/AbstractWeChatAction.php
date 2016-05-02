@@ -81,10 +81,10 @@ class AbstractWeChatAction extends Action
         $response["ToUserName"] = $this->_openId;
         $response["FromUserName"] = $this->getValue("ToUserName");
         $response["CreateTime"] = time();
-        $xml = $this->_arr2XMLStr($response);
+        $xml = SLXml::arr2XMLStr($response);
         echo $xml;
     }
-    
+
     protected function textHandler()
     {
         return NULL;
@@ -140,43 +140,4 @@ class AbstractWeChatAction extends Action
         }
         return TRUE;
     }
-
-    private function _arr2XMLStr($arr)
-    {
-        if (!is_array($arr)) {
-            return null;
-        }
-        $document = new DomDocument('1.0', 'utf-8');
-        $xml = $document->createElement("xml");
-        $this->_appendXMLNode($arr, $xml, $document);
-        return $document->saveXML($xml);
-    }
-
-    private function _appendXMLNode(&$arr, &$node, &$document)
-    {
-        foreach ($arr as $key => $val) {
-            if (preg_match("/^\d+$/", $key)) {
-                // a hack for xml-like array display
-                $newNode = $document->createElement("item");
-            } else {
-                $newNode = $document->createElement($key);
-            }
-            $node->appendChild($newNode);
-
-            if (is_numeric($val)) {
-                $newChildNode = $document->createTextNode($val);
-            } else if (is_string($val)) {
-                $newChildNode = $document->createCDATASection($val);
-            } else if (is_array($val)) {
-                $newChildNode = $this->_appendXMLNode($val, $newNode, $document);
-            }
-
-            if (isset($newChildNode)) {
-                $newNode->appendChild($newChildNode);
-            }
-        }
-
-        return $newNode;
-    }
-
 }
