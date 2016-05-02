@@ -7,6 +7,7 @@
  */
 
 require 'WebAutoLoader.php';
+
 $webApp = Http::getInstance();
 
 try {
