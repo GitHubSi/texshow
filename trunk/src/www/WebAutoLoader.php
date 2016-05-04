@@ -7,7 +7,6 @@
  */
 
 $ROOT_DIR = dirname(dirname(dirname(__FILE__)));
-ini_set("include_path", ini_get('include_path') . ":/{$ROOT_DIR}/lib/");
 require $ROOT_DIR . '/bin/log/Logger.php';
 
 spl_autoload_register(array("WebAutoLoader", "autoload"));
@@ -37,6 +36,16 @@ class WebAutoLoader
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
         'RedisClient' => '/src/main/utils/RedisClient.php',
         'SLXml' => '/src/main/utils/SLXml.php',
+
+        //system
+        'Action' => '/lib/Frame/Action.php',
+        'Http' => '/lib/Frame/Http.php',
+        'Request' => '/lib/Frame/Request.php',
+        'Router' => '/lib/Frame/Router.php',
+
+        'DB'=> '/lib/FrameDB/DB.php',
+        'DBPDO'=> '/lib/FrameDB/DBPDO.php',
+        'DBStatment'=> '/lib/FrameDB/DBStatment.php',
     );
 
     /**

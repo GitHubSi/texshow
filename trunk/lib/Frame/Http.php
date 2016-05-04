@@ -70,7 +70,6 @@ class Http
     public function dispatch()
     {
         $className = $this->createControllerClassName(self::$curController);
-
         //todo :need to judge the controller file whether existed. now,user try-catch to catch this type exception
         try {
             $controller = new $className;
@@ -78,13 +77,11 @@ class Http
             throw new Exception('controller file is not existed');
         }
         $action = $this->createActionName(self::$curAction);
-        if (method_exists($controller, $action)) {
+        if (!method_exists($controller, $action)) {
             throw new Exception('action is not existed in this controller');
         }
 
-        ob_start();
         $controller->dispatch($action);
-        ob_get_clean();
     }
 
     private function createControllerClassName($controlName)
