@@ -98,4 +98,12 @@ class RedPacketController extends Action
             return $response;
         }
     }
+
+    public function indexAction()
+    {
+//        echo 123;
+        $this->_smarty->display('activity/redpacket.tpl');
+
+    }
+
 }

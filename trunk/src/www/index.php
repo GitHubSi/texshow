@@ -6,6 +6,7 @@
  * Time: 23:15
  */
 
+date_default_timezone_set('America/Los_Angeles');
 require 'WebAutoLoader.php';
 
 $webApp = Http::getInstance();

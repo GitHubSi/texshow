@@ -56,14 +56,10 @@ class Http
 
     protected function runController($pathInfo)
     {
-        if (trim($pathInfo, '/') === '') {
-            if ('' === self::$curController) self::$curController = $this->_defaultController;
-            if ('' === self::$curAction) self::$curAction = $this->_defaultAction;
-        } else {
-            if (empty(self::$curController) || empty(self::$curAction)) {
-                Router::getInstance()->route($pathInfo);
-            }
-        }
+        Router::getInstance()->route($pathInfo);
+        if ('' === self::$curController) self::$curController = $this->_defaultController;
+        if ('' === self::$curAction) self::$curAction = $this->_defaultAction;
+
         $this->dispatch();
     }
 
@@ -80,7 +76,6 @@ class Http
         if (!method_exists($controller, $action)) {
             throw new Exception('action is not existed in this controller');
         }
-
         $controller->dispatch($action);
     }
 

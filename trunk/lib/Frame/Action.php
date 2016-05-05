@@ -10,7 +10,7 @@
 class Action
 {
     public $useSmarty = true;
-    private $_smarty = null;
+    public $_smarty = null;
 
     public function __construct()
     {
@@ -25,10 +25,10 @@ class Action
         $ROOT_DIR = dirname(dirname(dirname(__FILE__)));
         include_once "{$ROOT_DIR}/bin/smarty/Smarty.class.php";
         $this->_smarty = new Smarty();
-        $this->_smarty->compile_dir = "{$ROOT_DIR}/data/templates_c/";
-        $this->_smarty->config_dir = "{$ROOT_DIR}/data/configs/";
-        $this->_smarty->cache_dir = "{$ROOT_DIR}/data/cache/";
-        $this->_smarty->template_dir = "{$ROOT_DIR}/src/applications/views/tpls/";
+        $this->_smarty->compile_dir = "{$ROOT_DIR}/data/smarty/templates_c/";
+        $this->_smarty->config_dir = "{$ROOT_DIR}/data/smarty/configs/";
+        $this->_smarty->cache_dir = "{$ROOT_DIR}/data/smarty/cache/";
+        $this->_smarty->template_dir = "{$ROOT_DIR}/src/applications/web/views/tpls/";
         $this->_smarty->left_delimiter = "{%";
         $this->_smarty->right_delimiter = "%}";
         $this->_smarty->force_compile = false;
@@ -78,4 +78,5 @@ class Action
         $value = Request::getInstance()->get($key);
         return (null == $value && null !== $default) ? $default : $value;
     }
+
 }
