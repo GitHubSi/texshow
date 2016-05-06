@@ -32,7 +32,7 @@ class Http
         try {
             $this->processRequest();
         } catch (Exception $e) {
-            throw new Exception('occur unknown exception');
+            throw new Exception($e->getMessage());
         }
     }
 

@@ -11,6 +11,7 @@ require $ROOT_DIR . '/bin/log/Logger.php';
 
 spl_autoload_register(array("WebAutoLoader", "autoload"));
 
+Logger::configure($ROOT_DIR .'/config/logger_conf.xml');
 class WebAutoLoader
 {
     private static $classes = array(
