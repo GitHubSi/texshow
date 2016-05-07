@@ -40,7 +40,6 @@ class AbstractWeChatAction extends Action
             $dom = new DOMDocument();
             $dom->loadXML($entityBody);
             $this->_dom = $dom;
-
             $this->_weChatDispatch();
         } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo $_GET["echostr"];

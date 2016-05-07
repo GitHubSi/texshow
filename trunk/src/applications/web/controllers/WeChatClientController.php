@@ -25,7 +25,12 @@ class WeChatClientController extends AbstractWeChatAction
         $response["MsgType"] = "text";
         $response["Content"] = "欢迎关注服务号！";
 
-        WechatClientService::getInstance()->unsubscribe($this->_openid);
+        try{
+            WeChatClientService::getInstance()->subscribe($this->_openId);
+        } catch(Exception $e){
+            Logger::getRootLogger()->info( $e->getMessage());
+        }
+
         return $response;
     }
 

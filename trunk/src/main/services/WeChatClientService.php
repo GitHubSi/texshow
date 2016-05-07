@@ -16,12 +16,13 @@ class WeChatClientService extends WeChatService
         $appId = $weChatConfig["client"]["id"];
         $appKey = $weChatConfig["client"]["secret"];
         parent::__construct($appId, $appKey);
-        $this->_weChatClientUserMapper = new WeChatClientService();
+
+        $this->_weChatClientUserMapper = new WeChatClientUserMapper();
     }
 
     public static function getInstance()
     {
-        static $instance = Array();
+        static $instance;
         if (is_null($instance)) {
             $instance = new WeChatClientService();
         }

@@ -21,7 +21,7 @@ class WeChatMagazineService extends WeChatService
 
     public static function getInstance()
     {
-        static $instance = Array();
+        static $instance;
         if (is_null($instance)) {
             $instance = new WeChatMagazineService();
         }
