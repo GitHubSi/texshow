@@ -21,12 +21,12 @@ class WeChatClientUserMapper
         $this->_db = DB::getInstance(ConfigLoader::getConfig('MYSQL'));
     }
 
-    public function addSubscribe($openId)
+    public function addSubscribe($openId, $unionId = '')
     {
         return $this->_db->execute(
-            "INSERT INTO wechat_client_user (openid, unionid, is_subscribe, create_time) VALUES (?, ?, now())
+            "INSERT INTO wechat_client_user (openid, unionid, is_subscribe, create_time) VALUES (?, ?, ?, now())
             ON DUPLICATE KEY UPDATE is_subscribe = ? ",
-            array($openId, self::SUBSCRIBE, self::SUBSCRIBE)
+            array($openId, $unionId, self::SUBSCRIBE, self::SUBSCRIBE)
         );
     }
 

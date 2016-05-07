@@ -46,7 +46,7 @@ class WebAutoLoader
 
         'DB'=> '/lib/FrameDB/DB.php',
         'DBPDO'=> '/lib/FrameDB/DBPDO.php',
-        'DBStatment'=> '/lib/FrameDB/DBStatment.php',
+        'DBStatement'=> '/lib/FrameDB/DBStatement.php',
     );
 
     /**
