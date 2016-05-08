@@ -25,10 +25,10 @@ class WeChatClientController extends AbstractWeChatAction
         $response["MsgType"] = "text";
         $response["Content"] = "欢迎关注服务号！";
 
-        try{
+        try {
             WeChatClientService::getInstance()->subscribe($this->_openId);
-        } catch(Exception $e){
-            Logger::getRootLogger()->info( $e->getMessage());
+        } catch (Exception $e) {
+            Logger::getRootLogger()->info($e->getMessage());
         }
 
         return $response;
@@ -56,6 +56,11 @@ class WeChatClientController extends AbstractWeChatAction
     {
         $response["MsgType"] = "text";
         $content = $this->getValue("Content");
+
+        //create menu
+        if (strcmp($content, 'create_menu') == 0) {
+            WeChatClientService::getInstance()->createMenu("WECHAT_CLIENT_BUTTON");
+        }
 
         //whether send red packet
         RedPacketController::sendRedPacket($this->_openId, $content);

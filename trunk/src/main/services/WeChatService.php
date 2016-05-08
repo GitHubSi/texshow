@@ -209,12 +209,13 @@ class WeChatService
         return $response["media_id"];
     }
 
-    public function createMenu(){
-        $menu = json_encode(ConfigLoader::getConfig('WECHAT_CLIENT_BUTTON'));
+    public function createMenu($key)
+    {
+        $menu = json_encode(ConfigLoader::getConfig($key));
         $accessToken = $this->getAccessToken();
-        Logger::getRootLogger()->info(urldecode($menu));
+
         self::urlPost(
-            self::URL_CREATE_MEUN ."?access_token={$accessToken}",
+            self::URL_CREATE_MEUN . "?access_token={$accessToken}",
             urldecode($menu)
         );
     }

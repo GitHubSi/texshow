@@ -39,7 +39,7 @@ class WeChatMagazineController extends AbstractWeChatAction
         $response = array();
         $response['MsgType'] = 'news';
         $response['ArticleCount'] = 1;
-        $response['Articles'] = [] = array(
+        $response['Articles'] = array(
             'Title' => '',
             'PicUrl' => '',
             'Url' => ''
@@ -47,7 +47,7 @@ class WeChatMagazineController extends AbstractWeChatAction
 
         //save user info to local mysql
         try {
-            WechatMagazineService::getInstance()->subscribe($this->_openId);
+            WeChatMagazineService::getInstance()->subscribe($this->_openId);
         } catch (Exception $e) {
         }
 
@@ -57,7 +57,7 @@ class WeChatMagazineController extends AbstractWeChatAction
     protected function unsubscribeHandler()
     {
         //update user subscribe state to not subscribe
-        WechatMagazineService::getInstance()->unSubscribe($this->_openId);
+        WeChatMagazineService::getInstance()->unSubscribe($this->_openId);
     }
 
     protected function textHandler()
@@ -70,6 +70,12 @@ class WeChatMagazineController extends AbstractWeChatAction
             return RedPacketController::GetRedPacketCode($this->_openId, $content);
         }
 
-        return $response;
+        if (strcmp($content, 'create_menu') == 0) {
+            WeChatMagazineService::getInstance()->createMenu("WECHAT_MAGAZINE_BUTTON");
+        }
+
+        return "";
     }
+
+
 }
