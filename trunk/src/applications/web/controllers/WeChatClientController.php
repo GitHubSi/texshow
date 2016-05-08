@@ -63,6 +63,6 @@ class WeChatClientController extends AbstractWeChatAction
         }
 
         //whether send red packet
-        RedPacketController::sendRedPacket($this->_openId, $content);
+        return RedPacketController::sendRedPacket($this->_openId, $content);
     }
 }

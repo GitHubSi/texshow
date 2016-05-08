@@ -61,7 +61,7 @@ class RedPacketController extends Action
         //only response text message
         $response["MsgType"] = "text";
         $redis = RedisClient::getInstance(ConfigLoader::getConfig('REDIS'));
-        $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
+        $userInfo = WeChatClientService::getInstance()->getUserInfo($openId, true);
 
         //just void unknown condition
         if (empty($userInfo)) {
@@ -69,7 +69,7 @@ class RedPacketController extends Action
             return '';
         }
 
-        if (ctype_digit($verifyCode) && 6 == strlen($verifyCode) && $redis->sIsMember(RedPacketService::REDIS_VERIFY_CODE_SET, $verifyCode) && $redis->sRem(RedPackService::REDIS_RED_PACK, $verifyCode)) {
+        if (ctype_digit($verifyCode) && 6 == strlen($verifyCode) && $redis->sIsMember(RedPacketService::REDIS_VERIFY_CODE_SET, $verifyCode) && $redis->sRem(RedPacketService::REDIS_VERIFY_CODE_SET, $verifyCode)) {
             if ($userInfo['redpacket'] != WeChatClientUserMapper::RED_PACKET_INIT) {
                 $response["Content"] = "您之前已经参加过我们的红包活动了哦~，请持续关注我们的公众号！更多活动等待您来参加！";
                 return $response;
