@@ -70,7 +70,7 @@ class Http
         try {
             $controller = new $className;
         } catch (Exception $e) {
-            throw new Exception('controller file is not existed');
+            throw new Exception("{$className} controller file is not existed");
         }
         $action = $this->createActionName(self::$curAction);
         if (!method_exists($controller, $action)) {

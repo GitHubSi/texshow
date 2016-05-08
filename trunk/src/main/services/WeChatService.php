@@ -19,6 +19,7 @@ class WeChatService
     const URL_OAUTH_AUTHORIZE = "https://open.weixin.qq.com/connect/oauth2/authorize";
     const URL_OAUTH_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
     const URL_OAUTH_USER_INFO = "https://api.weixin.qq.com/sns/userinfo";
+    const URL_CREATE_MEUN = "https://api.weixin.qq.com/cgi-bin/menu/create";
     public $_appId;
     public $_appSecret;
 
@@ -206,6 +207,16 @@ class WeChatService
             )
         );
         return $response["media_id"];
+    }
+
+    public function createMenu(){
+        $menu = json_encode(ConfigLoader::getConfig('WECHAT_CLIENT_BUTTON'));
+        $accessToken = $this->getAccessToken();
+        Logger::getRootLogger()->info(urldecode($menu));
+        self::urlPost(
+            self::URL_CREATE_MEUN ."?access_token={$accessToken}",
+            urldecode($menu)
+        );
     }
 
     private function _getJsApiTicket()
