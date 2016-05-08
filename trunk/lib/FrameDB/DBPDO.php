@@ -64,7 +64,6 @@ class DBPDO
             $stmt->bind(1, $params);
         }
         $execute_return = $stmt->execute();
-
         return array("stmt" => $stmt, "execute_return" => $execute_return);
     }
 
@@ -169,6 +168,7 @@ class DBPDO
     {
         $this->_checkSafe($sql, $is_open_safe);
         $result = $this->_process($sql, $params);
+
         return $result["stmt"];
     }
 

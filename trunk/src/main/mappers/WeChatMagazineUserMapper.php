@@ -84,7 +84,7 @@ class WeChatMagazineUserMapper
     public function updateRedPacket($openId, $redPacketState)
     {
         return $this->_db->execute(
-            'UPDATE wechat_magazine_user SET redpacket = ? WHERE open_id = ?',
+            'UPDATE wechat_magazine_user SET redpacket = ? WHERE openid = ?',
             array($redPacketState, $openId)
         );
     }

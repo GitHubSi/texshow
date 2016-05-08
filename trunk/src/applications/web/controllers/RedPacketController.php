@@ -8,7 +8,7 @@
  */
 class RedPacketController extends Action
 {
-    const START_TIME = '2016-03-29 00:00:00';
+    const START_TIME = '2016-05-08 00:00:00';
 
     public function __construct()
     {
@@ -16,9 +16,8 @@ class RedPacketController extends Action
     }
 
     //magazine: random generate verify code, update user read packet state
-    public static function GetRedPacketCode($openId, $response)
+    public static function GetRedPacketCode($openId)
     {
-        $activeStartTime = self::START_TIME;
         $userInfo = WeChatMagazineService::getInstance()->getUserInfo($openId, true);
 
         //this condition don't happen in normal, just avoid unknown condition
@@ -28,20 +27,20 @@ class RedPacketController extends Action
         }
 
         //the user take part in this activity must be a new user for subscription
-        if ($userInfo['create_time'] > $activeStartTime) {
-            if (WeChatMagazineUserMapper::RED_PACKET_INIT != $userInfo['redpacket']) {
+        if ($userInfo['create_time'] > self::START_TIME) {
+            if (WeChatMagazineUserMapper::RED_PACKET_INIT == $userInfo['redpacket']) {
 
                 //generate verify code
-                $effectRow = WeChatMagazineService::getInstance(ConfigLoader::getConfig('REDIS'))->updateRedPacketState($openId, WeChatMagazineUserMapper::RED_PACKET_SUCC);
+                $effectRow = WeChatMagazineService::getInstance()->updateRedPacketState($openId, WeChatMagazineUserMapper::RED_PACKET_SUCC);
                 if ($effectRow) {
                     $password = substr(time(), -2) . rand(1000, 9999);
-                    RedisClient::getInstance()->sAdd(RedPacketService::REDIS_VERIFY_CODE_SET, $password);
+                    RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->sAdd(RedPacketService::REDIS_VERIFY_CODE_SET, $password);
 
                     //response message to client
                     $response['MsgType'] = 'news';
                     $response['ArticleCount'] = 1;
                     $response['Articles'][] = array(
-                        'Title' => '',
+                        'Title' => '抽奖口令：' . $password,
                         'PicUrl' => '',
                         'Url' => ""
                     );
@@ -102,7 +101,24 @@ class RedPacketController extends Action
     public function indexAction()
     {
 //        echo 123;
-        $this->_smarty->display('activity/redpacket.tpl');
+        try {
+            $this->_smarty->display('activity/redpacket.tpl');
+//            echo phpinfo();
+            try {
+//                echo json_encode(ConfigLoader::getConfig('WECHAT_CLIENT_BUTTON'));
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+
+//            $actClient = new WeChatClientController();
+//            $weChatMagazineUserMapper = new WeChatMagazineUserMapper();
+            $openId = 'owfVItzxSHS-u3hkFYGjRhxFDGyM';
+            $user = WeChatMagazineService::getInstance()->getUserInfo($openId, true);
+            var_dump($user);
+            //Logger::getRootLogger()->info('logger configure success');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
 
     }
 

@@ -67,7 +67,7 @@ class WeChatMagazineController extends AbstractWeChatAction
 
         $response["MsgType"] = "text";
         if (strcmp($content, "我要抽红包") === 0) {
-            return RedPacketController::GetRedPacketCode($this->_openId, $content);
+            return RedPacketController::GetRedPacketCode($this->_openId);
         }
 
         if (strcmp($content, 'create_menu') == 0) {
