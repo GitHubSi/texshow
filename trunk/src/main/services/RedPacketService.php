@@ -12,9 +12,9 @@ class RedPacketService
     const GROUP_RED_PACKET_TYPE = 2;
     const RED_PACKET_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
     const GROUP_RED_PACKET_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
-    const SEND_NAME = "";
-    const WISHING = "";
-    const REMARK = "";
+    const SEND_NAME = "[SEND_NAME]";
+    const WISHING = "[WISING]";
+    const REMARK = "[REMARK]";
 
     //Redis what many people take part in the activity and save user verify code
     const REDIS_CLIENT_RED_NUM = "client_red_num";
@@ -22,16 +22,18 @@ class RedPacketService
 
     private $_appId;
     private $_appKey;
-    private $_matId;
+    private $_mchId;
     private $_key;
+    private $_path;
 
     private function __construct()
     {
         $weChatConfig = ConfigLoader::getConfig('WECHAT');
         $this->_appId = $weChatConfig["client"]["id"];
         $this->_appKey = $weChatConfig["client"]["secret"];
-        $this->_matId = $weChatConfig["merchant"]["id"];
+        $this->_mchId = $weChatConfig["merchant"]["id"];
         $this->_key = $weChatConfig["merchant"]["key"];
+        $this->_path = $weChatConfig["merchant"]["path"];
     }
 
     public static function getInstance()
@@ -123,11 +125,10 @@ class RedPacketService
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
-        $WEB_ROOT_DIR = ConfigLoader::getConfig('CERT_PATH');
         curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
-        curl_setopt($ch, CURLOPT_SSLCERT, $WEB_ROOT_DIR . 'apiclient_cert.pem');
+        curl_setopt($ch, CURLOPT_SSLCERT, $this->_path . 'apiclient_cert.pem');
         curl_setopt($ch, CURLOPT_SSLKEYTYPE, 'PEM');
-        curl_setopt($ch, CURLOPT_SSLKEY, $WEB_ROOT_DIR . 'apiclient_key.pem');
+        curl_setopt($ch, CURLOPT_SSLKEY, $this->_path . 'apiclient_key.pem');
 
         if (count($aHeader) >= 1) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $aHeader);
