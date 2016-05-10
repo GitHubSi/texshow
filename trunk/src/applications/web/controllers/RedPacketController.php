@@ -8,7 +8,7 @@
  */
 class RedPacketController extends Action
 {
-    const START_TIME = '2016-05-08 00:00:00';
+    const START_TIME = '2016-05-10 00:00:00';
 
     public function __construct()
     {
@@ -40,9 +40,9 @@ class RedPacketController extends Action
                     $response['MsgType'] = 'news';
                     $response['ArticleCount'] = 1;
                     $response['Articles'][] = array(
-                        'Title' => '抽奖口令：' . $password,
-                        'PicUrl' => '',
-                        'Url' => ""
+                        'Title' => '点击获取抽奖口令',
+                        'PicUrl' => 'http://p2.ifengimg.com/a/2016/0510/6cc6bd1079b2894size110_w900_h500.jpg',
+                        'Url' => "http://act.wetolink.com/RedPacket/index?code={$password}"
                     );
                 }
             } else {
@@ -100,26 +100,9 @@ class RedPacketController extends Action
 
     public function indexAction()
     {
-//        echo 123;
-        try {
-            $this->_smarty->display('activity/redpacket.tpl');
-//            echo phpinfo();
-            try {
-//                echo json_encode(ConfigLoader::getConfig('WECHAT_CLIENT_BUTTON'));
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
-
-//            $actClient = new WeChatClientController();
-//            $weChatMagazineUserMapper = new WeChatMagazineUserMapper();
-            $openId = 'owfVItzxSHS-u3hkFYGjRhxFDGyM';
-            $user = WeChatMagazineService::getInstance()->getUserInfo($openId, true);
-            var_dump($user);
-            //Logger::getRootLogger()->info('logger configure success');
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-
+        $code = $this->getParam("code");
+        $this->_smarty->assign("code", $code);
+        $this->_smarty->display('activity/redpacket.tpl');
     }
 
 }
