@@ -76,10 +76,11 @@ class RedPacketController extends Action
             }
 
             $sendRedPacketNum = $redis->incr(RedPacketService::REDIS_CLIENT_RED_NUM);
-            $isSendRed = $sendRedPacketNum % 5 ? false : true;
+            $isSendRed = $sendRedPacketNum % 2 ? false : true;
             if ($isSendRed) {
                 //send red packet
-                $redPacket = RedPacketService::getInstance()->sendPack(RedPacketService::NORMAL_RED_PACKET_TYPE, $openId, 100, "[任性发红包]", 1);
+                $randomMoney = mt_rand(10, 50);
+                $redPacket = RedPacketService::getInstance()->sendPack(RedPacketService::NORMAL_RED_PACKET_TYPE, $openId, 100 + $randomMoney, "TeX微信红包大放送", 1);
                 $redPacketResult = SLXml::xmlToArray($redPacket);
                 if ($redPacketResult['return_code'] == 'FAIL' || $redPacketResult['result_code'] == 'FAIL') {
                     WeChatClientService::getInstance()->updateRedPacketState($openId, WeChatClientUserMapper::RED_PACKET_FAIL);

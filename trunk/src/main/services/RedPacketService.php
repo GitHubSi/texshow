@@ -12,9 +12,9 @@ class RedPacketService
     const GROUP_RED_PACKET_TYPE = 2;
     const RED_PACKET_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
     const GROUP_RED_PACKET_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
-    const SEND_NAME = "[SEND_NAME]";
-    const WISHING = "[WISING]";
-    const REMARK = "[REMARK]";
+    const SEND_NAME = "TeX";
+    const WISHING = "恭喜您获得红包，快把这个活动告诉朋友们吧！";
+    const REMARK = "快让朋友们一起来抢红包吧！";
 
     //Redis what many people take part in the activity and save user verify code
     const REDIS_CLIENT_RED_NUM = "client_red_num";
