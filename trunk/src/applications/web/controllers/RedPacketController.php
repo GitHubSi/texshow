@@ -8,7 +8,7 @@
  */
 class RedPacketController extends Action
 {
-    const START_TIME = '2016-05-10 00:00:00';
+    const START_TIME = '2016-05-12 07:00:00';
 
     public function __construct()
     {
@@ -76,7 +76,7 @@ class RedPacketController extends Action
             }
 
             $sendRedPacketNum = $redis->incr(RedPacketService::REDIS_CLIENT_RED_NUM);
-            $isSendRed = $sendRedPacketNum % 2 ? false : true;
+            $isSendRed = $sendRedPacketNum % 4 ? false : true;
             if ($isSendRed) {
                 //send red packet
                 $randomMoney = mt_rand(10, 50);

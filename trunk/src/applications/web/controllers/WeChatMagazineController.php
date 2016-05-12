@@ -63,7 +63,9 @@ class WeChatMagazineController extends AbstractWeChatAction
         Logger::getRootLogger()->info("$content");
         $response["MsgType"] = "text";
         if (strcmp($content, "我要抽红包") === 0) {
-            return RedPacketController::GetRedPacketCode($this->_openId);
+            $response['Content'] = "亲，抽红包活动暂停一段时间哦，开启时间另行通知。";
+            return $response;
+            //return RedPacketController::GetRedPacketCode($this->_openId);
         }
 
         if (strcmp($content, 'create_menu') == 0) {
