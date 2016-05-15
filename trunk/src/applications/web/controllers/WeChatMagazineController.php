@@ -59,13 +59,26 @@ class WeChatMagazineController extends AbstractWeChatAction
     {
         $response = array();
         $content = $this->getValue("Content");
+        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+        $tag_redpacket = 'redis_red_packet';
 
-        Logger::getRootLogger()->info("$content");
         $response["MsgType"] = "text";
         if (strcmp($content, "我要抽红包") === 0) {
-            $response['Content'] = "亲，抽红包活动暂停一段时间哦，开启时间另行通知。";
-            return $response;
-            //return RedPacketController::GetRedPacketCode($this->_openId);
+            $state = $redis->get($tag_redpacket);
+            if ($state == 'stop') {
+                $response['Content'] = "亲，抽红包活动暂停一段时间哦，开启时间另行通知。";
+                return $response;
+            } elseif ($state == 'start') {
+                return RedPacketController::GetRedPacketCode($this->_openId);
+            }
+        }
+
+        if (strcmp($content, 'stop_redpacket') === 0) {
+            $redis->set($tag_redpacket, 'stop');
+        }
+
+        if (strcmp($content, 'start_redpacket') === 0) {
+            $redis->set($tag_redpacket, 'start');
         }
 
         if (strcmp($content, 'create_menu') == 0) {
