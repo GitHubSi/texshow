@@ -76,7 +76,7 @@ class RedPacketController extends Action
             }
 
             $sendRedPacketNum = $redis->incr(RedPacketService::REDIS_CLIENT_RED_NUM);
-            $isSendRed = $sendRedPacketNum % 4 ? false : true;
+            $isSendRed = $sendRedPacketNum % 10 ? false : true;
             if ($isSendRed) {
                 //send red packet
                 $randomMoney = mt_rand(10, 50);
