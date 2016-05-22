@@ -16,10 +16,6 @@
             background-color: #f5f5f5;
         }
 
-        #tab_client {
-            width: 500px;
-            height: 500px;
-        }
     </style>
 </head>
 <body>

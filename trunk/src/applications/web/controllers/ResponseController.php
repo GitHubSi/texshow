@@ -22,10 +22,45 @@ class ResponseController extends Action
 
     public function preDispatch()
     {
-        $password = $this->_redis->get(self::MAGAZINE_RESPONSE);
+        //if login action
+        if (Http::$curAction == 'login' || Http::$curAction == 'index') {
+            return;
+        }
+
+        //other action need to grant authorization
+        $userConfig = ConfigLoader::getConfig('USER');
+        $username = $this->getParam('username');
+        $responseKey = $this->getParam('response_key');
+        $calculateValue = md5($username . $userConfig['cookie'] . date('Y-m-d'));
+        if ($responseKey != $calculateValue) {
+            header("Location: /response/index");
+            exit;
+        }
     }
 
     public function indexAction()
+    {
+        $this->_smarty->display('admin/index.tpl');
+    }
+
+    public function loginAction()
+    {
+        $username = $this->getParam('username');
+        $password = $this->getParam('password');
+
+        $userConfig = ConfigLoader::getConfig('USER');
+        if ($username == $userConfig['username'] && $password == $userConfig['password']) {
+            //the cookie only have one day to live
+            $cookie = md5($username . $userConfig['cookie'] . date('Y-m-d'));
+            setcookie('response_key', $cookie, time() + 86400);
+            setcookie('username', $username, time() + 86400);
+            header("Location: /response/detail");
+        } else {
+            header("Location: /response/index");
+        }
+    }
+
+    public function detailAction()
     {
         $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
         $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
@@ -49,7 +84,6 @@ class ResponseController extends Action
                 $this->_redis->set(self::MAGAZINE_RESPONSE, $response);
             }
         }
-
-        header("Location: /response/index");
+        header("Location: /response/detail");
     }
 }

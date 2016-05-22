@@ -62,16 +62,20 @@ class WeChatClientController extends AbstractWeChatAction
             WeChatClientService::getInstance()->createMenu("WECHAT_CLIENT_BUTTON");
         }
 
-        //make auto response
-        $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::AUTO_RESPONSE);
+        //make auto response, the format is strict
+        $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::CLIENT_RESPONSE);
         $responseArray = json_decode($responseContent, true);
         if (is_array($responseArray)) {
             foreach ($responseArray as $key => $value) {
                 if (strcmp($key, $content) == 0) {
                     if (!is_array($value)) {
                         $response["Content"] = $value;
-                        return $response;
+                    } else {
+                        $response['MsgType'] = 'news';
+                        $response['ArticleCount'] = count($value);
+                        $response['Articles'] = $value;
                     }
+                    return $response;
                 }
             }
         }
