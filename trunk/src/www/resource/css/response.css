@@ -1,0 +1,45 @@
+a {
+    color: #3E3E3E;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.notice {
+    border: 1px solid #D5D5D5;
+    overflow: hidden;
+    width: 100%;
+    margin: 2px auto 0 auto;
+}
+
+.intr-wrap {
+    background-color: #EEEEEE;
+    color: #404040;
+    height: 29px;
+}
+
+.intr-wrap ul {
+    margin-left: 7px;
+    padding-top: 4px;
+    overflow: hidden;
+}
+
+.intr-wrap ul li {
+    position: relative;
+    float: left;
+}
+
+.intr-wrap ul li a {
+    padding: 0 14px;
+    height: 24px;
+    display: inline-block;
+}
+
+.current {
+    background-color: chartreuse;
+}

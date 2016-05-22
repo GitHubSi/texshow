@@ -73,10 +73,28 @@ class WeChatMagazineController extends AbstractWeChatAction
             }
         }
 
+        //make auto response, the format is strict
+        $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
+        $responseArray = json_decode($responseContent, true);
+        if (is_array($responseArray)) {
+            foreach ($responseArray as $key => $value) {
+                if (strcmp($key, $content) == 0) {
+                    if (!is_array($value)) {
+                        $response["Content"] = $value;
+                    } else {
+                        $response['MsgType'] = 'news';
+                        $response['ArticleCount'] = count($value);
+                        $response['Articles'] = $value;
+                    }
+                    return $response;
+                }
+            }
+        }
+
+        //the following code to decide whether start or stop red packet activity
         if (strcmp($content, 'stop_redpacket') === 0) {
             $redis->set($tag_redpacket, 'stop');
         }
-
         if (strcmp($content, 'start_redpacket') === 0) {
             $redis->set($tag_redpacket, 'start');
         }

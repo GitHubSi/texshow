@@ -8,7 +8,10 @@
  */
 class ResponseController extends Action
 {
-    const AUTO_RESPONSE = 'auto_response';
+    //temp
+    const MAGAZINE_RESPONSE = 'magazine_response';
+    const CLIENT_RESPONSE = 'client_response';
+
     private $_redis;
 
     public function __construct()
@@ -19,25 +22,34 @@ class ResponseController extends Action
 
     public function preDispatch()
     {
-        $password = $this->_redis->get(self::AUTO_RESPONSE);
+        $password = $this->_redis->get(self::MAGAZINE_RESPONSE);
     }
 
     public function indexAction()
     {
-        $currentResponse = $this->_redis->get(self::AUTO_RESPONSE);
-        if ($currentResponse) {
-            $this->_smarty->assign('cur_response', $currentResponse);
+        $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
+        $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
+        if ($clientResponse) {
+            $this->_smarty->assign('client_response', $clientResponse);
+            $this->_smarty->assign('magazine_response', $magazineResponse);
         }
         $this->_smarty->display('admin/response.tpl');
     }
 
     public function editAction()
     {
-        $response = $this->getParam('auto_response');
+        $type = trim($this->getParam('type'));
+        $response = $this->getParam('response');
+
         $responseArr = json_decode($response, true);
         if (!empty($responseArr)) {
-            $this->_redis->set(self::AUTO_RESPONSE, $response);
+            if ($type == 'client') {
+                $this->_redis->set(self::CLIENT_RESPONSE, $response);
+            } elseif ($type == 'magazine') {
+                $this->_redis->set(self::MAGAZINE_RESPONSE, $response);
+            }
         }
+
         header("Location: /response/index");
     }
 }
