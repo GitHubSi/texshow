@@ -34,7 +34,7 @@
 
         <div id="tab_client"></div>
         <input id="client_response" type="hidden" name="response" value='{%$client_response%}'/>
-        <input type="submit" onclick="setResponse()" value="保存"/>
+        <input type="submit" onclick="setResponse('client')" value="保存"/>
     </form>
 </div>
 

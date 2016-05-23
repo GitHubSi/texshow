@@ -21,9 +21,6 @@ class WeChatClientController extends AbstractWeChatAction
 
     protected function subscribeHandler()
     {
-        $response = array();
-        $response["MsgType"] = "text";
-        $response["Content"] = "欢迎关注服务号！";
 
         try {
             WeChatClientService::getInstance()->subscribe($this->_openId);
@@ -31,7 +28,23 @@ class WeChatClientController extends AbstractWeChatAction
             Logger::getRootLogger()->info($e->getMessage());
         }
 
-        return $response;
+        //subscribe info
+        $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::CLIENT_RESPONSE);
+        $responseArray = json_decode($responseContent, true);
+        if (is_array($responseArray)) {
+            if (isset($responseArray['subscribe'])) {
+                $value = $responseArray['subscribe'];
+                if (!is_array($value)) {
+                    $response["MsgType"] = "text";
+                    $response["Content"] = $value;
+                } else {
+                    $response['MsgType'] = 'news';
+                    $response['ArticleCount'] = count($value);
+                    $response['Articles'] = $value;
+                }
+                return $response;
+            }
+        }
     }
 
     protected function unsubscribeHandler()
