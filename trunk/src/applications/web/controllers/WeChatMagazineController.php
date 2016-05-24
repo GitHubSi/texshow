@@ -58,9 +58,8 @@ class WeChatMagazineController extends AbstractWeChatAction
         try {
             WeChatMagazineService::getInstance()->subscribe($this->_openId);
         } catch (Exception $e) {
-
+            //...
         }
-
     }
 
     protected function unsubscribeHandler()
@@ -117,7 +116,10 @@ class WeChatMagazineController extends AbstractWeChatAction
             WeChatMagazineService::getInstance()->createMenu("WECHAT_MAGAZINE_BUTTON");
         }
 
-        return "";
+        $response["MsgType"] = "text";
+        $response["Content"] = $responseArray['default'];
+        return $response;
+
     }
 
 
