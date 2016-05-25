@@ -36,6 +36,13 @@ class WeChatMagazineController extends AbstractWeChatAction
 
     protected function subscribeHandler()
     {
+        //save user info to local mysql
+        try {
+            WeChatMagazineService::getInstance()->subscribe($this->_openId);
+        } catch (Exception $e) {
+            //...
+        }
+
         //subscribe info
         $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
         $responseArray = json_decode($responseContent, true);
@@ -52,13 +59,6 @@ class WeChatMagazineController extends AbstractWeChatAction
                 }
                 return $response;
             }
-        }
-
-        //save user info to local mysql
-        try {
-            WeChatMagazineService::getInstance()->subscribe($this->_openId);
-        } catch (Exception $e) {
-            //...
         }
     }
 
