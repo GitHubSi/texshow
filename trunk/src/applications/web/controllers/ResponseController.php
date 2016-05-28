@@ -68,7 +68,9 @@ class ResponseController extends Action
             $this->_smarty->assign('client_response', $clientResponse);
             $this->_smarty->assign('magazine_response', $magazineResponse);
         }
-        $this->_smarty->display('admin/response.tpl');
+
+        $this->_smarty->assign('tpl', 'admin/response.tpl');
+        $this->_smarty->display('admin/frame.tpl');
     }
 
     public function editAction()
