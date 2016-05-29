@@ -12,8 +12,8 @@
 <body>
 <div class="tips">
     <strong>Tex微信管理后台</strong>
-    <span style="margin-left: 30px; font-size: small">今日关注人数{%$subscribe%}</span>
-    <span style="margin-left: 30px; font-size: small">今日取消关注人数{%$unsubscribe%}</span>
+    <span style="margin-left: 30px; font-size: small">今日关注人数: {%$subscribe%}</span>
+    <span style="margin-left: 30px; font-size: small">今日取消关注人数: {%$unsubscribe%}</span>
 </div>
 <div class="sidebar">
     <div class="parent">
