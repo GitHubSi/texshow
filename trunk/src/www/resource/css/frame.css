@@ -33,11 +33,15 @@
     width: 80%;
 }
 
+/*div */
 .wrapper {
     width: 600px;
     margin: 0 auto;
+    padding: 8px;
+    background-color: #ffffff;
 }
 
+/*radio*/
 .radioGroup label::before, .radioGroup label::after {
     content: '';
     position: absolute;
@@ -71,13 +75,16 @@
     transition: all 0.15s ease-in;
     float: right;
 }
+
 .button:hover {
     background: #26C281;
 }
+
 .button:hover:before {
     width: 45px;
     left: 205px;
 }
+
 .button:before {
     content: ' ';
     position: absolute;
@@ -91,4 +98,15 @@
     transition: all 0.25s ease-out;
     -webkit-transform: skewX(-25deg);
     transform: skewX(-25deg);
+}
+
+/*input text*/
+input[type="text"] {
+    font: 15px/24px "Lato", Arial, sans-serif;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    padding: 2px;
 }

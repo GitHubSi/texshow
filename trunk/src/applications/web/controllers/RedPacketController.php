@@ -76,7 +76,12 @@ class RedPacketController extends Action
             }
 
             $sendRedPacketNum = $redis->incr(RedPacketService::REDIS_CLIENT_RED_NUM);
-            $isSendRed = $sendRedPacketNum % 6 ? false : true;
+
+            //manage to config the percentage of user getting red packet, default is five
+            $percent = $redis->get(RedPacketSettingController::RED_PACKET_PERCENTAGE);
+            $percent = empty($percent) ? 5 : $percent;
+            $isSendRed = $sendRedPacketNum % $percent ? false : true;
+
             if ($isSendRed) {
                 //send red packet
                 $randomMoney = mt_rand(0, 10);

@@ -10,3 +10,14 @@
         </fieldset>
     </form>
 </div>
+
+<div class="wrapper">
+    <form action="/redPacketSetting/percent" method="post">
+        <fieldset tabindex="0" class='radioGroup'>
+            <legend>设置红包中奖概率</legend>
+            <span>请输入1、2、3、4...N这样的整数，中奖概率的计算规则为：1/N × 100%</span>
+            <input name="percent" type="text" placeholder="当前红包中奖概率为：{%$percentage%}"/>
+            <input type="submit" class="button" value="确定">
+        </fieldset>
+    </form>
+</div>
