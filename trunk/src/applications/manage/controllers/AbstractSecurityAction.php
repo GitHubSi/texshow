@@ -24,5 +24,11 @@ class AbstractSecurityAction extends Action
             header("Location: /response/index");
             exit;
         }
+
+        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+        $todaySubscribe = $redis->get(AbstractWeChatAction::PREFIX_TODAY_SUBSCRIBE);
+        $todayUnSubscribe = $redis->get(AbstractWeChatAction::PREFIX_TODAY_UN_SUBSCRIBE);
+        $this->_smarty->assign('subscribe', $todaySubscribe);
+        $this->_smarty->assign('unsubscribe', $todayUnSubscribe);
     }
 }

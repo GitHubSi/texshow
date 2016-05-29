@@ -8,6 +8,9 @@
  */
 class AbstractWeChatAction extends Action
 {
+    const PREFIX_TODAY_SUBSCRIBE = "today_subscribe_";
+    const PREFIX_TODAY_UN_SUBSCRIBE = "today_un_subscribe_";
+
     protected $_token;
     private $_dom;
     protected $_openId;

@@ -39,6 +39,7 @@ class WeChatMagazineController extends AbstractWeChatAction
         //save user info to local mysql
         try {
             WeChatMagazineService::getInstance()->subscribe($this->_openId);
+            $this->_staticNumber(self::PREFIX_TODAY_SUBSCRIBE);
         } catch (Exception $e) {
             //...
         }
@@ -66,6 +67,8 @@ class WeChatMagazineController extends AbstractWeChatAction
     {
         //update user subscribe state to not subscribe
         WeChatMagazineService::getInstance()->unSubscribe($this->_openId);
+        $this->_staticNumber(self::PREFIX_TODAY_UN_SUBSCRIBE);
+
     }
 
     protected function textHandler()
@@ -73,11 +76,10 @@ class WeChatMagazineController extends AbstractWeChatAction
         $response = array();
         $content = $this->getValue("Content");
         $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
-        $tag_redpacket = 'redis_red_packet';
 
         $response["MsgType"] = "text";
         if (strcmp($content, "我要抽红包") === 0) {
-            $state = $redis->get($tag_redpacket);
+            $state = $redis->get(RedPacketSettingController::RED_PACKET_SWITCH);
             if ($state == 'stop') {
                 $response['Content'] = "亲，抽红包活动暂停一段时间哦，开启时间另行通知。";
                 return $response;
@@ -111,8 +113,18 @@ class WeChatMagazineController extends AbstractWeChatAction
         $response["MsgType"] = "text";
         $response["Content"] = $responseArray['default'];
         return $response;
-
     }
 
+    private function _staticNumber($prefix)
+    {
+        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+        $todayKey = $prefix . date('Y_m_d');
+        if ($redis->exists($todayKey)) {
+            $redis->incr($todayKey);
+        } else {
+            $redis->incr($todayKey);
+            $redis->expire($todayKey, 86400);
+        }
+    }
 
 }

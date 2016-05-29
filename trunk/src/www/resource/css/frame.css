@@ -116,3 +116,9 @@ input[type="text"] {
     margin-top: 8px;
     padding: 2px;
 }
+
+.tips {
+    height: 60px;
+    line-height: 60px;
+    font-size: large;
+}
