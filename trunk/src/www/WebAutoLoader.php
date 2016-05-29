@@ -20,7 +20,10 @@ class WebAutoLoader
         'RedPacketController' => '/src/applications/web/controllers/RedPacketController.php',
         'WeChatClientController' => '/src/applications/web/controllers/WeChatClientController.php',
         'WeChatMagazineController' => '/src/applications/web/controllers/WeChatMagazineController.php',
-        'ResponseController' => '/src/applications/web/controllers/ResponseController.php',
+
+        //manage
+        'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
+        'ResponseController' => '/src/applications/manage/controllers/ResponseController.php',
 
         //api
 

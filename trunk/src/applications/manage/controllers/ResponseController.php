@@ -6,7 +6,7 @@
  * Date: 2016/5/17
  * Time: 22:46
  */
-class ResponseController extends Action
+class ResponseController extends AbstractSecurityAction
 {
     //temp
     const MAGAZINE_RESPONSE = 'magazine_response';
@@ -18,24 +18,6 @@ class ResponseController extends Action
     {
         parent::__construct();
         $this->_redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
-    }
-
-    public function preDispatch()
-    {
-        //if login action
-        if (Http::$curAction == 'login' || Http::$curAction == 'index') {
-            return;
-        }
-
-        //other action need to grant authorization
-        $userConfig = ConfigLoader::getConfig('USER');
-        $username = $this->getParam('username');
-        $responseKey = $this->getParam('response_key');
-        $calculateValue = md5($username . $userConfig['cookie'] . date('Y-m-d'));
-        if ($responseKey != $calculateValue) {
-            header("Location: /response/index");
-            exit;
-        }
     }
 
     public function indexAction()
