@@ -103,15 +103,7 @@ class WeChatMagazineController extends AbstractWeChatAction
                 }
             }
         }
-
-        //the following code to decide whether start or stop red packet activity
-        if (strcmp($content, 'stop_redpacket') === 0) {
-            $redis->set($tag_redpacket, 'stop');
-        }
-        if (strcmp($content, 'start_redpacket') === 0) {
-            $redis->set($tag_redpacket, 'start');
-        }
-
+        
         if (strcmp($content, 'create_menu') == 0) {
             WeChatMagazineService::getInstance()->createMenu("WECHAT_MAGAZINE_BUTTON");
         }

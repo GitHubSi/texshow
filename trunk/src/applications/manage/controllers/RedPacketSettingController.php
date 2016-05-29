@@ -25,7 +25,7 @@ class RedPacketSettingController extends AbstractSecurityAction
             $this->_smarty->assign('switch', 0);
         }
 
-        //the percentage of getting red packet
+        //the percentage of getting red packet, the five should be same to send packet function
         $percentage = $redis->get(self::RED_PACKET_PERCENTAGE);
         $percentage = empty($percentage) ? 5 : $percentage;
         $this->_smarty->assign('percentage', $percentage);
