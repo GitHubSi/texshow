@@ -34,8 +34,8 @@ class ResponseController extends AbstractSecurityAction
         if ($username == $userConfig['username'] && $password == $userConfig['password']) {
             //the cookie only have one day to live
             $cookie = md5($username . $userConfig['cookie'] . date('Y-m-d'));
-            setcookie('response_key', $cookie, time() + 86400);
-            setcookie('username', $username, time() + 86400);
+            setcookie('response_key', $cookie, time() + 86400, '/');
+            setcookie('username', $username, time() + 86400, '/');
             header("Location: /response/detail");
         } else {
             header("Location: /response/index");

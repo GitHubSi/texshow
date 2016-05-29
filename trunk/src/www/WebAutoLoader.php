@@ -24,6 +24,7 @@ class WebAutoLoader
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
         'ResponseController' => '/src/applications/manage/controllers/ResponseController.php',
+        'RedPacketSettingController' => '/src/applications/manage/controllers/RedPacketSettingController.php',
 
         //api
 
