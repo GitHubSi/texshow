@@ -1,3 +1,7 @@
+body {
+    margin: 2px auto auto 100px;
+}
+
 .parent {
     width: 200px;
     height: 100%;
@@ -17,7 +21,6 @@
     padding-left: 15px;
     width: 150px;
     height: 30px;
-    background-color: #D5D5D5;
     line-height: 30px;
     border-bottom: solid 1px #000;
 }
@@ -25,12 +28,15 @@
 /**/
 .sidebar {
     float: left;
-    width: 20%;
+    width: 200px;
+    margin-right: 28px;
 }
 
 .content {
+    padding: 20px;
     float: left;
-    width: 80%;
+    width: 800px;
+    border: 1px solid orange;
 }
 
 /*div */

@@ -103,7 +103,7 @@ class WeChatMagazineController extends AbstractWeChatAction
                 }
             }
         }
-        
+
         if (strcmp($content, 'create_menu') == 0) {
             WeChatMagazineService::getInstance()->createMenu("WECHAT_MAGAZINE_BUTTON");
         }

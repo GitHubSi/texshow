@@ -2,7 +2,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link rel="stylesheet" href="/resource/css/frame.css"/>
     <link rel="stylesheet" href="/resource/css/resp_index.css"/>
+    <link href="/resource/css/response.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'/>
+    <link href="/resource/jsoneditor/dist/jsoneditor.css" rel="stylesheet" type="text/css">
+
+    <script src="/resource/jsoneditor/dist/jsoneditor.js"></script>
     <script src="http://libs.baidu.com/jquery/1.7.0/jquery.min.js"></script>
 </head>
 <body>
