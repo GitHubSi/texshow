@@ -93,6 +93,12 @@ class WeChatClientController extends AbstractWeChatAction
             }
         }
 
+        //just for test case
+        if (strcmp("poster", $content) == 0) {
+            PosterService::getInstance()->getInstance()->generatePoster('1', $this->_openId);
+            return "";
+        }
+
         //whether send red packet
         return RedPacketController::sendRedPacket($this->_openId, $content);
     }

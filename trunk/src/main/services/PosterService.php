@@ -12,7 +12,8 @@ class PosterService
     const POSTER_MAG_QUEUE_MAX_SIZE = 1000;
     const LIMIT_REQUEST_INTERVAL = 1800;
     const LIMIT_REQUEST_KEY_PREFIX = "poster:";
-    const POSTER_BG_PATH = "";
+    const POSTER_LOGO_PATH = "";
+    const PIC_DIR_PATH = "/tmp/image/";
 
     private function __construct()
     {
@@ -71,22 +72,70 @@ class PosterService
         return false;
     }
 
-    //thought by auto incremental id to generate temporary qr code, when generate poster
-    public function generatePoster($id)
+    /**
+     * thought by auto incremental id to generate temporary qr code, when generate poster
+     * @param $id
+     * @param int $openId
+     * @return bool
+     */
+    public function generatePoster($id, $openId)
     {
         $temporaryQrCodeInfo = WeChatClientService::getInstance()->generateTemporaryQrCode($id);
         $response = $this->curlGetContent(WeChatService::URL_GET_QR_CODE,
             array('ticket' => $temporaryQrCodeInfo['ticket'])
         );
-
         if (!$response) {
             return false;
         }
 
-        //response equal to file_get_contents($url)
-        $qrCodeResource = imagecreatefromstring($response);
-        $bgResource = imagecreatefromjpeg(self::POSTER_BG_PATH);
+        $imagePath = $this->_generateImage($response, $id);
+        if (!$imagePath) {
+            return false;
+        }
 
+        $mediaId = WeChatClientService::getInstance()->uploadImage($imagePath);
+        return WeChatClientService::getInstance()->customSendImg($openId, $mediaId);
     }
+
+    /**
+     * @param $imageContents : the parameter equal to file_get_contents($url),
+     * @param int $id : id can be 0
+     * @return bool|string
+     */
+    private function _generateImage($imageContents, $id = 0)
+    {
+        $qrCodeResource = imagecreatefromstring($imageContents);
+        $logoResource = imagecreatefromjpeg(self::POSTER_LOGO_PATH);
+        if (!$qrCodeResource || !$logoResource) {
+            return false;
+        }
+
+        //todo: maybe change this format,now for testing
+        $qrWidth = imagesx($qrCodeResource);
+        $qrHeight = imagesy($qrCodeResource);
+        $logoWidth = imagesx($logoResource);
+        $logoHeight = imagesy($logoResource);
+        $centerLogoWidth = $qrWidth / 5;
+        $scale = $logoWidth / $centerLogoWidth;
+        $centerLogoHeight = $logoHeight / $scale;
+        $centerX = ($qrWidth - $centerLogoWidth) / 2;
+
+        $result = imagecopyresampled($qrCodeResource, $logoResource, $centerX, $centerX, 0, 0, $centerLogoWidth,
+            $centerLogoHeight, $logoWidth, $logoHeight);
+        if (!$result) {
+            return false;
+        }
+
+        $fileName = self::PIC_DIR_PATH . $id . '_' . time() . '.jpg';
+        $result = imagejpeg($qrCodeResource, $fileName);
+        if (!$result) {
+            return false;
+        }
+
+        imagedestroy($qrCodeResource);
+        imagedestroy($logoResource);
+        return $fileName;
+    }
+
 
 }

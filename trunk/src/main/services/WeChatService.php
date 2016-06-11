@@ -24,6 +24,8 @@ class WeChatService
     //crate qr code
     const URL_CREATE_QR_CODE = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
     const URL_GET_QR_CODE = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
+    //custom send msg
+    const URL_CUSTOM_MSG = "https://api.weixin.qq.com/cgi-bin/message/custom/send";
 
     public $_appId;
     public $_appSecret;
@@ -80,6 +82,22 @@ class WeChatService
         );
         $result = self::urlGet(self::URL_OAUTH_ACCESS_TOKEN, $params);
         return $result;
+    }
+
+    public function customSendImg($openId, $mediaId)
+    {
+        $accessToken = $this->getAccessToken();
+        $params = array(
+            'touser' => $openId,
+            'msgtype' => 'image',
+            'image' => array(
+                'media_id' => $mediaId
+            )
+        );
+        return self::urlPost(
+            self::URL_CUSTOM_MSG . "?access_token={$accessToken}",
+            json_encode($params)
+        );
     }
 
     //pop up authorization page
