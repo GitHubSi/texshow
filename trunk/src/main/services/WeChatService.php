@@ -14,12 +14,17 @@ class WeChatService
     //wechat url
     const URL_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token";
     const URL_JS_API_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
-    const URL_UPLOAD_MEDIA = "http://file.api.weixin.qq.com/cgi-bin/media/upload";
     const URL_USER_INFO = "https://api.weixin.qq.com/cgi-bin/user/info";
     const URL_OAUTH_AUTHORIZE = "https://open.weixin.qq.com/connect/oauth2/authorize";
     const URL_OAUTH_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
     const URL_OAUTH_USER_INFO = "https://api.weixin.qq.com/sns/userinfo";
     const URL_CREATE_MEUN = "https://api.weixin.qq.com/cgi-bin/menu/create";
+    //upload media resource
+    const URL_UPLOAD_MEDIA = "https://api.weixin.qq.com/cgi-bin/media/upload";
+    //crate qr code
+    const URL_CREATE_QR_CODE = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
+    const URL_GET_QR_CODE = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
+
     public $_appId;
     public $_appSecret;
 
@@ -217,6 +222,24 @@ class WeChatService
         self::urlPost(
             self::URL_CREATE_MEUN . "?access_token={$accessToken}",
             urldecode($menu)
+        );
+    }
+
+    public function generateTemporaryQrCode($sceneId, $expire = 2592000)
+    {
+        $accessToken = $this->getAccessToken();
+        $requestParam = array(
+            'expire_seconds' => $expire,
+            'action_name' => 'QR_SCENE',
+            'action_info' => array(
+                "scene" => array(
+                    "scene_id" => $sceneId
+                )
+            )
+        );
+
+        return self::urlPost(self::URL_CREATE_QR_CODE . "?access_token={$accessToken}",
+            json_encode($requestParam)
         );
     }
 
