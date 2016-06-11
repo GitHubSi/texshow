@@ -37,6 +37,7 @@ class WebAutoLoader
         'WeChatClientService' => '/src/main/services/WeChatClientService.php',
         'WeChatMagazineService' => '/src/main/services/WeChatMagazineService.php',
         'WeChatService' => '/src/main/services/WeChatService.php',
+        'PosterService' => '/src/main/services/PosterService.php',
 
         //utils
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',

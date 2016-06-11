@@ -12,7 +12,9 @@ class PosterService
     const POSTER_MAG_QUEUE_MAX_SIZE = 1000;
     const LIMIT_REQUEST_INTERVAL = 1800;
     const LIMIT_REQUEST_KEY_PREFIX = "poster:";
-    const POSTER_LOGO_PATH = "";
+
+    //todo this pic can be changed in manage
+    const POSTER_LOGO_PATH = "/tmp/bg.jpg";
     const PIC_DIR_PATH = "/tmp/image/";
 
     private function __construct()
