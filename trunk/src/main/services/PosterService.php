@@ -8,7 +8,7 @@
  */
 class PosterService
 {
-    const POSTER_MSG_QUEUE = "post_msg_queue";
+    const POSTER_MSG_QUEUE = "poster_msg_queue";
     const POSTER_MAG_QUEUE_MAX_SIZE = 1000;
     const LIMIT_REQUEST_INTERVAL = 1800;
     const LIMIT_REQUEST_KEY_PREFIX = "poster:";
