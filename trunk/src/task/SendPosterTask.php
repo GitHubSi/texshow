@@ -16,13 +16,14 @@ require dirname(dirname(__FILE__)) . '/www/WebAutoLoader.php';
 
 while (true) {
     $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
-    $openId = $redis->rPop(self::POSTER_MSG_QUEUE);
+    $openId = $redis->rPop(PosterService::POSTER_MSG_QUEUE);
 
     $userInfo = WeChatClientService::getInstance()->getUserInfo($openId);
     if (empty($userInfo)) {
         continue;
     }
 
-    PosterService::getInstance()->getInstance()->generatePoster($userInfo['id'], $openId);
+    Logger::getRootLogger()->info($openId);
+    PosterService::getInstance()->generatePoster($openId);
     sleep(1);
 }

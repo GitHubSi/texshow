@@ -95,8 +95,19 @@ class WeChatClientController extends AbstractWeChatAction
 
         //just for test case
         if (strcmp("poster", $content) == 0) {
-            PosterService::getInstance()->getInstance()->generatePoster('1', $this->_openId);
-            return "";
+            $isFrequent = PosterService::getInstance()->limitRequest($this->_openId);
+            if ($isFrequent) {
+                $response['Content'] = "不能重复生成海报哦，请半个小时后重新生成！";
+                return $response;
+            }
+
+            $number = PosterService::getInstance()->pushPosterMsg($this->_openId);
+            if ($number > 5) {
+                $response['Content'] = "海报正在生成，前面排队的人数还有{$number},请稍等！";
+            } else {
+                $response['Content'] = "海报正在生成,请稍等！";
+            }
+            return $response;
         }
 
         //whether send red packet

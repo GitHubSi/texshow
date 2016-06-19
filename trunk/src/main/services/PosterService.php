@@ -57,10 +57,7 @@ class PosterService
         $redis->expire(self::LIMIT_REQUEST_KEY_PREFIX . $openId, self::LIMIT_REQUEST_INTERVAL);
 
         //false | true just to notice user :maybe this operation will cost more time
-        if ($queueSize >= self::POSTER_MAG_QUEUE_MAX_SIZE) {
-            return false;
-        }
-        return true;
+        return $queueSize;
     }
 
     public function limitRequest($openId)
@@ -76,13 +73,15 @@ class PosterService
 
     /**
      * thought by auto incremental id to generate temporary qr code, when generate poster
-     * @param $id
      * @param int $openId
-     * @return bool
+     * @return string
      */
-    public function generatePoster($id, $openId)
+    public function generatePoster($openId)
     {
-        $temporaryQrCodeInfo = WeChatClientService::getInstance()->generateTemporaryQrCode($id);
+        $userInfo = WeChatClientService::getInstance()->getUserInfo($openId);
+        $temporaryQrCodeInfo = WeChatClientService::getInstance()->generateTemporaryQrCode($userInfo['id']);
+
+        //todo: maybe this part should be putted in function _generateImage and the parameter should to a url
         $response = $this->curlGetContent(WeChatService::URL_GET_QR_CODE,
             array('ticket' => $temporaryQrCodeInfo['ticket'])
         );
@@ -90,24 +89,32 @@ class PosterService
             return false;
         }
 
-        $imagePath = $this->_generateImage($response, $id);
+        $imagePath = $this->_generateImage($response, $openId, $userInfo['id']);
         if (!$imagePath) {
             return false;
         }
 
         $mediaId = WeChatClientService::getInstance()->uploadImage($imagePath);
-        return WeChatClientService::getInstance()->customSendImg($openId, $mediaId);
+        WeChatClientService::getInstance()->customSendImg($openId, $mediaId);
+
+        return $mediaId;
     }
 
     /**
-     * @param $imageContents : the parameter equal to file_get_contents($url),
-     * @param int $id : id can be 0
+     * the parameter equal to file_get_contents($url),
+     * @param $imageContents the url
+     * @param $openId , we should take user head icon url
+     * @param int $id
      * @return bool|string
      */
-    private function _generateImage($imageContents, $id = 0)
+    private function _generateImage($imageContents, $openId, $id = 0)
     {
         $qrCodeResource = imagecreatefromstring($imageContents);
-        $logoResource = imagecreatefromjpeg(self::POSTER_LOGO_PATH);
+
+        $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
+        $userHeadImgUrl = $userInfo['headimgurl'];
+        $logoResource = imagecreatefromstring($this->curlGetContent($userHeadImgUrl));
+
         if (!$qrCodeResource || !$logoResource) {
             return false;
         }
@@ -138,6 +145,4 @@ class PosterService
         imagedestroy($logoResource);
         return $fileName;
     }
-
-
 }
