@@ -100,6 +100,22 @@ class PosterService
         return $mediaId;
     }
 
+    public function addScoreBySharedPoster($masterOpenId, $slaveOpenId)
+    {
+        $masterUserInfo = WeChatMagazineService::getInstance()->getUserInfo($masterOpenId);
+        $slaveUserInfo = WeChatClientService::getInstance()->getUserInfo($slaveOpenId);
+        if (empty($masterUserInfo) || empty($slaveUserInfo)) {
+            return false;
+        }
+        if ($masterUserInfo['unionid'] == $slaveUserInfo['unionid']) {
+            return false;
+        }
+
+
+        //get the user union id so that judge whether thought come in by focus poster
+
+    }
+
     /**
      * the parameter equal to file_get_contents($url),
      * @param $imageContents the url
