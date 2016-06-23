@@ -29,9 +29,9 @@ class WeChatClientService extends WeChatService
         return $instance;
     }
 
-    public function subscribe($openId)
+    public function subscribe($openId, $unionId = '')
     {
-        return $this->_weChatClientUserMapper->addSubscribe($openId);
+        return $this->_weChatClientUserMapper->addSubscribe($openId, $unionId);
     }
 
     public function unsubscribe($openId)

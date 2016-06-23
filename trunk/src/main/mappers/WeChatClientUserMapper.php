@@ -55,6 +55,15 @@ class WeChatClientUserMapper
         }
     }
 
+    public function getUserInfoById($id)
+    {
+        return $this->_db->getRow(
+            "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time FROM wechat_client_user
+            WHERE id = ? AND is_subscribe = ? ",
+            array($id, self::SUBSCRIBE)
+        );
+    }
+
     public function getInfoByUnionId($unionId, $includeUnSubscribe = false)
     {
         if ($includeUnSubscribe) {
