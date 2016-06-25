@@ -34,12 +34,12 @@ class UserRelationMapper
         );
     }
 
-    public function getSalveByState($mUnionId, $state = self::NO_VALID)
+    public function getSalveByState($mUnionId, $lastId, $state = self::NO_VALID, $pageSize = 20)
     {
         return $this->_db->getAll(
             "SELECT m_unionid, s_unionid, score, state, create_time, update_time FROM t_user_relation
-            WHERE m_unionid = ? AND state = ?",
-            array($mUnionId, $state)
+            WHERE m_unionid = ? AND id > ? AND state = ? ORDER BY id ASC LIMIT {$pageSize}",
+            array($mUnionId, $lastId, $state)
         );
     }
 

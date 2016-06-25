@@ -62,4 +62,27 @@ class WeChatClientService extends WeChatService
         return $this->_weChatClientUserMapper->updatePhone($openId, $phone);
     }
 
+    /**
+     * scan qr code to subscribe client.
+     * @param $sceneId  make qr code
+     * @param $openId
+     * @return array|bool
+     */
+    public function scanSubscribe($sceneId, $openId)
+    {
+        $currentUserInfo = $this->getUserInfoByOpenID($openId);
+        WeChatClientService::getInstance()->subscribe($openId, $currentUserInfo['unionid']);
+
+        $masterUser = $this->_weChatClientUserMapper->getUserInfoById($sceneId);
+        if ($masterUser['is_subscribe'] == WeChatClientUserMapper::UNSUBSCRIBE) {
+            return false;
+        }
+
+        return array(
+            "master" => $masterUser['unionid'],
+            "slave" => $currentUserInfo['unionid']
+        );
+    }
+
+
 }

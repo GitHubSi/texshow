@@ -100,22 +100,6 @@ class PosterService
         return $mediaId;
     }
 
-    public function addScoreBySharedPoster($masterOpenId, $slaveOpenId)
-    {
-        $masterUserInfo = WeChatMagazineService::getInstance()->getUserInfo($masterOpenId);
-        $slaveUserInfo = WeChatClientService::getInstance()->getUserInfo($slaveOpenId);
-        if (empty($masterUserInfo) || empty($slaveUserInfo)) {
-            return false;
-        }
-        if ($masterUserInfo['unionid'] == $slaveUserInfo['unionid']) {
-            return false;
-        }
-
-
-        //get the user union id so that judge whether thought come in by focus poster
-
-    }
-
     /**
      * the parameter equal to file_get_contents($url),
      * @param $imageContents the url
@@ -126,39 +110,45 @@ class PosterService
     private function _generateImage($imageContents, $openId, $id = 0)
     {
         $qrCodeResource = imagecreatefromstring($imageContents);
+        $backGroundImgResource = imagecreatefromjpeg("/alidata1/neojos/texshow/src/www/resource/img/background.jpg");
 
         $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
-        $userHeadImgUrl = $userInfo['headimgurl'];
-        $logoResource = imagecreatefromstring($this->curlGetContent($userHeadImgUrl));
+        $headImgResource = imagecreatefromstring($this->curlGetContent($userInfo['headimgurl']));
 
-        if (!$qrCodeResource || !$logoResource) {
+        if (!$qrCodeResource || !$headImgResource) {
             return false;
         }
 
         //todo: maybe change this format,now for testing
-        $qrWidth = imagesx($qrCodeResource);
-        $qrHeight = imagesy($qrCodeResource);
-        $logoWidth = imagesx($logoResource);
-        $logoHeight = imagesy($logoResource);
-        $centerLogoWidth = $qrWidth / 5;
-        $scale = $logoWidth / $centerLogoWidth;
-        $centerLogoHeight = $logoHeight / $scale;
-        $centerX = ($qrWidth - $centerLogoWidth) / 2;
+        $headImgWidth = imagesx($headImgResource);
+        $headImgHeight = imagesy($headImgResource);
 
-        $result = imagecopyresampled($qrCodeResource, $logoResource, $centerX, $centerX, 0, 0, $centerLogoWidth,
-            $centerLogoHeight, $logoWidth, $logoHeight);
+        $result = imagecopyresampled($backGroundImgResource, $headImgResource, 500, 500, 0, 0, 440,
+            320, $headImgWidth, $headImgHeight);
+
+        if (!$result) {
+            return false;
+        }
+
+        $qrCodeWidth = imagesx($qrCodeResource);
+        $qrCodeHeight = imagesy($qrCodeResource);
+        $result = imagecopyresampled($backGroundImgResource, $qrCodeResource, 352, 1270, 0, 0, 736, 736, $qrCodeWidth,
+            $qrCodeHeight);
+
         if (!$result) {
             return false;
         }
 
         $fileName = self::PIC_DIR_PATH . $id . '_' . time() . '.jpg';
-        $result = imagejpeg($qrCodeResource, $fileName);
+        $result = imagejpeg($backGroundImgResource, $fileName);
         if (!$result) {
             return false;
         }
 
+        imagedestroy($headImgResource);
         imagedestroy($qrCodeResource);
-        imagedestroy($logoResource);
+        imagedestroy($backGroundImgResource);
+
         return $fileName;
     }
 }

@@ -27,30 +27,42 @@ class UserRelationService
     }
 
     /**
-     * when you subscribe thought scan poster,
-     *  first, the scan user should subscribe this official account
-     *  second, make relation between scan user and poster user
-     * @param $sceneId
-     * @param $openId
-     * @return bool
+     * user A share poster to B, when B subscribe client, add A invalid score.
+     * @param $masterUnionId
+     * @param $slaveUnionId
+     * @return int
      */
-    public function makeRelationByQrCode($sceneId, $openId)
+    public function addScoreBySharedPoster($masterUnionId, $slaveUnionId)
     {
-        $sceneUserInfo = $this->_weChatClientUserMapper->getUserInfoById($sceneId);
-        if (empty($sceneUserInfo) || empty($sceneUserInfo["unionid"])) {
+        if ($masterUnionId == $slaveUnionId) {
             return false;
         }
 
-        $currentUserInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
-        WeChatClientService::getInstance()->subscribe($openId, $currentUserInfo['unionid']);
-
-        $verifyUser = $this->_userRelationMapper->getSlave($currentUserInfo['unionid']);
-        if (!empty($verifyUser)) {
+        $slaveUnionInfo = $this->_userRelationMapper->getSlave($slaveUnionId);
+        if (!empty($slaveUnionInfo)) {
             return false;
         }
-        $this->_userRelationMapper->addRelation($sceneUserInfo["unionid"], $currentUserInfo["unionid"]);
-        return true;
+
+        return $this->_userRelationMapper->addRelation($masterUnionId, $slaveUnionId);
     }
 
-
+    /**
+     * we should rebuild user info
+     *      because database is short for username and user head image
+     * @param $unionId
+     * @param $lastId
+     * @param int $state
+     * @param int $pageSize
+     * @return mixed
+     */
+    public function listUserScore($unionId, $lastId, $state = UserRelationMapper::NO_VALID, $pageSize = 20)
+    {
+        $userList = $this->_userRelationMapper->getSalveByState($unionId, $lastId, $state, $pageSize);
+        foreach ($userList as &$user) {
+            $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($user["openid"]);
+            $user['name'] = $userDetailInfo["nickname"];
+            $user['head'] = $userDetailInfo["headimgurl"];
+        }
+        return $userList;
+    }
 }
