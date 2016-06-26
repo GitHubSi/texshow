@@ -96,4 +96,12 @@ class WeChatClientUserMapper
             array($redPacketState, $openId)
         );
     }
+
+    public function updateScore($unionId, $increment)
+    {
+        return $this->_db->execute(
+            'UPDATE wechat_client_user SET score = score + ? WHERE unionid = ? ',
+            array($increment, $unionId)
+        );
+    }
 }

@@ -47,6 +47,32 @@ class UserRelationService
     }
 
     /**
+     * when user subscribe magazine, judge whether add score for this action
+     *      we use trans to guarantee accordance
+     * @param $slaveUnionId
+     * @return bool
+     */
+    public function updateScoreValid($slaveUnionId)
+    {
+        $slaveUnionInfo = $this->_userRelationMapper->getSlave($slaveUnionId);
+        if (empty($slaveUnionInfo) || $slaveUnionInfo['state'] == UserRelationMapper::IS_VALID) {
+            return false;
+        }
+
+        $db = DB::getInstance(ConfigLoader::getConfig('MYSQL'));
+        $db->startTrans();
+        try {
+            $this->_userRelationMapper->updateState($slaveUnionId);
+            $this->_weChatClientUserMapper->updateScore($slaveUnionInfo['m_unionid'], $slaveUnionInfo['score']);
+            $db->commit();
+            return true;
+        } catch (Exception $e) {
+            $db->rollback();
+        }
+        return false;
+    }
+
+    /**
      * we should rebuild user info
      *      because database is short for username and user head image
      * @param $unionId
@@ -65,4 +91,6 @@ class UserRelationService
         }
         return $userList;
     }
+
+
 }
