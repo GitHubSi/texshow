@@ -28,9 +28,9 @@ class WeChatMagazineService extends WeChatService
         return $instance;
     }
 
-    public function subscribe($openId)
+    public function subscribe($openId, $unionId)
     {
-        return $this->_weChatMagazineUserMapper->addSubscribe($openId);
+        return $this->_weChatMagazineUserMapper->addSubscribe($openId, $unionId);
     }
 
     public function unSubscribe($openId)

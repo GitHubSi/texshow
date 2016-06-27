@@ -21,9 +21,9 @@ class WeChatClientController extends AbstractWeChatAction
 
     protected function subscribeHandler()
     {
-
         try {
-            WeChatClientService::getInstance()->subscribe($this->_openId);
+            $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($this->_openId);
+            WeChatClientService::getInstance()->subscribe($this->_openId, $userInfo['unionid']);
         } catch (Exception $e) {
             Logger::getRootLogger()->info($e->getMessage());
         }

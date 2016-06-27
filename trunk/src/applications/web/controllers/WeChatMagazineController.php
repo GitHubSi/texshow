@@ -36,12 +36,20 @@ class WeChatMagazineController extends AbstractWeChatAction
 
     protected function subscribeHandler()
     {
-        //save user info to local mysql
+        //      save user info to local mysql. add score logic. first, need to judge a user whether a new user.
+        // if a new user ,update valid score. warn: if add score failed, this operation will never success forever
         try {
-            WeChatMagazineService::getInstance()->subscribe($this->_openId);
+            $dbUserInfo = WeChatMagazineService::getInstance()->getUserInfo($this->_openId);
+
+            $weChatUserInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($this->_openId);
+            WeChatMagazineService::getInstance()->subscribe($this->_openId, $weChatUserInfo['unionid']);
             $this->_staticNumber(self::PREFIX_TODAY_SUBSCRIBE);
         } catch (Exception $e) {
             //...
+        }
+
+        if (empty($dbUserInfo)) {
+            //UserRelationService::getInstance()->updateScoreValid($userInfo['unionid']);
         }
 
         //subscribe info
@@ -108,6 +116,7 @@ class WeChatMagazineController extends AbstractWeChatAction
 
         if (strcmp($content, 'create_menu') == 0) {
             WeChatMagazineService::getInstance()->createMenu("WECHAT_MAGAZINE_BUTTON");
+            return "";
         }
 
         $response["MsgType"] = "text";
