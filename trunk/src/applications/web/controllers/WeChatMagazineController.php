@@ -45,11 +45,11 @@ class WeChatMagazineController extends AbstractWeChatAction
             WeChatMagazineService::getInstance()->subscribe($this->_openId, $weChatUserInfo['unionid']);
             $this->_staticNumber(self::PREFIX_TODAY_SUBSCRIBE);
         } catch (Exception $e) {
-            //...
+            Logger::getRootLogger()->info("WeChatMagazineController line 48 exception");
         }
 
         if (empty($dbUserInfo)) {
-            //UserRelationService::getInstance()->updateScoreValid($userInfo['unionid']);
+            UserRelationService::getInstance()->updateScoreValid($weChatUserInfo['unionid']);
         }
 
         //subscribe info

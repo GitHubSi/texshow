@@ -24,6 +24,14 @@ class WeChatClientController extends AbstractWeChatAction
         try {
             $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($this->_openId);
             WeChatClientService::getInstance()->subscribe($this->_openId, $userInfo['unionid']);
+
+            //first subscribe,scan qr code
+            $eventKey = $this->getValue("EventKey");
+            if (!empty($eventKey) || strpos($eventKey, "qrscene_") === 0) {
+                $userId = substr($eventKey, 8);
+                $masterUserInfo = WeChatClientService::getInstance()->getUserInfoById($userId);
+                UserRelationService::getInstance()->addScoreBySharedPoster($masterUserInfo['unionid'], $userInfo['unionid']);
+            }
         } catch (Exception $e) {
             Logger::getRootLogger()->info($e->getMessage());
         }
