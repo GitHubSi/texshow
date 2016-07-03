@@ -31,6 +31,7 @@ class WebAutoLoader
         //mappers
         'WeChatClientUserMapper' => '/src/main/mappers/WeChatClientUserMapper.php',
         'WeChatMagazineUserMapper' => '/src/main/mappers/WeChatMagazineUserMapper.php',
+        'UserRelationMapper' => '/src/main/mappers/UserRelationMapper.php',
 
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',
@@ -38,6 +39,7 @@ class WebAutoLoader
         'WeChatMagazineService' => '/src/main/services/WeChatMagazineService.php',
         'WeChatService' => '/src/main/services/WeChatService.php',
         'PosterService' => '/src/main/services/PosterService.php',
+        'UserRelationService' => '/src/main/services/UserRelationService.php',
 
         //utils
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
