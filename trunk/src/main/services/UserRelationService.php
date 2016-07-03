@@ -65,6 +65,10 @@ class UserRelationService
             $this->_userRelationMapper->updateState($slaveUnionId);
             $this->_weChatClientUserMapper->updateScore($slaveUnionInfo['m_unionid'], $slaveUnionInfo['score']);
             $db->commit();
+
+            $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+            $redis->lPush("template:msg:list", $slaveUnionInfo['m_unionid'] . " " . $slaveUnionId);
+
             return true;
         } catch (Exception $e) {
             $db->rollback();
