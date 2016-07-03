@@ -32,8 +32,8 @@
             <ul>
                 {%foreach $salveList as $salve%}
                 <li>
-                    <div style='background-image: url("{%$salve.headimgurl%}"); float: left'></div>
-                    <div style='float: left'>{%$salve.nickname%}</div>
+                    <div style='background-image: url("{%$salve.headimgurl%};"); float: left; width: 20px; height: 20px; margin-right: 2px;'></div>
+                    <div style='float: left; margin-right: 2px;'>{%$salve.nickname%}</div>
                     <div style='float: left'>提醒</div>
                 </li>
                 {%/foreach%}

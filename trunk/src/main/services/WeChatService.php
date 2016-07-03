@@ -27,6 +27,9 @@ class WeChatService
     //custom send msg
     const URL_CUSTOM_MSG = "https://api.weixin.qq.com/cgi-bin/message/custom/send";
 
+    const URL_GET_TEMPLATE_ID = "https://api.weixin.qq.com/cgi-bin/template/api_add_template";
+    const URL_SEND_TEMPLATE_MSG = "https://api.weixin.qq.com/cgi-bin/message/template/send";
+
     public $_appId;
     public $_appSecret;
 
@@ -137,6 +140,30 @@ class WeChatService
         );
         $result = self::urlGet(self::URL_OAUTH_USER_INFO, $params);
         return $result;
+    }
+
+    public function getTemplateId($templateShort)
+    {
+        $accessToken = $this->getAccessToken();
+
+        $result = self::urlPost(self::URL_GET_TEMPLATE_ID . "?access_token={$accessToken}",
+            array("template_id_short" => $templateShort)
+        );
+        return $result["template_id"];
+    }
+
+    public function sendTemplateMsg($openId, $templateId, $url, $data)
+    {
+        $accessToken = $this->getAccessToken();
+
+        return self::urlPost(self::URL_SEND_TEMPLATE_MSG . "?access_token={$accessToken}",
+            array(
+                "touser" => $openId,
+                "template_id" => $templateId,
+                "url" => $url,
+                "data" => $data
+            )
+        );
     }
 
     public function checkOpenId($openId)
