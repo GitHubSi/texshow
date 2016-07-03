@@ -85,7 +85,8 @@ class UserRelationService
     {
         $userList = $this->_userRelationMapper->getSalveByState($unionId, $lastId, $state, $pageSize);
         foreach ($userList as &$user) {
-            $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($user["openid"]);
+            $userOpenIdInfo = WeChatClientService::getInstance()->getUserInfoByUnionId($user["s_unionid"]);
+            $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($userOpenIdInfo["openid"]);
             $user['nickname'] = $userDetailInfo["nickname"];
             $user['headimgurl'] = $userDetailInfo["headimgurl"];
         }

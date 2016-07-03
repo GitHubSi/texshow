@@ -51,7 +51,7 @@ class HomeController extends Action
         $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
         $this->_smarty->assign("score", $dbUserInfo['score']);
 
-        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["m_unionid"], PHP_INT_MAX);
+        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["unionid"], PHP_INT_MAX);
         $this->_smarty->assign("salveList", $salveList);
 
         $this->_smarty->display('activity/home.tpl');
