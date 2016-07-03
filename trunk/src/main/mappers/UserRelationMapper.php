@@ -38,7 +38,7 @@ class UserRelationMapper
     {
         return $this->_db->getAll(
             "SELECT m_unionid, s_unionid, score, state, create_time, update_time FROM t_user_relation
-            WHERE m_unionid = ? AND id > ? AND state = ? ORDER BY id ASC LIMIT {$pageSize}",
+            WHERE m_unionid = ? AND id > ? AND state = ? ORDER BY id DESC LIMIT {$pageSize}",
             array($mUnionId, $lastId, $state)
         );
     }

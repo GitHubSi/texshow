@@ -41,7 +41,20 @@ class HomeController extends Action
     function indexAction()
     {
         $openId = $this->getParam("openid");
-        echo $openId;
+        if (empty($openId)) {
+            return;
+        }
+
+        $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
+        $this->_smarty->assign("userInfo", $userInfo);
+
+        $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
+        $this->_smarty->assign("score", $dbUserInfo['score']);
+
+        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["m_unionid"], PHP_INT_MAX);
+        $this->_smarty->assign("salveList", $salveList);
+
+        $this->_smarty->display('activity/home.tpl');
     }
 
     private function _simpleCheckCookieValid()
