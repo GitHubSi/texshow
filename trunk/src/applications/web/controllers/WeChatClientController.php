@@ -27,10 +27,15 @@ class WeChatClientController extends AbstractWeChatAction
 
             //first subscribe,scan qr code
             $eventKey = $this->getValue("EventKey");
-            if (!empty($eventKey) || strpos($eventKey, "qrscene_") === 0) {
+            if (!empty($eventKey) && strpos($eventKey, "qrscene_") === 0) {
                 $userId = substr($eventKey, 8);
                 $masterUserInfo = WeChatClientService::getInstance()->getUserInfoById($userId);
                 UserRelationService::getInstance()->addScoreBySharedPoster($masterUserInfo['unionid'], $userInfo['unionid']);
+
+                //reply magazine QR Code. the user subscribe thought scanning poster
+                $response["MsgType"] = "image";
+                $response["Image"]["MediaId"] = "QAb42cVI0bYYp8BIw5bk8MfKwVUw0cbcQmLymL-0_R7SVVQBJxeLX-93tbrS72kz";
+                return $response;
             }
         } catch (Exception $e) {
             Logger::getRootLogger()->info($e->getMessage());
