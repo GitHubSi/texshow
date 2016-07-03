@@ -22,20 +22,32 @@ class WeChatClientController extends AbstractWeChatAction
     protected function subscribeHandler()
     {
         try {
-            $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($this->_openId);
-            WeChatClientService::getInstance()->subscribe($this->_openId, $userInfo['unionid']);
+
+            //the user never subscribe client before
+            $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($this->_openId, true);
+            if (empty($dbUserInfo)) {
+                $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($this->_openId);
+                WeChatClientService::getInstance()->subscribe($this->_openId, $userInfo['unionid']);
+            } else {
+                WeChatClientService::getInstance()->subscribe($this->_openId);
+            }
 
             //first subscribe,scan qr code
             $eventKey = $this->getValue("EventKey");
-            if (!empty($eventKey) && strpos($eventKey, "qrscene_") === 0) {
-                $userId = substr($eventKey, 8);
-                $masterUserInfo = WeChatClientService::getInstance()->getUserInfoById($userId);
-                UserRelationService::getInstance()->addScoreBySharedPoster($masterUserInfo['unionid'], $userInfo['unionid']);
+            if (empty($dbUserInfo) && !empty($eventKey) && strpos($eventKey, "qrscene_") === 0) {
 
-                //reply magazine QR Code. the user subscribe thought scanning poster
-                $response["MsgType"] = "image";
-                $response["Image"]["MediaId"] = "QAb42cVI0bYYp8BIw5bk8MfKwVUw0cbcQmLymL-0_R7SVVQBJxeLX-93tbrS72kz";
-                return $response;
+                //the user never subscribe magazine before
+                $magazineUserInfo = WeChatMagazineService::getInstance()->getUserInfoByUnionId($userInfo['unionid'], true);
+                if (empty($magazineUserInfo)) {
+                    $userId = substr($eventKey, 8);
+                    $masterUserInfo = WeChatClientService::getInstance()->getUserInfoById($userId);
+                    UserRelationService::getInstance()->addScoreBySharedPoster($masterUserInfo['unionid'], $userInfo['unionid']);
+
+                    //reply magazine QR Code. the user subscribe thought scanning poster
+                    $response["MsgType"] = "image";
+                    $response["Image"]["MediaId"] = "QAb42cVI0bYYp8BIw5bk8MfKwVUw0cbcQmLymL-0_R7SVVQBJxeLX-93tbrS72kz";
+                    return $response;
+                }
             }
         } catch (Exception $e) {
             Logger::getRootLogger()->info($e->getMessage());

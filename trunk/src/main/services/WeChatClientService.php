@@ -49,6 +49,11 @@ class WeChatClientService extends WeChatService
         return $this->_weChatClientUserMapper->getUserInfoById($id);
     }
 
+    public function getUserInfoByUnionId($unionId, $includeUnSubscribe = false)
+    {
+        return $this->_weChatClientUserMapper->getInfoByUnionId($unionId, $includeUnSubscribe);
+    }
+
     //red packet content
     public function getRedPacketState($openId, $includeUnSubscribe = true)
     {

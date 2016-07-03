@@ -43,6 +43,11 @@ class WeChatMagazineService extends WeChatService
         return $this->_weChatMagazineUserMapper->getInfoByOpenId($openId, $includeUnSubscribe);
     }
 
+    public function getUserInfoByUnionId($unionId, $includeUnSubscribe = false)
+    {
+        return $this->_weChatMagazineUserMapper->getInfoByUnionId($unionId, $includeUnSubscribe);
+    }
+
     //red packet content
     public function getRedPacketState($openId, $includeUnSubscribe = true)
     {
