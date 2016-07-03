@@ -39,10 +39,14 @@ class WeChatMagazineController extends AbstractWeChatAction
         //      save user info to local mysql. add score logic. first, need to judge a user whether a new user.
         // if a new user ,update valid score. warn: if add score failed, this operation will never success forever
         try {
-            $dbUserInfo = WeChatMagazineService::getInstance()->getUserInfo($this->_openId);
+            $dbUserInfo = WeChatMagazineService::getInstance()->getUserInfo($this->_openId, true);
 
-            $weChatUserInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($this->_openId);
-            WeChatMagazineService::getInstance()->subscribe($this->_openId, $weChatUserInfo['unionid']);
+            if (empty($dbUserInfo)) {
+                $weChatUserInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($this->_openId);
+                WeChatMagazineService::getInstance()->subscribe($this->_openId, $weChatUserInfo['unionid']);
+            } else {
+                WeChatMagazineService::getInstance()->subscribe($this->_openId);
+            }
             $this->_staticNumber(self::PREFIX_TODAY_SUBSCRIBE);
         } catch (Exception $e) {
             Logger::getRootLogger()->info("WeChatMagazineController line 48 exception");
