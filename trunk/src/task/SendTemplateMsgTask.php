@@ -29,8 +29,6 @@ while (true) {
 
     $salveDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($salveUserInfo["openid"]);
 
-    $templateShortId = "OPENTM202067232";
-    $templateId = WeChatClientService::getInstance()->getTemplateId($templateShortId);
     $templateMsg = array(
         "first" => array(
             "value" => "您好，您的积分账户变更提醒",
@@ -54,6 +52,7 @@ while (true) {
         )
     );
 
-    WeChatClientService::getInstance()->sendTemplateMsg($masterUserInfo["openid"], $templateId, "http://act.wetolink.com/home/index", $templateMsg);
+    WeChatClientService::getInstance()->sendTemplateMsg($masterUserInfo["openid"],
+        "ZSdJu0fEqYRLaRhAKZROKq3xiPV71c-zU65XQSJGkeM", "http://act.wetolink.com/home/index", $templateMsg);
     sleep(1);
 }

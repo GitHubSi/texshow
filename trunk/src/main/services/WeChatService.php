@@ -157,12 +157,12 @@ class WeChatService
         $accessToken = $this->getAccessToken();
 
         return self::urlPost(self::URL_SEND_TEMPLATE_MSG . "?access_token={$accessToken}",
-            array(
+            json_encode(array(
                 "touser" => $openId,
                 "template_id" => $templateId,
                 "url" => $url,
                 "data" => $data
-            )
+            ))
         );
     }
 
