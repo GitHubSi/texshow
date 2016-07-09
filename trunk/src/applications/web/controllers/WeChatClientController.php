@@ -45,7 +45,7 @@ class WeChatClientController extends AbstractWeChatAction
 
                     //reply magazine QR Code. the user subscribe thought scanning poster
                     $response["MsgType"] = "image";
-                    $response["Image"]["MediaId"] = "QAb42cVI0bYYp8BIw5bk8MfKwVUw0cbcQmLymL-0_R7SVVQBJxeLX-93tbrS72kz";
+                    $response["Image"]["MediaId"] = "f3enY9SORcpP650cdhJM9GKrw5FYKuV4tb63EVBpKnQLBm6DjUdp1FexNUBNUy-N";
                     return $response;
                 }
             }

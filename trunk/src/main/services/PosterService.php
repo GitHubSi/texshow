@@ -123,8 +123,8 @@ class PosterService
         $headImgWidth = imagesx($headImgResource);
         $headImgHeight = imagesy($headImgResource);
 
-        $result = imagecopyresampled($backGroundImgResource, $headImgResource, 500, 500, 0, 0, 440,
-            320, $headImgWidth, $headImgHeight);
+        $result = imagecopyresampled($backGroundImgResource, $headImgResource, 558, 491, 0, 0, 324,
+            324, $headImgWidth, $headImgHeight);
 
         if (!$result) {
             return false;
@@ -132,7 +132,7 @@ class PosterService
 
         $qrCodeWidth = imagesx($qrCodeResource);
         $qrCodeHeight = imagesy($qrCodeResource);
-        $result = imagecopyresampled($backGroundImgResource, $qrCodeResource, 352, 1270, 0, 0, 736, 736, $qrCodeWidth,
+        $result = imagecopyresampled($backGroundImgResource, $qrCodeResource, 368, 1280, 0, 0, 708, 708, $qrCodeWidth,
             $qrCodeHeight);
 
         if (!$result) {
