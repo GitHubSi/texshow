@@ -91,6 +91,7 @@ class UserRelationService
         foreach ($userList as &$user) {
             $userOpenIdInfo = WeChatClientService::getInstance()->getUserInfoByUnionId($user["s_unionid"]);
             $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($userOpenIdInfo["openid"]);
+
             $user['nickname'] = $userDetailInfo["nickname"];
             $user['headimgurl'] = $userDetailInfo["headimgurl"];
         }

@@ -135,6 +135,10 @@ class WeChatClientController extends AbstractWeChatAction
             return $response;
         }
 
+        if (strcmp("open", $content) === 0) {
+            Logger::getRootLogger()->info($this->_openId);
+        }
+
         //whether send red packet
         return RedPacketController::sendRedPacket($this->_openId, $content);
     }

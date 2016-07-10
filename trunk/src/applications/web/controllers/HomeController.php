@@ -9,6 +9,7 @@
 class HomeController extends Action
 {
     const BASE_URL = "http://act.wetolink.com/home/index";
+    const PAGE_SIZE = 20;
     private $_salt;
 
     public function __construct()
@@ -21,7 +22,6 @@ class HomeController extends Action
     public function preDispatch()
     {
         $openId = $this->_simpleCheckCookieValid();
-
         if (!$openId) {
             $code = $this->getParam("code");
             try {
@@ -38,7 +38,7 @@ class HomeController extends Action
         Request::getInstance()->setParam("openid", $openId);
     }
 
-    function indexAction()
+    public function indexAction()
     {
         $openId = $this->getParam("openid");
         if (empty($openId)) {
@@ -51,10 +51,32 @@ class HomeController extends Action
         $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
         $this->_smarty->assign("score", $dbUserInfo['score']);
 
-        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["unionid"], PHP_INT_MAX);
+        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["unionid"], PHP_INT_MAX, UserRelationMapper::NO_VALID, 10);
         $this->_smarty->assign("salveList", $salveList);
 
         $this->_smarty->display('activity/home.tpl');
+    }
+
+    public function listUserAction()
+    {
+        $openId = $this->getParam("openid");
+        if (empty($openId)) {
+            return;
+        }
+
+        $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
+        if (empty($dbUserInfo)) {
+            return;
+        }
+
+        $lastId = $this->getParam("last_id");
+        if (empty($lastId)) {
+            $lastId = PHP_INT_MAX;
+        }
+
+        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["unionid"], $lastId);
+        header('Content-Type:application/json');
+        echo json_encode($salveList);
     }
 
     private function _simpleCheckCookieValid()

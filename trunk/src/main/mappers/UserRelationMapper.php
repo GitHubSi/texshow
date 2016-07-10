@@ -29,7 +29,7 @@ class UserRelationMapper
     public function getSlave($sUnionId)
     {
         return $this->_db->getRow(
-            "SELECT m_unionid, s_unionid, score, state, create_time, update_time FROM t_user_relation WHERE s_unionid = ?",
+            "SELECT id, m_unionid, s_unionid, score, state, create_time, update_time FROM t_user_relation WHERE s_unionid = ?",
             $sUnionId
         );
     }
@@ -37,7 +37,7 @@ class UserRelationMapper
     public function getSalveByState($mUnionId, $lastId, $state = self::NO_VALID, $pageSize = 20)
     {
         return $this->_db->getAll(
-            "SELECT m_unionid, s_unionid, score, state, create_time, update_time FROM t_user_relation
+            "SELECT id, m_unionid, s_unionid, score, state, create_time, update_time FROM t_user_relation
             WHERE m_unionid = ? AND id < ? AND state = ? ORDER BY id DESC LIMIT {$pageSize}",
             array($mUnionId, $lastId, $state)
         );
