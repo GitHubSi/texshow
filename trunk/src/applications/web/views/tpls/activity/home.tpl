@@ -15,7 +15,7 @@
 
                 var completeBeforeRequest = $("#ajax_req").val();
                 if (completeBeforeRequest == 0) {
-                    return false;
+                   return false;
                 }
                 $("ajax_req").val(0);
 
@@ -27,7 +27,6 @@
                         "last_id": lastId,
                     },
                     success: function (data, status) {
-                        $("#ajax_req").val(1);
                         if (!data) {
                             return false;
                         }
@@ -38,6 +37,7 @@
                                     + '<div class="ftips"></div></li>';
                             $("#userlist").append(line);
                         });
+                        $("#ajax_req").val(1);
                     }
                 });
 
