@@ -104,4 +104,12 @@ class WeChatClientUserMapper
             array($increment, $unionId)
         );
     }
+
+    public function updateScoreByOpenId($openId, $score)
+    {
+        return $this->_db->execute(
+            'UPDATE wechat_client_user SET score = score + ? WHERE openid = ? ',
+            array($score, $openId)
+        );
+    }
 }

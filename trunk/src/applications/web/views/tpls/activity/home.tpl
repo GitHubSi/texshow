@@ -15,7 +15,7 @@
 
                 var completeBeforeRequest = $("#ajax_req").val();
                 if (completeBeforeRequest == 0) {
-                   return false;
+                    return false;
                 }
                 $("ajax_req").val(0);
 
@@ -38,7 +38,11 @@
                             $("#userlist").append(line);
                         });
                         $("#ajax_req").val(1);
+                    },
+                    error: function (obj, msg) {
+                        $("#ajax_req").val(1);
                     }
+
                 });
 
                 myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
@@ -310,7 +314,7 @@
             <div class="nickname"><span>{%$userInfo.nickname%}</span></div>
             <div class="score"><span>可兑换积分：</span>{%$score%}</div>
         </div>
-        <div class="header-4" name="exchange" id="exchange"></div>
+        <a href="/home/prize" class="header-4" id="exchange"></a>
     </div>
 
     <div class="invite">
@@ -338,6 +342,5 @@
         </div>
         <div id="footer"></div>
     </div>
-</div>
 </div>
 </body>

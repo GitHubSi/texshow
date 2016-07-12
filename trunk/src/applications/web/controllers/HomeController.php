@@ -11,12 +11,14 @@ class HomeController extends Action
     const BASE_URL = "http://act.wetolink.com/home/index";
     const PAGE_SIZE = 20;
     private $_salt;
+    private $_prizeMapper;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->_salt = ConfigLoader::getConfig("SALT");
+        $this->_prizeMapper = new PrizeMapper();
     }
 
     public function preDispatch()
@@ -27,7 +29,6 @@ class HomeController extends Action
             try {
                 $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
                 $openId = $userInfo['openid'];
-                $this->_setCookie($openId);
             } catch (Exception $e) {
                 $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl(self::BASE_URL);
                 header('Location: ' . $redirectUrl);
@@ -35,6 +36,7 @@ class HomeController extends Action
             }
         }
 
+        $this->_setCookie($openId);
         Request::getInstance()->setParam("openid", $openId);
     }
 
@@ -55,6 +57,14 @@ class HomeController extends Action
         $this->_smarty->assign("salveList", $salveList);
 
         $this->_smarty->display('activity/home.tpl');
+    }
+
+    //because this function to small to don't need to create a new controller
+    public function prizeAction()
+    {
+        $prizeList = $this->_prizeMapper->getPrizeList();
+        $this->_smarty->assign("prizeList", $prizeList);
+        $this->_smarty->display('activity/prize.tpl');
     }
 
     public function listUserAction()
@@ -97,7 +107,7 @@ class HomeController extends Action
 
     private function _setCookie($openId)
     {
-        setcookie('wx', md5($openId . $this->_salt), 86400, '/');
-        setcookie("openid", $openId, 86400, '/');
+        setcookie('wx', md5($openId . $this->_salt));
+        setcookie("openid", $openId);
     }
 }
