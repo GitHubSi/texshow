@@ -62,8 +62,17 @@ class HomeController extends Action
     //because this function to small to don't need to create a new controller
     public function prizeAction()
     {
+        $openId = $this->getParam("openid");
+        if (empty($openId)) {
+            return;
+        }
+
+        $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
+        $this->_smarty->assign("score", $dbUserInfo['score']);
+
         $prizeList = $this->_prizeMapper->getPrizeList();
         $this->_smarty->assign("prizeList", $prizeList);
+
         $this->_smarty->display('activity/prize.tpl');
     }
 

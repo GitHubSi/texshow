@@ -32,7 +32,7 @@
         }
 
         li .fname {
-            width: 45%;
+            width: 25%;
             height: 30px;
             float: left;
             overflow: hidden;
@@ -54,6 +54,18 @@
             background-repeat: no-repeat;
             background-size: 100% 100%;
         }
+
+        .ftips-2 {
+            width: 20%;
+            height: 25px;
+            text-align: center;
+            margin-left: 6px;
+            float: left;
+            background-color: #888888;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
     </style>
 </head>
 
@@ -71,7 +83,13 @@
         <li>
             <div class="fname">{%$prize.name%}</div>
             <div class="fmagazine"><b>{%$prize.num%}</b></div>
-            <div class="ftips"></div>
+            <div class="fmagazine"><b>{%$prize.score%}</b></div>
+            {%if $score > $prize.score%}
+            <div class="ftips-2" style="background-color: #990000" data="1" prize="{%$prize.id%}"><b
+                        style="color: white">兑换</b></div>
+            {%else%}
+            <div class="ftips-2"><b style="color: white">兑换</b></div>
+            {%/if%}
         </li>
         {%/foreach%}
     </ul>
@@ -79,5 +97,12 @@
 </div>
 </body>
 <script type="application/javascript">
-
+    $(".ftips-2").click(function () {
+        var prizeValid = this.data;
+        if (prizeValid) {
+            return false;
+        } else {
+            
+        }
+    });
 </script>

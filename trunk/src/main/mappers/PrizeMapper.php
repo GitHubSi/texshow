@@ -18,14 +18,14 @@ class PrizeMapper
     public function getPrizeList()
     {
         return $this->_db->getAll(
-            "SELECT id, name, num, idx FROM t_prize ORDER BY idx ASC "
+            "SELECT id, name, num, idx, score FROM t_prize ORDER BY idx ASC "
         );
     }
 
     public function getPrizeById($id)
     {
         return $this->_db->getRow(
-            "SELECT id, name, num, idx FROM t_prize WHERE id = ? ",
+            "SELECT id, name, num, idx, score FROM t_prize WHERE id = ? ",
             $id
         );
     }
