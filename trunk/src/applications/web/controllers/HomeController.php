@@ -59,23 +59,6 @@ class HomeController extends Action
         $this->_smarty->display('activity/home.tpl');
     }
 
-    //because this function to small to don't need to create a new controller
-    public function prizeAction()
-    {
-        $openId = $this->getParam("openid");
-        if (empty($openId)) {
-            return;
-        }
-
-        $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
-        $this->_smarty->assign("score", $dbUserInfo['score']);
-
-        $prizeList = $this->_prizeMapper->getPrizeList();
-        $this->_smarty->assign("prizeList", $prizeList);
-
-        $this->_smarty->display('activity/prize.tpl');
-    }
-
     public function listUserAction()
     {
         $openId = $this->getParam("openid");
@@ -96,6 +79,34 @@ class HomeController extends Action
         $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["unionid"], $lastId);
         header('Content-Type:application/json');
         echo json_encode($salveList);
+    }
+
+    //because this function to small to don't need to create a new controller
+    public function prizeAction()
+    {
+        $openId = $this->getParam("openid");
+        if (empty($openId)) {
+            return;
+        }
+
+        $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
+        $this->_smarty->assign("score", $dbUserInfo['score']);
+
+        $prizeList = $this->_prizeMapper->getPrizeList();
+        $this->_smarty->assign("prizeList", $prizeList);
+
+        $this->_smarty->display('activity/prize.tpl');
+    }
+
+    public function exchangeAction()
+    {
+        $this->_smarty->display('activity/exchange.tpl');
+    }
+
+    //兑换奖品
+    public function exchangeSubmitAction()
+    {
+
     }
 
     private function _simpleCheckCookieValid()

@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <script type="text/javascript" src="/resource/js/jquery.min.js"></script>
+    <title>积分兑换</title>
     <style>
         body {
             overflow-x: hidden;
@@ -102,7 +103,7 @@
         if (prizeValid) {
             return false;
         } else {
-            
+            window.location.href = "/home/exchange";
         }
     });
 </script>
