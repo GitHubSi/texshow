@@ -45,25 +45,72 @@
 <input type="hidden" id="ajax_req" value="1"/>
 
 <div class="content">
+    <input type="hidden" name="prize_id" id="prize_id" value="{%$prizeId%}"/>
+
     <div>
-        <input class="input-1" type="text" placeholder="收货人姓名" name="name"/>
+        <input class="input-1" type="text" placeholder="收货人姓名" name="name" id="name"/>
     </div>
     <div>
-        <input class="input-1" type="text" placeholder="手机号" name="phone"/>
+        <input class="input-1" type="text" placeholder="手机号" name="phone" id="phone"/>
     </div>
     <div>
-        <input class="input-1" type="text" placeholder="省份" name="provice"/>
+        <input class="input-1" type="text" placeholder="省份" name="province" id="province"/>
     </div>
     <div>
-        <input class="input-1" type="text" placeholder="城市" name="city"/>
+        <input class="input-1" type="text" placeholder="城市" name="city" id="city"/>
     </div>
     <div>
-        <input class="input-1" type="text" placeholder="区县" name="region"/>
+        <input class="input-1" type="text" placeholder="区县" name="region" id="region"/>
     </div>
     <div>
-        <input class="input-1" type="text" placeholder="具体地址" name="detail"/>
+        <input class="input-1" type="text" placeholder="具体地址" name="detail" id="detail"/>
     </div>
-    <div class="but">确定</div>
+    <div class="but" data="1">确定</div>
 </div>
-</div>
+
+<script type="application/javascript">
+    $(".but").click(function () {
+        var whetherSub = $(".but").data;
+        if (whetherSub == 0) {
+            return;
+        }
+        $(".but").data = 0;
+
+        var prizeId = $("prize_id").val();
+        var name = $("#name").val();
+        var phone = $("$phone").val();
+        var province = $("#province").val();
+        var city = $("#city").val();
+        var region = $("#region").val();
+        var detail = $("#detail").val();
+
+        $.ajax({
+            url: "/home/exchangesubmit",
+            type: "POST",
+            dataType: "json",
+            data: {
+                "prize_id": prizeId,
+                "name": name,
+                "phone": phone,
+                "province": province,
+                "city": city,
+                "region": region,
+                "detail": detail
+            },
+            success: function (data, status) {
+                if (data.req == 0) {
+                    alert("兑换成功");
+
+                } else {
+                    alert("兑换失败");
+                }
+                $(".but").data = 1;
+                window.location.href = "/home;
+            },
+            error: function (xhr, status) {
+                $(".but").data = 1;
+            }
+        });
+    });
+</script>
 </body>

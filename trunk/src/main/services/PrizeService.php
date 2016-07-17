@@ -10,11 +10,13 @@ class PrizeService
 {
     private $_weChatClientUserMapper;
     private $_prizeMapper;
+    private $_prizeRecordMapper;
 
     private function __construct()
     {
         $this->_weChatClientUserMapper = new WeChatClientUserMapper();
         $this->_prizeMapper = new PrizeMapper();
+        $this->_prizeRecordMapper = new PrizeRecordMapper();
     }
 
     public static function getInstance()
@@ -26,13 +28,14 @@ class PrizeService
         return $instance;
     }
 
-    public function exchange($openId, $prizeId)
+    public function exchange($openId, $prizeId, $addressInfo)
     {
         $userInfo = WeChatClientService::getInstance()->getUserInfo($openId);
         if (empty($userInfo)) {
             return false;
         }
 
+        //prize num had not leaved
         $prize = $this->_prizeMapper->getPrizeById($prizeId);
         if (empty($prize) || $prize['num'] == 0) {
             return false;
@@ -47,6 +50,8 @@ class PrizeService
         try {
             $this->_prizeMapper->updatePrizeNum($prizeId);
             $this->_weChatClientUserMapper->updateScoreByOpenId($openId, -$prize['score']);
+            $this->_prizeRecordMapper->addRecord($prizeId, $openId, $addressInfo['name'], $addressInfo['phone'], $addressInfo['city'],
+                $addressInfo['province'], $addressInfo['region'], $addressInfo['detail']);
             $db->commit();
             return true;
         } catch (Exception $e) {

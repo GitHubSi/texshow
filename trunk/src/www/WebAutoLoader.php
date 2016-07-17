@@ -34,6 +34,7 @@ class WebAutoLoader
         'WeChatMagazineUserMapper' => '/src/main/mappers/WeChatMagazineUserMapper.php',
         'UserRelationMapper' => '/src/main/mappers/UserRelationMapper.php',
         'PrizeMapper' => '/src/main/mappers/PrizeMapper.php',
+        'PrizeRecordMapper' => '/src/main/mappers/PrizeRecordMapper.php',
 
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',

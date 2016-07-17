@@ -100,10 +100,11 @@
 <script type="application/javascript">
     $(".ftips-2").click(function () {
         var prizeValid = this.data;
+        var prizeId = this.prize;
         if (prizeValid) {
             return false;
         } else {
-            window.location.href = "/home/exchange";
+            window.location.href = "/home/exchange?prize_id=" + prizeId;
         }
     });
 </script>
