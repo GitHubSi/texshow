@@ -76,9 +76,9 @@
         }
         $(".but").data = 0;
 
-        var prizeId = $("prize_id").val();
+        var prizeId = $("#prize_id").val();
         var name = $("#name").val();
-        var phone = $("$phone").val();
+        var phone = $("#phone").val();
         var province = $("#province").val();
         var city = $("#city").val();
         var region = $("#region").val();
@@ -110,7 +110,7 @@
                     alert("兑换失败");
                 }
                 $(".but").data = 1;
-                window.location.href = "/home;
+                window.location.href = "/home";
             },
             error: function (xhr, status) {
                 $(".but").data = 1;

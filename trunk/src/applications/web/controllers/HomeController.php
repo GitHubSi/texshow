@@ -141,7 +141,7 @@ class HomeController extends Action
             $city = $this->getParam('city');
             $region = $this->getParam('region');
             $detail = $this->getParam('detail');
-            if (empty($province) || empty($city) || empty($region) || $detail) {
+            if (empty($province) || empty($city) || empty($region) || empty($detail)) {
                 throw new Exception("address must be complete", 4);
             }
 

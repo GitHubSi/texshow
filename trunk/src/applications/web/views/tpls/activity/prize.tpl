@@ -89,7 +89,7 @@
             <div class="ftips-2" style="background-color: #990000" data="1" prize="{%$prize.id%}"><b
                         style="color: white">兑换</b></div>
             {%else%}
-            <div class="ftips-2"><b style="color: white">兑换</b></div>
+            <div class="ftips-2" data="0"><b style="color: white">兑换</b></div>
             {%/if%}
         </li>
         {%/foreach%}
@@ -99,9 +99,9 @@
 </body>
 <script type="application/javascript">
     $(".ftips-2").click(function () {
-        var prizeValid = this.data;
-        var prizeId = this.prize;
-        if (prizeValid) {
+        var prizeValid = $(this).attr("data");
+        var prizeId = $(this).attr("prize");
+        if (prizeValid == "0") {
             return false;
         } else {
             window.location.href = "/home/exchange?prize_id=" + prizeId;

@@ -55,6 +55,7 @@ class PrizeService
             $db->commit();
             return true;
         } catch (Exception $e) {
+            Logger::getRootLogger()->info($e->getMessage());
             $db->rollback();
         }
 
