@@ -84,6 +84,11 @@
         var region = $("#region").val();
         var detail = $("#detail").val();
 
+        if (!prizeId || !name || !phone || !province || !city || !region || !detail) {
+            alert("请将信息输入完整之后提交");
+            return;
+        }
+
         $.ajax({
             url: "/home/exchangesubmit",
             type: "POST",
