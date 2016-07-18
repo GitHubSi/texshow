@@ -79,13 +79,23 @@ class WeChatClientController extends AbstractWeChatAction
 
     protected function clickHandler()
     {
-        $EventKey = $this->getValue("EventKey");
-        switch ($EventKey) {
-            case "track" :
-                break;
-        }
+        $eventKey = $this->getValue("EventKey");
+        $response["MsgType"] = "text";
 
-        if (isset($response)) {
+        //just for test case
+        if (strcmp("poster_0611", $eventKey) == 0) {
+            $isFrequent = PosterService::getInstance()->limitRequest($this->_openId);
+            if ($isFrequent) {
+                $response['Content'] = "不能重复生成海报哦，请半个小时后重新生成！";
+                return $response;
+            }
+
+            $number = PosterService::getInstance()->pushPosterMsg($this->_openId);
+            if ($number > 5) {
+                $response['Content'] = "海报正在生成，前面排队的人数还有{$number},请稍等！";
+            } else {
+                $response['Content'] = "海报正在生成,请稍等！";
+            }
             return $response;
         }
     }
@@ -116,23 +126,6 @@ class WeChatClientController extends AbstractWeChatAction
                     return $response;
                 }
             }
-        }
-
-        //just for test case
-        if (strcmp("poster", $content) == 0) {
-            $isFrequent = PosterService::getInstance()->limitRequest($this->_openId);
-            if ($isFrequent) {
-                $response['Content'] = "不能重复生成海报哦，请半个小时后重新生成！";
-                return $response;
-            }
-
-            $number = PosterService::getInstance()->pushPosterMsg($this->_openId);
-            if ($number > 5) {
-                $response['Content'] = "海报正在生成，前面排队的人数还有{$number},请稍等！";
-            } else {
-                $response['Content'] = "海报正在生成,请稍等！";
-            }
-            return $response;
         }
 
         if (strcmp("open", $content) === 0) {
