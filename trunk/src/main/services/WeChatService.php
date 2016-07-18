@@ -21,6 +21,7 @@ class WeChatService
     const URL_CREATE_MEUN = "https://api.weixin.qq.com/cgi-bin/menu/create";
     //upload media resource
     const URL_UPLOAD_MEDIA = "https://api.weixin.qq.com/cgi-bin/media/upload";
+    const URL_FOREVER_UPLOAD_MEDIA = "https://api.weixin.qq.com/cgi-bin/material/add_material";
     //crate qr code
     const URL_CREATE_QR_CODE = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
     const URL_GET_QR_CODE = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
@@ -258,6 +259,19 @@ class WeChatService
         );
         return $response["media_id"];
     }
+
+    public function uploadForeverImage($filePath)
+    {
+        $accessToken = $this->getAccessToken();
+        $response = self::urlPost(
+            self::URL_FOREVER_UPLOAD_MEDIA . "?access_token={$accessToken}&type=image",
+            array(
+                "media" => "@{$filePath}"
+            )
+        );
+        return $response["media_id"];
+    }
+
 
     public function createMenu($key)
     {

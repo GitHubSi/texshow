@@ -61,4 +61,10 @@ class PrizeService
 
         return false;
     }
+
+    public function redPacketPrize($openId)
+    {
+        //whether to send red packet
+
+    }
 }
