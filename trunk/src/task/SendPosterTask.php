@@ -23,7 +23,6 @@ while (true) {
         continue;
     }
 
-    Logger::getRootLogger()->info($openId);
     PosterService::getInstance()->generatePoster($openId);
     sleep(1);
 }
