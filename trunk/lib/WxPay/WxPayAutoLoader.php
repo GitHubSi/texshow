@@ -16,6 +16,8 @@ class WxPayAutoLoader
         "WxPayConfig" => "/WxPay.Config.php",
         "WxPayException" => "/WxPay.Exception.php",
         "WxPayNotify" => "/WxPay.Notify.php",
+
+        "JsApiPay" => "WxPay.JsApiPay.php",
     );
 
     /**
