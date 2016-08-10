@@ -25,6 +25,8 @@ class WeChatPayService
     //生成一个订单
     public function createOrder($openId)
     {
+        $tools = new JsApiPay();
+
         $input = new WxPayUnifiedOrder();
         $input->SetBody("test");
         $input->SetAttach("test");
@@ -37,6 +39,9 @@ class WeChatPayService
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order = WxPayApi::unifiedOrder($input);
+
+        return $tools->GetJsApiParameters($order);
     }
+
 
 }
