@@ -2,9 +2,6 @@
 /**
 * 2015-06-29 修复签名问题
 **/
-require_once "WxPay.Config.php";
-require_once "WxPay.Exception.php";
-
 /**
  * 
  * 数据对象基础类，该类中定义数据类最基本的行为，包括：
@@ -82,7 +79,7 @@ class WxPayDataBase
 		}
         //将XML转为array
         //禁止引用外部xml实体
-        libxml_disable_entity_loader(true);
+        //libxml_disable_entity_loader(true);
         $this->values = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);		
 		return $this->values;
 	}

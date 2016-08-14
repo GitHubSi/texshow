@@ -8,7 +8,7 @@
 
 $ROOT_DIR = dirname(dirname(dirname(__FILE__)));
 require $ROOT_DIR . '/bin/log/Logger.php';
-Logger::configure($ROOT_DIR . '/config/logger_conf.xml');
+Logger::configure($ROOT_DIR . '/config/log_conf.xml');
 
 require $ROOT_DIR . '/lib/WxPay/WxPayAutoLoader.php';
 
