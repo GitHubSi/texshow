@@ -6,7 +6,7 @@
  * Time: 23:15
  */
 
-date_default_timezone_set('America/Los_Angeles');
+ini_set('date.timezone','Asia/Shanghai');
 require 'WebAutoLoader.php';
 
 $webApp = Http::getInstance();

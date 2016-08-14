@@ -6,35 +6,22 @@
  * Date: 2016/8/10
  * Time: 22:29
  */
-class ShareItemController extends Action
+class ShareItemController extends AbstractActivityAction
 {
     const BASE_URL = "http://act.wetolink.com/shareItem/index";
-    private $_salt;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->_salt = ConfigLoader::getConfig("SALT");
+        parent::__construct(self::BASE_URL);
     }
 
-    //TODO 抽象一个父类的方法，实现该方法
     public function preDispatch()
     {
-        $openId = $this->_simpleCheckCookieValid();
-        if (!$openId) {
-            $code = $this->getParam("code");
-            try {
-                $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
-                $openId = $userInfo['openid'];
-            } catch (Exception $e) {
-                $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl(self::BASE_URL);
-                header('Location: ' . $redirectUrl);
-                exit;
-            }
+        if (Http::$curAction == "notify") {
+            return true;
         }
 
-        $this->_setCookie($openId);
-        Request::getInstance()->setParam("openid", $openId);
+        parent::preDispatch();
     }
 
     //TODO item最好设计成一个路由的形式，而且item应该是一个数据库存储的数据
@@ -50,28 +37,10 @@ class ShareItemController extends Action
 
     }
 
-    //TODO 该方法重复
-    private function _setCookie($openId)
+    //receive trade notify
+    public function notifyAction()
     {
-        setcookie('wx', md5($openId . $this->_salt));
-        setcookie("openid", $openId);
+        Logger::getRootLogger()->info("notify");
+        WeChatPayService::getInstance()->getInstance()->handleNotify();
     }
-
-    //TODO 方法重复
-    private function _simpleCheckCookieValid()
-    {
-        $encodeUserId = $this->getParam("wx");
-        $openId = $this->getParam("openid");
-
-        if (empty($encodeUserId) || empty($openId)) {
-            return false;
-        }
-
-        $weChatSalt = ConfigLoader::getConfig("SALT");
-        if (md5($openId . $weChatSalt) == $encodeUserId) {
-            return $openId;
-        }
-        return false;
-    }
-
 }

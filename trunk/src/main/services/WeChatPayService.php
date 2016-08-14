@@ -22,8 +22,8 @@ class WeChatPayService
         return $instance;
     }
 
-    //生成一个订单
-    public function createOrder($openId)
+    //create a order
+    public function createOrder($openId, $fee = 1)
     {
         $tools = new JsApiPay();
 
@@ -31,11 +31,12 @@ class WeChatPayService
         $input->SetBody("test");
         $input->SetAttach("test");
         $input->SetOut_trade_no(WxPayConfig::MCHID . date("YmdHis"));
-        $input->SetTotal_fee("1");
+        $input->SetTotal_fee($fee);
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
         $input->SetGoods_tag("test");
-        $input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
+        $input->SetNotify_url("http://act.wetolink.com/shareItem/notify");
+        //trade type
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order = WxPayApi::unifiedOrder($input);
@@ -43,5 +44,10 @@ class WeChatPayService
         return $tools->GetJsApiParameters($order);
     }
 
+    //handle trade notify
+    public function handleNotify()
+    {
+        WeChatNotifyService::getInstance()->Handle(false);
+    }
 
 }

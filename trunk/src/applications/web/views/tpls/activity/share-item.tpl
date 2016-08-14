@@ -9,11 +9,14 @@
                     'getBrandWCPayRequest',
                     {%$jsApiParameters%},
                     function (res) {
-                        WeixinJSBridge.log(res.err_msg);
-                        alert(res.err_code + res.err_desc + res.err_msg);
+                        //WeixinJSBridge.log(res.err_msg);
+                        //alert(res.err_code + res.err_desc + res.err_msg);
+
+                        if(res.err_msg == "get_brand_wcpay_request:cancel" ) {
+                            alert("支付取消");
+                        }
                     }
-            )
-            ;
+            );
         }
 
         function callpay() {
@@ -41,7 +44,7 @@
                         var value3 = res.addressCountiesThirdStageName;
                         var value4 = res.addressDetailInfo;
                         var tel = res.telNumber;
-                        alert(value1 + value2 + value3 + value4 + ":" + tel);
+                        //alert(value1 + value2 + value3 + value4 + ":" + tel);
                     }
             );
         }

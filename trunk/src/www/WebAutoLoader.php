@@ -8,17 +8,18 @@
 
 $ROOT_DIR = dirname(dirname(dirname(__FILE__)));
 require $ROOT_DIR . '/bin/log/Logger.php';
+Logger::configure($ROOT_DIR . '/config/logger_conf.xml');
+
 require $ROOT_DIR . '/lib/WxPay/WxPayAutoLoader.php';
 
 spl_autoload_register(array("WebAutoLoader", "autoload"));
-
-Logger::configure($ROOT_DIR .'/config/logger_conf.xml');
 
 class WebAutoLoader
 {
     private static $classes = array(
         //web
         'AbstractWeChatAction' => '/src/applications/web/controllers/AbstractWeChatAction.php',
+        'AbstractActivityAction' => '/src/applications/web/controllers/AbstractActivityAction.php',
         'RedPacketController' => '/src/applications/web/controllers/RedPacketController.php',
         'WeChatClientController' => '/src/applications/web/controllers/WeChatClientController.php',
         'WeChatMagazineController' => '/src/applications/web/controllers/WeChatMagazineController.php',
@@ -48,6 +49,7 @@ class WebAutoLoader
         'UserRelationService' => '/src/main/services/UserRelationService.php',
         'PrizeService' => '/src/main/services/PrizeService.php',
         'WeChatPayService' => '/src/main/services/WeChatPayService.php',
+        'WeChatNotifyService' => '/src/main/services/WeChatNotifyService.php',
 
         //utils
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
