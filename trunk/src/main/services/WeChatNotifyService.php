@@ -8,8 +8,11 @@
  */
 class WeChatNotifyService extends WxPayNotify
 {
+    private $_weChatNotifyMapper;
+
     private function __construct()
     {
+        $this->_weChatNotifyMapper = new WeChatNotifyMapper();
     }
 
     public static function getInstance()
@@ -55,12 +58,24 @@ class WeChatNotifyService extends WxPayNotify
             return false;
         }
 
-        $openId = $data["openid"];
-        $outTradeNo = $data["out_trade_no"];
-        $cashFee = $data["cash_fee"];
+        if (!$this->_handleNotify($data)) {
+            return false;
+        }
 
-        Logger::getRootLogger()->info($openId . "," . $outTradeNo . "," . $cashFee);
+        return true;
+    }
 
+    //save notify message
+    private function _handleNotify($data)
+    {
+        $notify = $this->_weChatNotifyMapper->getNotify($data["out_trade_no"]);
+        if ($notify) {
+            return false;
+        }
+
+        $this->_weChatNotifyMapper->addNotify($data["openid"], $data["out_trade_no"], $data["cash_fee"], $data["time_end"]);
+
+        //TODO add score to users
         return true;
     }
 }
