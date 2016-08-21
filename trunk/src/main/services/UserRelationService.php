@@ -87,20 +87,29 @@ class UserRelationService
      */
     public function listUserScore($unionId, $lastId, $state = UserRelationMapper::NO_VALID, $pageSize = 20)
     {
-        $userList = $this->_userRelationMapper->getSalveByState($unionId, $lastId, $state, $pageSize);
-        foreach ($userList as &$user) {
-            $userOpenIdInfo = WeChatClientService::getInstance()->getUserInfoByUnionId($user["s_unionid"]);
-            $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($userOpenIdInfo["openid"]);
+        $result = array();
 
-            if (empty($userDetailInfo)) {
-                Logger::getRootLogger()->info("get user detail info failed. openid=" . $userOpenIdInfo["openid"]);
+        $userList = $this->_userRelationMapper->getSalveByState($unionId, $lastId, $state, $pageSize);
+        foreach ($userList as $user) {
+            $userOpenIdInfo = WeChatClientService::getInstance()->getUserInfoByUnionId($user["s_unionid"]);
+            if (empty($userOpenIdInfo)) {
+                //the user unsubscribe
+                continue;
+            }
+
+            $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($userOpenIdInfo["openid"]);
+            if ($userDetailInfo["subscribe"] == WeChatClientUserMapper::UNSUBSCRIBE) {
+                Logger::getRootLogger()->info("get user unscribe, database has error. openid=" . $userOpenIdInfo["openid"]);
                 continue;
             }
 
             $user['nickname'] = $userDetailInfo["nickname"];
             $user['headimgurl'] = $userDetailInfo["headimgurl"];
+
+            $result[] = $user;
         }
-        return $userList;
+
+        return $result;
     }
 
 }
