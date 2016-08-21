@@ -151,7 +151,8 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 		}
 		
 		return $layout;
-	}
+	}
+
 	/** Parses any <param> child nodes returning them in an array. */
 	private function parseParameters($paramsNode) {
 		$params = array();

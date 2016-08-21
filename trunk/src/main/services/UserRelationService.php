@@ -92,6 +92,11 @@ class UserRelationService
             $userOpenIdInfo = WeChatClientService::getInstance()->getUserInfoByUnionId($user["s_unionid"]);
             $userDetailInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($userOpenIdInfo["openid"]);
 
+            if (empty($userDetailInfo)) {
+                Logger::getRootLogger()->info("get user detail info failed. openid=" . $userOpenIdInfo["openid"]);
+                continue;
+            }
+
             $user['nickname'] = $userDetailInfo["nickname"];
             $user['headimgurl'] = $userDetailInfo["headimgurl"];
         }
