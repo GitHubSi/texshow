@@ -30,8 +30,8 @@ class RedPacketSettingController extends AbstractSecurityAction
         $percentage = empty($percentage) ? 5 : $percentage;
         $this->_smarty->assign('percentage', $percentage);
 
-        $this->_smarty->assign('tpl', 'admin/red_setting.tpl');
-        $this->_smarty->display('admin/frame.tpl');
+        $this->_smarty->assign('tpl', "admin/red_setting.tpl");
+        $this->_smarty->display('admin/b-index.tpl');
     }
 
     //start or close activity

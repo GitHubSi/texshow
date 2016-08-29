@@ -44,15 +44,18 @@ class ResponseController extends AbstractSecurityAction
 
     public function detailAction()
     {
-        $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
-        $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
-        if ($clientResponse) {
+        $type = $this->getParam("type");
+        if ($type == 'client') {
+            $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
             $this->_smarty->assign('client_response', $clientResponse);
+            $this->_smarty->assign('tpl', 'admin/auto-reply-client.tpl');
+        } else {
+            $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
             $this->_smarty->assign('magazine_response', $magazineResponse);
+            $this->_smarty->assign('tpl', 'admin/auto-reply-magazine.tpl');
         }
 
-        $this->_smarty->assign('tpl', 'admin/response.tpl');
-        $this->_smarty->display('admin/frame.tpl');
+        $this->_smarty->display('admin/b-index.tpl');
     }
 
     public function editAction()
@@ -70,4 +73,6 @@ class ResponseController extends AbstractSecurityAction
         }
         header("Location: /response/detail");
     }
+
+
 }
