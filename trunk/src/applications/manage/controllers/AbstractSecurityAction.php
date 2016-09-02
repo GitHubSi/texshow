@@ -40,4 +40,5 @@ class AbstractSecurityAction extends Action
         $this->_smarty->assign('subscribe', $todaySubscribe);
         $this->_smarty->assign('unsubscribe', $todayUnSubscribe);
     }
+
 }

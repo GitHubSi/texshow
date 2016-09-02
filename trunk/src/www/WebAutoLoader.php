@@ -26,6 +26,8 @@ class WebAutoLoader
         'HomeController' => '/src/applications/web/controllers/HomeController.php',
         'ShareItemController' => '/src/applications/web/controllers/ShareItemController.php',
 
+        'ShareInviteCodeController' => '/src/applications/web/controllers/ShareInviteCodeController.php',
+
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
         'ResponseController' => '/src/applications/manage/controllers/ResponseController.php',
@@ -51,6 +53,11 @@ class WebAutoLoader
         'PrizeService' => '/src/main/services/PrizeService.php',
         'WeChatPayService' => '/src/main/services/WeChatPayService.php',
         'WeChatNotifyService' => '/src/main/services/WeChatNotifyService.php',
+
+        'WeChatOpenService' => '/src/main/services/WeChatOpenService.php',
+        'OneShareService' => '/src/main/services/OneShareService.php',
+
+
 
         //utils
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
