@@ -26,18 +26,20 @@
 		<section class="listing">
 			<article class="clearfix">
 				<div class="text">
-					<h2><a>当前总投注数量：</a></h2>
+					<h3><a>当前总投注数量：{%$good.current_score%}/{%$good.total_score%}</a></h3>
 				</div><!--/.text-->
 			</article>
 			<article class="clearfix">
 				<div class="text">
-					<h2><a>时间：</a></h2>
+					<h3><a>时间：{%$startTime%} - {%$endTime%}</a></h3>
 				</div><!--/.text-->
 			</article>
 			<article class="clearfix">
 				<div class="text">
-					<h2><input type="text" placeholder="输入夺宝次数"/></h2>
-					<input type="button" value="立即夺宝"/>
+					<form action="/shareItem/buy" method="post" enctype="application/x-www-form-urlencoded">
+						<input type="text" name="rob_num" placeholder="输入夺宝次数"/>
+						<input type="submit" value="立即夺宝"/>
+					</form>
 				</div><!--/.text-->
 			</article>
 		</section>

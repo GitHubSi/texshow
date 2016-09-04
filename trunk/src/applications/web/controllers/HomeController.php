@@ -116,6 +116,9 @@ class HomeController extends Action
         $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);
         $userInfo = array_merge($magazineInfo, $userInfo);
 
+        //获取购买记录
+        $msgList = OneShareService::getInstance()->getCurrentBuyHistory($this->getParam("openid"));
+        $this->_smarty->assign("msgList", $msgList);
         $this->_smarty->assign("inviteCode", $magazineInfo["id"] + OneShareService::EXTRA_ADD_NUM);
         $this->_smarty->assign("userInfo", $userInfo);
         $this->_smarty->display('activity/magazine-home.tpl');

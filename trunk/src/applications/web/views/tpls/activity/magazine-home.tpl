@@ -28,17 +28,17 @@
 			<p>邀请好友关注订阅号，只要好友在订阅号中回复邀请码，就可以为自己增加1积分哦！</p>
 		</article><!--/.main-front-->
 
-		{%foreach $msgList as $msg%}
-		<article class="clearfix" style="padding: 10px">
-			<div class="text">
-				<h2><a>{%$msg.title%}</a></h2>
-				<p>{%$msg.content%}</p>
-				<a class="read-more">简讯</a>
-			</div><!--/.text-->
-		</article>
-		{%/foreach%}
-
 		<section class="listing">
+			{%foreach $msgList as $msg%}
+			<article class="clearfix" style="padding: 10px">
+				<div class="text">
+					<h2><a>购买通知</a></h2>
+					<p>您于{%$msg.create_time%}参与一元夺宝活动，购买"{%$msg.good_name%}"{%$msg.score%}份。</p>
+					<a class="read-more">简讯</a>
+				</div><!--/.text-->
+			</article>
+			{%/foreach%}
+
 			<article class="clearfix" style="padding: 10px">
 				<div class="text">
 					<h2>欢迎关注订阅号</h2>

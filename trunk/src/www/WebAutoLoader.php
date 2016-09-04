@@ -42,6 +42,8 @@ class WebAutoLoader
         'PrizeMapper' => '/src/main/mappers/PrizeMapper.php',
         'PrizeRecordMapper' => '/src/main/mappers/PrizeRecordMapper.php',
         'WeChatNotifyMapper' => '/src/main/mappers/WeChatNotifyMapper.php',
+        'OneShareMapper' => '/src/main/mappers/OneShareMapper.php',
+        'ShareItemMapper' => '/src/main/mappers/ShareItemMapper.php',
 
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',

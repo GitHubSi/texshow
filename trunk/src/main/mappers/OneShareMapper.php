@@ -8,6 +8,8 @@
  */
 class OneShareMapper
 {
+    const NO_RETURN = 1;    //是否退款
+    const IS_RETURN = 2;
     protected $_db = NULL;
 
     public function __construct()
@@ -17,37 +19,23 @@ class OneShareMapper
 
     /**
      * @param $magaOpenId   订阅号openid
-     * @param $score    购买的分数
+     * @param $score    购买的积分数
      * @param $item     购买的商品
      */
     public function addOneShare($magaOpenId, $score, $item)
     {
-        return $this->_db->getAll(
+        return $this->_db->execute(
             "INSERT INTO t_one_share (openid, score, item, create_time) VALUES(?, ?, ?, now())",
             array($magaOpenId, $score, $item)
         );
     }
 
-    public function getPrizeList()
+    public function getCurrentBuyHistory($openId, $limit = 5)
     {
         return $this->_db->getAll(
-            "SELECT id, name, num, idx, score FROM t_prize ORDER BY idx ASC "
-        );
-    }
-
-    public function getPrizeById($id)
-    {
-        return $this->_db->getRow(
-            "SELECT id, name, num, idx, score FROM t_prize WHERE id = ? ",
-            $id
-        );
-    }
-
-    public function updatePrizeNum($id)
-    {
-        return $this->_db->execute(
-            "UPDATE t_prize SET num = num - 1 WHERE id = ? ",
-            $id
+            "SELECT id, openid, score, item, is_return, create_time, update_time FROM t_one_share WHERE openid = ?
+            ORDER BY id DESC LIMIT {$limit}",
+            $openId
         );
     }
 }

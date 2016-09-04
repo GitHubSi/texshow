@@ -9,10 +9,12 @@
 class ShareItemController extends AbstractActivityAction
 {
     const BASE_URL = "http://act.wetolink.com/shareItem/iphone";
+    private $_shareItemMapper;
 
     public function __construct()
     {
         parent::__construct(self::BASE_URL);
+        $this->_shareItemMapper = new ShareItemMapper();
     }
 
     public function preDispatch()
@@ -45,7 +47,33 @@ class ShareItemController extends AbstractActivityAction
         WeChatPayService::getInstance()->getInstance()->handleNotify();
     }
 
-    public function iphoneAction(){
+    public function iphoneAction()
+    {
+        $item = 1;      //默认item=1表示iphone手机
+        $goodInfo = $this->_shareItemMapper->getScoreNum($item);
+
+        $this->_smarty->assign("good", $goodInfo);
+        $this->_smarty->assign("startTime", date("y/m/d", strtotime($goodInfo["start_time"])));
+        $this->_smarty->assign("endTime", date("y/m/d", strtotime($goodInfo["end_time"])));
         $this->_smarty->display('activity/share-iphone.tpl');
+    }
+
+    public function buyAction()
+    {
+        $item = 1;
+        $openId = $this->getParam("openid");
+        $score = $this->getParam("rob_num");
+
+        try{
+            if (!ctype_digit($score)) {
+                throw new Exception("参数错误", 20001);
+            }
+            OneShareService::getInstance()->consumerScore($openId, $score, $item);
+            header("Location: http://act.wetolink.com/home/magazine");
+            return;
+        } catch (Exception $e) {
+            Logger::getRootLogger()->info($e->getMessage());
+            header("Location: http://act.wetolink.com/shareItem/iphone");
+        }
     }
 }

@@ -88,4 +88,12 @@ class WeChatMagazineUserMapper
             array($redPacketState, $openId)
         );
     }
+
+    public function updateScore($openId, $score)
+    {
+        return $this->_db->execute(
+            "UPDATE wechat_magazine_user SET score = ? WHERE openid = ? ",
+            array($score, $openId)
+        );
+    }
 }

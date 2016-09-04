@@ -97,7 +97,7 @@ strong {
 /*=LAYOUT AND STRUCTURE
 ***********************************/
 h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-    font-family: "BebasNeueRegular", Arial, Helvetica;
+    font-family: Arial, Helvetica;
     color: #1a2024;
     text-decoration: none;
 }
@@ -129,7 +129,7 @@ header {
 #logo h1, #logo .site-name {
     font-size: 1.25em;
     color: #1A2024;
-    font-family: "BebasNeueRegular", Arial, Helvetica;
+    font-family: Arial, Helvetica;
 }
 
 #logo .site-description {
@@ -268,13 +268,7 @@ h1.section-title {
 
 /*=FORM
 ***********************************/
-form {
-    padding: 20px;
-    position: relative;
-    margin-bottom: 20px;
-}
-
-input[type=button]:hover, input[type=button]:active {
+input[type=button]:hover, input[type=button]:active,input[type=submit]:hover, input[type=submit]:active {
     background-color: #c1272d;
 }
 
@@ -296,7 +290,7 @@ input[type=text] {
     border-radius: 4px;
 }
 
-input[type=button] {
+input[type=button], input[type=submit] {
     background-color: #ea2424;
     color: #FFF;
     padding: 8px;
