@@ -30,7 +30,8 @@ class HomeController extends Action
                 $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
                 $openId = $userInfo['openid'];
             } catch (Exception $e) {
-                $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl(self::BASE_URL);
+                $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+                //$redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl(self::BASE_URL);
                 header('Location: ' . $redirectUrl);
                 exit;
             }
@@ -106,6 +107,18 @@ class HomeController extends Action
         }
         $this->_smarty->assign("prizeId", $prizeId);
         $this->_smarty->display('activity/exchange.tpl');
+    }
+
+    //订阅号个人中心
+    public function magazineAction()
+    {
+        $magazineInfo = WeChatOpenService::getInstance()->getMagazineByClient($this->getParam("openid"));
+        $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);
+        $userInfo = array_merge($magazineInfo, $userInfo);
+
+        $this->_smarty->assign("inviteCode", $magazineInfo["id"] + OneShareService::EXTRA_ADD_NUM);
+        $this->_smarty->assign("userInfo", $userInfo);
+        $this->_smarty->display('activity/magazine-home.tpl');
     }
 
     //兑换奖品

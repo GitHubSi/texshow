@@ -8,7 +8,7 @@
  */
 class ShareItemController extends AbstractActivityAction
 {
-    const BASE_URL = "http://act.wetolink.com/shareItem/index";
+    const BASE_URL = "http://act.wetolink.com/shareItem/iphone";
 
     public function __construct()
     {
@@ -40,7 +40,12 @@ class ShareItemController extends AbstractActivityAction
     //receive trade notify
     public function notifyAction()
     {
+        return true;
         Logger::getRootLogger()->info("notify");
         WeChatPayService::getInstance()->getInstance()->handleNotify();
+    }
+
+    public function iphoneAction(){
+        $this->_smarty->display('activity/share-iphone.tpl');
     }
 }
