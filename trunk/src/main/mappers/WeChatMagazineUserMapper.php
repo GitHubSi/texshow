@@ -15,6 +15,9 @@ class WeChatMagazineUserMapper
     const RED_PACKET_INIT = 0;
     const RED_PACKET_SUCC = 1;
 
+    //是否已经确认了被邀请
+    const CONFIRM_INVITE = 1;
+
     protected $_db = NULL;
 
     public function __construct()
@@ -43,30 +46,39 @@ class WeChatMagazineUserMapper
     {
         if ($includeUnSubscribe) {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time FROM wechat_magazine_user
+                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE openid = ? ",
                 $openId
             );
         } else {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time FROM wechat_magazine_user
+                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE openid = ? AND is_subscribe = ? ",
                 array($openId, self::SUBSCRIBE)
             );
         }
     }
 
+    public function getInfoById($id)
+    {
+        return $this->_db->getRow(
+            "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
+                WHERE id = ? AND is_subscribe = ? ",
+            array($id, self::SUBSCRIBE)
+        );
+    }
+
     public function getInfoByUnionId($unionId, $includeUnSubscribe = false)
     {
         if ($includeUnSubscribe) {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time FROM wechat_magazine_user
+                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE unionid = ? ",
                 $unionId
             );
         } else {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time FROM wechat_magazine_user
+                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE unionid = ? AND is_subscribe = ? ",
                 array($unionId, self::SUBSCRIBE)
             );
@@ -94,6 +106,14 @@ class WeChatMagazineUserMapper
         return $this->_db->execute(
             "UPDATE wechat_magazine_user SET score = ? WHERE openid = ? ",
             array($score, $openId)
+        );
+    }
+
+    public function updateInviteState($openId)
+    {
+        return $this->_db->execute(
+            "UPDATE wechat_magazine_user SET invite = ? WHERE openid = ? ",
+            array(self::CONFIRM_INVITE, $openId)
         );
     }
 }

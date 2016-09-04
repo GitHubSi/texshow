@@ -100,6 +100,12 @@ class WeChatMagazineController extends AbstractWeChatAction
             }
         }
 
+        //邀请码验证
+        if (OneShareService::getInstance()->addShareScore($this->_openId, $content)) {
+            $response["Content"] = "已给该邀请码的用户加积分成功，感谢您的参与！";
+            return $response;
+        }
+
         //make auto response, the format is strict
         $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
         $responseArray = json_decode($responseContent, true);
