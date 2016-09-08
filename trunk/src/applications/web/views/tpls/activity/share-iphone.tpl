@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en" dir="ltr">
 <head>
-<title>Tex一元夺宝</title>
+<title>Tex积分夺宝</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" type="text/css" href="/resource/css/share-iphone.css" /><!--SET MEDIA HANDELD HERE-->
+<link rel="stylesheet" type="text/css" href="/resource/css/share-iphone.css?a=1" /><!--SET MEDIA HANDELD HERE-->
 </head>
 <body>
 
@@ -14,9 +14,10 @@
 			<figure><a><img src="/resource/img/iphone-header.jpg" width="82" height="82" alt="News Mirror Logo" /></a></figure>
 			<div class="top-title">
 				<h1>全新iPhone 7手机</h1>
-				<div class="site-description">
-					<input type="button" value="分享"/>
-					<input type="button" value="夺宝"/>
+				<div class="site-description" style="width:200px; overflow-x: hidden">
+					<!--<input type="button" value="分享"/>
+					<input type="button" value="夺宝"/> -->
+					当前可用&nbsp;{%$userInfo.score%}&nbsp;积分<a style="text-decoration:none" href="http://act.wetolink.com/shareInviteCode/">(邀请好友关注公众号即可获取积分)</asty>。
 				</div>
 			</div><!--/.top-title-->
 		</div><!--/#logo-->

@@ -134,9 +134,9 @@ header {
 
 #logo .site-description {
     color: #1A2024;
-    font-family: "BebasNeueRegular", Arial, Helvetica;
-    font-size: 1em;
-    margin: 9px 7px;
+    font-family: Helvetica, Arial;
+    font-size: 0.75em;
+    margin-top: 5px;
 }
 
 .main-content p {
@@ -268,7 +268,7 @@ h1.section-title {
 
 /*=FORM
 ***********************************/
-input[type=button]:hover, input[type=button]:active,input[type=submit]:hover, input[type=submit]:active {
+input[type=button]:hover, input[type=button]:active, input[type=submit]:hover, input[type=submit]:active {
     background-color: #c1272d;
 }
 

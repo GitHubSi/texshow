@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" dir="ltr">
 <head>
-<title>Tex一元夺宝个人中心</title>
+<title>Tex积分夺宝个人中心</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" type="text/css" href="/resource/css/magazine-home.css" /><!--SET MEDIA HANDELD HERE-->

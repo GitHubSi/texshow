@@ -51,7 +51,11 @@ class ShareItemController extends AbstractActivityAction
     {
         $item = 1;      //默认item=1表示iphone手机
         $goodInfo = $this->_shareItemMapper->getScoreNum($item);
+        $magazineInfo = WeChatOpenService::getInstance()->getMagazineByClient($this->getParam("openid"));
+        $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);
+        $userInfo = array_merge($magazineInfo, $userInfo);
 
+        $this->_smarty->assign("userInfo", $userInfo);
         $this->_smarty->assign("good", $goodInfo);
         $this->_smarty->assign("startTime", date("y/m/d", strtotime($goodInfo["start_time"])));
         $this->_smarty->assign("endTime", date("y/m/d", strtotime($goodInfo["end_time"])));
