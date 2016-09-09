@@ -50,11 +50,26 @@ class ShareItemController extends AbstractActivityAction
     public function iphoneAction()
     {
         $item = 1;      //默认item=1表示iphone手机
-        $goodInfo = $this->_shareItemMapper->getScoreNum($item);
-        $magazineInfo = WeChatOpenService::getInstance()->getMagazineByClient($this->getParam("openid"));
-        $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);
-        $userInfo = array_merge($magazineInfo, $userInfo);
 
+        $noRegister = 0;
+        $goodInfo = $this->_shareItemMapper->getScoreNum($item);
+        try {
+            $magazineInfo = WeChatOpenService::getInstance()->getMagazineByClient($this->getParam("openid"));
+            $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);
+            $userInfo = array_merge($magazineInfo, $userInfo);
+        } catch (Exception $e) {
+            $noRegister = 1;
+        }
+
+        $jsapi = $this->setWechatShare(
+            "这里有iPhone7免费送，帮我抢你也能参与哦！",
+            "据说iPhone7的预约排到了11月，凤凰科技免费送iPhone7，来的早机会大呦！",
+            "http://act.wetolink.com/shareItem/iphone/",
+            "http://act.wetolink.com/resource/img/p-1.jpg"
+        );
+        $this->_smarty->assign("jsapi", $jsapi);
+
+        $this->_smarty->assign("noRegister", $noRegister);
         $this->_smarty->assign("userInfo", $userInfo);
         $this->_smarty->assign("good", $goodInfo);
         $this->_smarty->assign("startTime", date("y/m/d", strtotime($goodInfo["start_time"])));
@@ -68,7 +83,7 @@ class ShareItemController extends AbstractActivityAction
         $openId = $this->getParam("openid");
         $score = $this->getParam("rob_num");
 
-        try{
+        try {
             if (!ctype_digit($score)) {
                 throw new Exception("参数错误", 20001);
             }

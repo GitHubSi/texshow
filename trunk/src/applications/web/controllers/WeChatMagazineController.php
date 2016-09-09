@@ -54,6 +54,7 @@ class WeChatMagazineController extends AbstractWeChatAction
 
         if (empty($dbUserInfo)) {
             UserRelationService::getInstance()->updateScoreValid($weChatUserInfo['unionid']);
+
         }
 
         //subscribe info

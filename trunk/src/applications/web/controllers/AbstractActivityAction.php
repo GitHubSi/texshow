@@ -10,7 +10,7 @@ class AbstractActivityAction extends Action
 {
     private $_salt;
     private $_baseUrl;
-    
+
     public function __construct($baseUrl)
     {
         parent::__construct();
@@ -35,6 +35,18 @@ class AbstractActivityAction extends Action
 
         $this->_setCookie($openId);
         Request::getInstance()->setParam("openid", $openId);
+    }
+
+    public function setWechatShare($title, $desc, $link, $imgUrl)
+    {
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $jsApiInfo = WeChatMagazineService::getInstance()->getJsApiInfo($url);
+        $jsApiInfo['sharetext'] = $title;
+        $jsApiInfo['shareurl'] = $link;
+        $jsApiInfo["shareimg"] = $imgUrl;
+        $jsApiInfo['sharedesc'] = $desc;
+//        Logger::getRootLogger()->info(json_encode($jsApiInfo));
+        return json_encode($jsApiInfo);
     }
 
     //TODO 不知道为啥不能设置过期时间

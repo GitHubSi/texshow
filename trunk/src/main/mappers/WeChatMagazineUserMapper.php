@@ -28,9 +28,9 @@ class WeChatMagazineUserMapper
     public function addSubscribe($openId, $unionId = '')
     {
         return $this->_db->execute(
-            "INSERT INTO wechat_magazine_user (openid, unionid, is_subscribe, create_time) VALUES (?, ?, ?, now())
+            "INSERT INTO wechat_magazine_user (openid, unionid, is_subscribe, score, create_time) VALUES (?, ?, ?, ?, now())
             ON DUPLICATE KEY UPDATE is_subscribe = ? ",
-            array($openId, $unionId, self::SUBSCRIBE, self::SUBSCRIBE)
+            array($openId, $unionId, self::SUBSCRIBE, 1, self::SUBSCRIBE)
         );
     }
 

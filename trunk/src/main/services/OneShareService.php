@@ -95,7 +95,6 @@ class OneShareService
 
     public function addShareScore($openId, $input)
     {
-        $openId = "owfVItxlcSHCoAJrPN1Tg4mhzkh0";
         if ($input < 100000 || $input > 999999) {
             return false;
         }

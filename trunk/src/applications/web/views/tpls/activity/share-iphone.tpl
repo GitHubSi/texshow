@@ -4,7 +4,7 @@
 <title>Tex积分夺宝</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" type="text/css" href="/resource/css/share-iphone.css?a=1" /><!--SET MEDIA HANDELD HERE-->
+<link rel="stylesheet" type="text/css" href="/resource/css/share-iphone.css?a=129" /><!--SET MEDIA HANDELD HERE-->
 </head>
 <body>
 
@@ -17,7 +17,11 @@
 				<div class="site-description" style="width:200px; overflow-x: hidden">
 					<!--<input type="button" value="分享"/>
 					<input type="button" value="夺宝"/> -->
+					{%if $noRegister eq 0%}
 					当前可用&nbsp;{%$userInfo.score%}&nbsp;积分<a style="text-decoration:none" href="http://act.wetolink.com/shareInviteCode/">(邀请好友关注公众号即可获取积分)</asty>。
+					{%elseif $noRegister eq 1%}
+					尚未关注订阅号，关注订阅号即可参与活动哦！还可以邀请好友获得更多机会。
+					{%/if%}
 				</div>
 			</div><!--/.top-title-->
 		</div><!--/#logo-->
@@ -45,23 +49,44 @@
 			</article>
 		</section>
 		<section class="listing">
-			<div class="detail" style='background-image: url("/resource/img/detail-1.jpg");'></div>
-			<div class="detail-title">iPhone7拥有全新的外观设计</div>
-		</section>
-		<section class="listing">
-			<div class="detail" style='background-image: url("/resource/img/detail-2.jpg");'></div>
-			<div class="detail-title">iPhone7运行全新的iOS10操作系统</div>
-		</section>
-		<section class="listing">
-			<div class="detail" style='background-image: url("/resource/img/detail-3.jpg");'></div>
-			<div class="detail-title">iPhone7采用双摄像头配置</div>
-		</section>
-		<section class="listing">
-			<div class="detail" style='background-image: url("/resource/img/detail-4.jpg");'></div>
-			<div class="detail-title">增添蓝色iPhone7 黑白灰金不再单调</div>
+			<div class="detail" style='background-image: url("/resource/img/back.jpg");'></div>
 		</section>
 	</section><!--/.main-content-->
 	
 </div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/resource/scripts/jquery-1.3.2.min.js"></script>
+<textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
+<script type="application/javascript">
+	var shareData = $("#wechat_share").val();
+	var wechatInfo = JSON.parse(shareData);
+	var obj = {
+		// debug: true,
+		appId: wechatInfo.appId,
+		timestamp: wechatInfo.timestamp,
+		nonceStr: wechatInfo.noncestr,
+		signature: wechatInfo.signature,
+		jsApiList: ['hideMenuItems', 'onMenuShareTimeline', 'onMenuShareAppMessage']
+	};
+
+	wx.config(obj);
+	wx.ready(function () {
+		if (wechatInfo.sharetext) {
+			var shareObj = {
+				title: wechatInfo.sharetext,
+				link: wechatInfo.shareurl,
+				imgUrl: wechatInfo.shareimg,
+				desc: wechatInfo.sharedesc
+			};
+			wx.onMenuShareAppMessage(shareObj);
+			wx.onMenuShareTimeline(shareObj);
+		}
+		wx.hideMenuItems({
+			menuList: [
+				"menuItem:readMode",
+			]
+		});
+	});
+</script>
 </body>
 </html>
