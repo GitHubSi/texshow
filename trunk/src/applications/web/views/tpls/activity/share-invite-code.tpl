@@ -3,12 +3,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>Tex积分夺宝邀请码</title>
-    <link rel="stylesheet" href="/resource/css/share-invite-code.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/resource/css/share-invite-code.css?t=9" type="text/css" media="screen"/>
 </head>
 <body>
 <div class="wrap-info">
-    <div style="text-align: center; font-size: 2em"><b>邀请码：<span class="wrap-text">{%$inviteCode%}</b></span></div>
-    <div><img src="/resource/img/maga.jpg" style="width: 120px; height: 120px; margin-left: 30%; margin-top: 20px">
+    <div style="text-align: center; margin-top: 130px; font-size: 1.5em">邀请码：<span class="wrap-text">{%$inviteCode%}</span></div>
+    <div><img src="/resource/img/maga.jpg" style="width: 120px; height: 120px; margin-left: 30%; margin-top: 150px">
     </div>
 </div>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

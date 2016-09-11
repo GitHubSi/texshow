@@ -20,20 +20,21 @@ class AbstractActivityAction extends Action
 
     public function preDispatch()
     {
-        $openId = $this->_simpleCheckCookieValid();
-        if (!$openId) {
-            $code = $this->getParam("code");
-            try {
-                $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
-                $openId = $userInfo['openid'];
-            } catch (Exception $e) {
-                $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl($this->_baseUrl);
-                header('Location: ' . $redirectUrl);
-                exit;
+        if (preg_match("/micromessenger/i", $_SERVER['HTTP_USER_AGENT'])) {
+            $openId = $this->_simpleCheckCookieValid();
+            if (!$openId) {
+                $code = $this->getParam("code");
+                try {
+                    $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
+                    $openId = $userInfo['openid'];
+                } catch (Exception $e) {
+                    $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl($this->_baseUrl);
+                    header('Location: ' . $redirectUrl);
+                    exit;
+                }
             }
+            $this->_setCookie($openId);
         }
-
-        $this->_setCookie($openId);
         Request::getInstance()->setParam("openid", $openId);
     }
 
