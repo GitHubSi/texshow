@@ -20,6 +20,8 @@ class AbstractActivityAction extends Action
 
     public function preDispatch()
     {
+        //获取访问用户的openid
+        $openId = "";
         if (preg_match("/micromessenger/i", $_SERVER['HTTP_USER_AGENT'])) {
             $openId = $this->_simpleCheckCookieValid();
             if (!$openId) {
@@ -28,8 +30,8 @@ class AbstractActivityAction extends Action
                     $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
                     $openId = $userInfo['openid'];
                 } catch (Exception $e) {
-                    $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl($this->_baseUrl);
-                    header('Location: ' . $redirectUrl);
+                    $localUrl = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                    header('Location: ' . WeChatClientService::getInstance()->getUserOpenidUrl($localUrl));
                     exit;
                 }
             }
@@ -46,7 +48,7 @@ class AbstractActivityAction extends Action
         $jsApiInfo['shareurl'] = $link;
         $jsApiInfo["shareimg"] = $imgUrl;
         $jsApiInfo['sharedesc'] = $desc;
-//        Logger::getRootLogger()->info(json_encode($jsApiInfo));
+
         return json_encode($jsApiInfo);
     }
 
@@ -66,8 +68,7 @@ class AbstractActivityAction extends Action
             return false;
         }
 
-        $weChatSalt = ConfigLoader::getConfig("SALT");
-        if (md5($openId . $weChatSalt) == $encodeUserId) {
+        if (md5($openId . $this->_salt) == $encodeUserId) {
             return $openId;
         }
         return false;
