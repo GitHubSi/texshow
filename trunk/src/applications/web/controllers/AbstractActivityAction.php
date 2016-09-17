@@ -9,13 +9,11 @@
 class AbstractActivityAction extends Action
 {
     private $_salt;
-    private $_baseUrl;
 
-    public function __construct($baseUrl)
+    public function __construct()
     {
         parent::__construct();
         $this->_salt = ConfigLoader::getConfig("SALT");
-        $this->_baseUrl = $baseUrl;
     }
 
     public function preDispatch()

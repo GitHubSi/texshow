@@ -8,11 +8,10 @@
  */
 class ShareInviteCodeController extends AbstractActivityAction
 {
-    const BASE_URL = "http://act.wetolink.com/shareInviteCode/index";
 
     public function __construct()
     {
-        parent::__construct(self::BASE_URL);
+        parent::__construct();
     }
 
     public function indexAction()

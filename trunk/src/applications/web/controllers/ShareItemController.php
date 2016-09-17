@@ -8,12 +8,11 @@
  */
 class ShareItemController extends AbstractActivityAction
 {
-    const BASE_URL = "http://act.wetolink.com/shareItem/iphone";
     private $_shareItemMapper;
 
     public function __construct()
     {
-        parent::__construct(self::BASE_URL);
+        parent::__construct();
         $this->_shareItemMapper = new ShareItemMapper();
     }
 
@@ -89,7 +88,6 @@ class ShareItemController extends AbstractActivityAction
             }
             OneShareService::getInstance()->consumerScore($openId, $score, $item);
             header("Location: http://act.wetolink.com/home/magazine");
-            return;
         } catch (Exception $e) {
             Logger::getRootLogger()->info($e->getMessage());
             header("Location: http://act.wetolink.com/shareItem/iphone");
