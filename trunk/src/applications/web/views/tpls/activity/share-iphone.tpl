@@ -73,37 +73,7 @@
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
-<script type="application/javascript">
-    var shareData = $("#wechat_share").val();
-    var wechatInfo = JSON.parse(shareData);
-    var obj = {
-        // debug: true,
-        appId: wechatInfo.appId,
-        timestamp: wechatInfo.timestamp,
-        nonceStr: wechatInfo.noncestr,
-        signature: wechatInfo.signature,
-        jsApiList: ['hideMenuItems', 'onMenuShareTimeline', 'onMenuShareAppMessage']
-    };
-
-    wx.config(obj);
-    wx.ready(function () {
-        if (wechatInfo.sharetext) {
-            var shareObj = {
-                title: wechatInfo.sharetext,
-                link: wechatInfo.shareurl,
-                imgUrl: wechatInfo.shareimg,
-                desc: wechatInfo.sharedesc
-            };
-            wx.onMenuShareAppMessage(shareObj);
-            wx.onMenuShareTimeline(shareObj);
-        }
-        wx.hideMenuItems({
-            menuList: [
-                "menuItem:readMode",
-            ]
-        });
-    });
-</script>
+<script src="/resource/scripts/wechat.js"></script>
 
 <div id="dialog" title="提醒">
     <p id="dialog-content">您当前积分为0，邀请好友关注订阅号，即可获得更多积分哦！</p>
