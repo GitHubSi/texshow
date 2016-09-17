@@ -6,39 +6,16 @@
  * Date: 2016/7/3
  * Time: 15:41
  */
-class HomeController extends Action
+class HomeController extends AbstractActivityAction
 {
-    const BASE_URL = "http://act.wetolink.com/home/index";
     const PAGE_SIZE = 20;
-    private $_salt;
     private $_prizeMapper;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_salt = ConfigLoader::getConfig("SALT");
         $this->_prizeMapper = new PrizeMapper();
-    }
-
-    public function preDispatch()
-    {
-        $openId = $this->_simpleCheckCookieValid();
-        if (!$openId) {
-            $code = $this->getParam("code");
-            try {
-                $userInfo = WeChatClientService::getInstance()->getOAuthAccessToken($code);
-                $openId = $userInfo['openid'];
-            } catch (Exception $e) {
-                $redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-                //$redirectUrl = WeChatClientService::getInstance()->getUserOpenidUrl(self::BASE_URL);
-                header('Location: ' . $redirectUrl);
-                exit;
-            }
-        }
-
-        $this->_setCookie($openId);
-        Request::getInstance()->setParam("openid", $openId);
     }
 
     public function indexAction()
@@ -180,27 +157,5 @@ class HomeController extends Action
         }
 
         echo json_encode($result);
-    }
-
-    private function _simpleCheckCookieValid()
-    {
-        $encodeUserId = $this->getParam("wx");
-        $openId = $this->getParam("openid");
-
-        if (empty($encodeUserId) || empty($openId)) {
-            return false;
-        }
-
-        $weChatSalt = ConfigLoader::getConfig("SALT");
-        if (md5($openId . $weChatSalt) == $encodeUserId) {
-            return $openId;
-        }
-        return false;
-    }
-
-    private function _setCookie($openId)
-    {
-        setcookie('wx', md5($openId . $this->_salt));
-        setcookie("openid", $openId);
     }
 }
