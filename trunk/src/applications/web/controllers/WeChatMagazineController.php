@@ -54,11 +54,10 @@ class WeChatMagazineController extends AbstractWeChatAction
 
         if (empty($dbUserInfo)) {
             UserRelationService::getInstance()->updateScoreValid($weChatUserInfo['unionid']);
-
         }
 
         //subscribe info
-        $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
+        /*$responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
         $responseArray = json_decode($responseContent, true);
         if (is_array($responseArray)) {
             if (isset($responseArray['subscribe'])) {
@@ -73,7 +72,12 @@ class WeChatMagazineController extends AbstractWeChatAction
                 }
                 return $response;
             }
-        }
+        }*/
+
+        //临时回复图片
+        $response["MsgType"] = "image";
+        $response["Image"]["MediaId"] = "yqVOpbOWRHoSkZH8EYka0q0CgAdI1nI2M3EOg1N5qIA";
+        return $response;
     }
 
     protected function unsubscribeHandler()
@@ -103,6 +107,7 @@ class WeChatMagazineController extends AbstractWeChatAction
 
         //邀请码验证
         if (OneShareService::getInstance()->addShareScore($this->_openId, $content)) {
+            Logger::getRootLogger()->info($this->_openId . "被邀请了");
             $response["Content"] = "已给该邀请码的用户加积分成功，感谢您的参与！";
             return $response;
         }
