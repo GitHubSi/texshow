@@ -9,6 +9,8 @@
 class WeChatMagazineController extends AbstractWeChatAction
 {
 
+    const URL = "http://h5.8pig.com/subject/couponQRCode.html?";
+
     public function __construct()
     {
         parent::__construct();
@@ -74,9 +76,16 @@ class WeChatMagazineController extends AbstractWeChatAction
             }
         }*/
 
-        //临时回复图片
-        $response["MsgType"] = "image";
-        $response["Image"]["MediaId"] = "yqVOpbOWRHoSkZH8EYka0q0CgAdI1nI2M3EOg1N5qIA";
+        $response["MsgType"] = "news";
+        $response['ArticleCount'] = 1;
+        $response['Articles'] = array(
+            array(
+                'Title' => '凤凰科技×8只小猪 红包领取入口',
+                'Description' => '100%中奖红包就在这里，快来拿吧~',
+                'PicUrl' => 'http://pic.8pig.com/img/activity/common/data/ifeng/banner81998240545623880.jpg',
+                'Url' => $this->_makeRedirectUrl()
+            )
+        );
         return $response;
     }
 
@@ -152,4 +161,21 @@ class WeChatMagazineController extends AbstractWeChatAction
         }
     }
 
+    private function _makeRedirectUrl($appId = '8011002', $secret = 'ac93de01ece8c5d48967f73d77cf6846')
+    {
+        $microTimestamp = intval(microtime(true) * 1000);
+        $state = mt_rand(1, 10000);
+
+        $encodeParams = array(
+            "appid" => $appId,
+            "timestamp" => $microTimestamp,
+            "state" => $state
+        );
+        ksort($encodeParams);
+        $stringA = urldecode(http_build_query($encodeParams));
+        $stringB = $stringA . "&key={$secret}";
+        $sign = md5($stringB);
+
+        return self::URL . $stringA . "&sign={$sign}";
+    }
 }
