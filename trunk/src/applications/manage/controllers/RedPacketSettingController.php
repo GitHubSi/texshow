@@ -29,7 +29,7 @@ class RedPacketSettingController extends AbstractSecurityAction
         $percentage = $redis->get(self::RED_PACKET_PERCENTAGE);
         $percentage = empty($percentage) ? 5 : $percentage;
         $this->_smarty->assign('percentage', $percentage);
-
+        $this->_smarty->assign('action', 'redset');
         $this->_smarty->assign('tpl', "admin/red_setting.tpl");
         $this->_smarty->display('admin/b-index.tpl');
     }

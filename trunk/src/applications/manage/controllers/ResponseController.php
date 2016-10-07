@@ -48,10 +48,12 @@ class ResponseController extends AbstractSecurityAction
         if ($type == 'client') {
             $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
             $this->_smarty->assign('client_response', $clientResponse);
+            $this->_smarty->assign('action', "client");
             $this->_smarty->assign('tpl', 'admin/auto-reply-client.tpl');
         } else {
             $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
             $this->_smarty->assign('magazine_response', $magazineResponse);
+            $this->_smarty->assign('action', "magazine");
             $this->_smarty->assign('tpl', 'admin/auto-reply-magazine.tpl');
         }
 

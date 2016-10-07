@@ -39,31 +39,29 @@
             <!-- Logo (221px wide) -->
             <a href="#"><img id="logo" src="/resource/images/logo.png" alt="Simpla Admin logo"/></a>
             <!-- Sidebar Profile links -->
-            <div id="profile-links"> Hello, <a href="#" title="Edit your profile">865171</a>, you have <a
-                        href="#messages" rel="modal" title="3 Messages">3 Messages</a><br/>
-                <br/>
-                <a href="#" title="View the Site">View the Site</a> | <a href="#" title="Sign Out">Sign Out</a></div>
+            <div id="profile-links"><a href="#" title="Sign Out">退出</a></div>
             <ul id="main-nav">
                 <!-- Accordion Menu -->
                 <li><a href="#/" class="nav-top-item no-submenu">
                         <!-- Add the class "no-submenu" to menu items with no sub menu -->
                         Dashboard </a></li>
-                <li><a href="#" class="nav-top-item current">
+                <li><a href="#" class="nav-top-item">
                         <!-- Add the class "current" to current menu item -->
                         基本功能 </a>
                     <ul>
-                        <li><a href="/response/detail?type=magazine" class="current">订阅号回复</a></li>
-                        <li><a href="/response/detail?type=client">服务号回复</a></li>
+                        <li><a href="/response/detail?type=magazine" {%if $action eq "magazine"%}class="current"{%/if%}>订阅号回复</a></li>
+                        <li><a href="/response/detail?type=client" {%if $action eq "client"%}class="current"{%/if%}>服务号回复</a></li>
                         <!-- Add class "current" to sub menu items also -->
-                        <li><a href="/redPacketSetting/index">红包配置</a></li>
+                        <li><a href="/redPacketSetting/index" {%if $action eq "redset"%}class="current"{%/if%}>红包配置</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="nav-top-item"> Pages </a>
+                <li><a href="#" class="nav-top-item">一元夺宝</a>
                     <ul>
-                        <li><a href="#">Create a new Page</a></li>
-                        <li><a href="#">Manage Pages</a></li>
+                        <li><a href="#">活动抽奖</a></li>
+                        <li><a href="#">配置夺宝</a></li>
                     </ul>
                 </li>
+
                 <li><a href="#" class="nav-top-item"> Image Gallery </a>
                     <ul>
                         <li><a href="#">Upload Images</a></li>
