@@ -17,28 +17,20 @@ class AbstractSecurityAction extends Action
             }
         }
 
-        //other action need to grant authorization
         $userConfig = ConfigLoader::getConfig('USER');
         $username = $this->getParam('username');
-        $responseKey = $this->getParam('response_key');
+        $verifyKey = $this->getParam('verify_key');
 
-        if (empty($username) || empty($responseKey)) {
+        if (empty($username) || empty($verifyKey)) {
             header("Location: /response/index");
             exit;
         }
 
         $calculateValue = md5($username . $userConfig['cookie'] . date('Y-m-d'));
-        if ($responseKey != $calculateValue) {
+        if ($verifyKey != $calculateValue) {
             header("Location: /response/index");
             exit;
         }
-
-        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
-        $todaySubscribe = $redis->get(AbstractWeChatAction::PREFIX_TODAY_SUBSCRIBE . date('Y_m_d'));
-        $todayUnSubscribe = $redis->get(AbstractWeChatAction::PREFIX_TODAY_UN_SUBSCRIBE . date('Y_m_d'));
-
-        $this->_smarty->assign('subscribe', $todaySubscribe);
-        $this->_smarty->assign('unsubscribe', $todayUnSubscribe);
     }
 
 }
