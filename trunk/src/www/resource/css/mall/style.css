@@ -1,0 +1,140 @@
+body, ul, ol {
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.main {
+    margin: 0 auto;
+    max-width: 540px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: inline;
+    background-color: white;
+}
+
+#navigation {
+    height: 58px;
+}
+
+#navigation ul li {
+    float: left;
+    width: 33.3%;
+}
+
+#navigation #list-name a {
+    display: block;
+    width: 100%;
+    height: 58px;
+    text-align: center;
+    line-height: 58px;
+    text-decoration: none;
+    color: #1A1A1A;
+    font-size: large;
+}
+
+#navigation #bottom-color li {
+    display: block;
+    width: 33.3%;
+    height: 2px;
+}
+
+.list-bottom-color {
+    background-image: url("/resource/img/home/border-buttom-red.jpg");
+    background-repeat: no-repeat;
+}
+
+
+#head-img {
+    position: relative;
+    height: 264px;
+    overflow: hidden;
+}
+
+/*head image*/
+#head-img-url {
+    height: 264px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: border-box;
+    z-index: 1;
+}
+
+#head-img ul li {
+    float: left;
+}
+
+.head-img-ul a {
+    width: 100%;
+    height: 264px;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+}
+
+#head-img-btn {
+    width: 100px;
+    margin: 0px auto;
+    top: 200px;
+    position: relative;
+    z-index: 2;
+}
+
+#head-img-btn ol li {
+    float: left;
+    padding: 0px 3px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+
+#buy-box {
+    position: fixed;
+    bottom: 0px;
+    width: 300px;
+    height: 200px;
+    display: none;
+}
+
+#buy-box .btn {
+    float: left;
+    padding: 2px;
+}
+
+.shop-row-item {
+    width: 300px;
+    height: 300px;
+}
+
+.item {
+    float: left;
+    width: 150;
+}
+
+.item-process {
+
+}
+
+.item-share {
+
+}
+
+.item-buy {
+
+}
