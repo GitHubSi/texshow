@@ -49,7 +49,7 @@ $("document").ready(function () {
     });
 
     $("#head-img-btn").find("li").each(function (index, elem) {
-        $(this).click(function () {                                     //单击事件
+        $(this).mouseover(function () {                                     //单击事件
             showAd(index);
         });
 
