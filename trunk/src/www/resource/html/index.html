@@ -3,12 +3,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <link href="css/database.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <link href="css/my.css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/swiper.min.js"></script>
-    <title>游戏列表</title>
+    <link href="../css/database.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link href="../css/my.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/swiper.min.js"></script>
+    <title>首页</title>
     <script>
         (function (doc, win) {
             // 分辨率Resolution适配
@@ -31,6 +31,13 @@
     </script>
 </head>
 <body>
+<header>
+    <ul class="clearfix">
+        <li><a class="active" href="">首页</a></li>
+        <li><a href="">最新揭晓</a></li>
+        <li><a href="">个人中心</a></li>
+    </ul>
+</header>
 <div class="swiper-container swiper-container-horizontal">
     <div class="swiper-wrapper"
          style="transform: translate3d(-2250px, 0px, 0px); -webkit-transform: translate3d(-2250px, 0px, 0px); transition-duration: 0ms; -webkit-transition-duration: 0ms;">
@@ -57,9 +64,38 @@
     </div>
     <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
 </div>
-
 <div class="system" id="J_test_list">
-    <ul></ul>
+    <div class="title">热门商品</div>
+    <ul class="clearfix">
+        <li>
+            <img src="../img/dbzhijun/iphone.png" alt=""/>
+            <p class="shop-des">小米5s手机</p>
+            <div class="info clearfix">
+                <div class="progress">
+                    <p>进度 <span>66%</span></p>
+                    <div class="progress-bar">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="enjoy">分享</div>
+                <div class="duobao">夺宝</div>
+            </div>
+        </li>
+        <li>
+            <img src="../img/dbzhijun/iphone.png" alt=""/>
+            <p class="shop-des">小米5s手机</p>
+            <div class="info clearfix">
+                <div class="progress">
+                    <p>进度 <span>66%</span></p>
+                    <div class="progress-bar">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="enjoy">分享</div>
+                <div class="duobao">夺宝</div>
+            </div>
+        </li>
+    </ul>
 </div>
 
 <!--loading框开始-->
@@ -71,8 +107,8 @@
     </div>
     <p class="txt">数据加载中</p>
 </div>
-<div id="J_load_more" class="loading" style="display:none;">
-    <p class="txt">没有更多数据了...</p>
+<div id="J_load_more" class="loading">
+    <p class="txt">没有更多数据了~</p>
 </div>
 <!--loading框结束-->
 <div id="J_footer" class="footer">
@@ -86,29 +122,7 @@
         spaceBetween: 30,
         autoplay:5000
     });
-    var $coverAd=$('.system_her');
-    $coverAd.click(function () {
-        $.ajax({
-            type: "GET",
-            url:"http://gxjifen.dftoutiao.com/Index/adv_clicknum/s_id/0",
-            dataType: "jsonp",
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback:"flightHandler_adv_clicknum",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
-            success: function(json){},
-            error: function(){
-                alert("fail,请刷新页面重新测试");
-            }
-        });
-    });
-    //第四条插入广告
-    /* var iframe=$('<iframe>');
-     //var width=$('window').width();
-     iframe.width('100%');
-     iframe.attr({src:'/public/gg_baidu.html?ggid=u2693933'});
-     iframe.attr({scrolling:'no'});*/
-    $('.system ul li').eq(3).after($('<li style="height:auto;padding:0.2rem 0.3rem;"><iframe src="/public/gg_baidu.html?ggid=u2693933" width="100%" height="120" frameborder="0" scrolling="no"></iframe></li>'));
-    $('.system ul li').eq(9).after('<li style="height:auto;padding:0.2rem 0.3rem;"><iframe src="/public/gg_baidu.html?ggid=u2693933" width="100%" height="120" frameborder="0" scrolling="no"></iframe></li>');
-    $('.system ul li').eq(14).after('<li style="height:auto;padding:0.2rem 0.3rem;"><iframe src="/public/gg_baidu.html?ggid=u2693933" width="100%" height="120" frameborder="0" scrolling="no"></iframe></li>');
+
     //判断设备为手机端还是PC
     /*function browserRedirect() {
      var sUserAgent = navigator.userAgent.toLowerCase();
@@ -130,44 +144,6 @@
      //PC端
      }
      browserRedirect();*/
-    /*多少人测试过初始化的十条*/
-    testPeople(0,10);
-    /**
-     * 记录测试的次数  循环10次  n为循环起始  m为循环末尾
-     * @return {[type]}     [description]
-     */
-    function testPeople(n,m){
-        $JceguoNum=$('.J-ceguo-num');
-        var $testList=$('#J_test_list');
-        var dataIdArr=[];
-        for(var i=n;i<m;i++){
-            dataIdArr.push($testList.find('.item').eq(i).attr('data-id'));
-        }
-        dataIdArr.toString();
-        $.ajax({
-            type: "GET",
-            url:"http://gxjifen.dftoutiao.com/Index/start_ceshinum/s_id/"+dataIdArr,
-            dataType: "jsonp",
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback:"flightHandler_start_ceshinum",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
-            success: function(json){
-                var b=0;
-                for(var i=n;i<m;i++){
-                    if(!json[b]){
-                        $JceguoNum.eq(i).text(1);
-                    }else{
-                        $JceguoNum.eq(i).text(json[b]);
-                    }
-                    b++;
-                }
-            },
-            error: function(){
-                alert("fail,请刷新页面重新测试");
-            }
-        });
-    }
-
-
     /**
      * 上拉加载数据
      * @return {[type]}     [description]
@@ -179,10 +155,10 @@
     function pullUpLoadData(){
         $.ajax({
             type: "GET",
-            url:"http://gxjifen.dftoutiao.com/Index/survey_data/num/"+n,
+            url:"",//每次加载n+1
             dataType: "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback:"flightHandler_survey_data",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+            jsonpCallback:"",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
             beforeSend: function(){
                 $loading.show();
             },
@@ -194,7 +170,6 @@
                     return false;
                 }else{
                     generateDom(data);
-                    testPeople((10*n-10),10*n);
                 }
 
             },
@@ -207,28 +182,25 @@
         });
     }
     function generateDom(data){
+        var $testList=$('#J_test_list');
         $.each(data,function (i, n) {
-            if(i==6){
-                if(n.status==1){
-//                    var script=document.createElement("script");
-//                    script.src="http://cpro.baidustatic.com/cpro/ui/cm.js";
-//                    script.type="text/javascript";
-                    $('.system ul').append('<li class="item clearfix"  data-id="'+n.id+'"><a href="'+n.file_path+'"><div class="system_img"><img src="'+n.min_images+'" class="system_img-img"></div><div class="system_fots "><div class="system_wenzi">'+n.title+'</div><div class="system_hot"><div class="system_hot-img">热</div><div class="system_hot-fonts"><span><i class="J-ceguo-num"></i>测过</span></div></div></div><div class="erweima"><img src="'+n.code_images+'" alt=""></div></a></li><li style="height:auto;padding:0.2rem 0.3rem;"><iframe src="/public/gg_baidu.html?ggid=u2693933" width="100%" height="120" frameborder="0" scrolling="no"></iframe></li>');
-                }else{
-//                    var script=document.createElement("script");
-//                    script.src="http://cpro.baidustatic.com/cpro/ui/cm.js";
-//                    script.type="text/javascript";
-                    $('.system ul').append('<li class="item clearfix items"  data-id="'+n.id+'"><a href="'+n.file_path+'" class="system_her"><h3>'+n.title+' </h3><div class="system_img"><img src="'+n.min_images+'" class="system_img-img"></div> <div class="system_img"><img src="'+n.min_images1+'" class="system_img-img"></div><div class="system_img"><img src="'+n.min_images2+'" class="system_img-img"></div> <div class="system_fots "> <div class="system_hot"><div class="system_hot-img">热</div><div class="system_hot-fonts"><span><i class="J-ceguo-num"></i>测过</span></div></div></div></a></li><li style="height:auto;padding:0.2rem 0.3rem;"><iframe src="/public/gg_baidu.html?ggid=u2693933" width="100%" height="120" frameborder="0" scrolling="no"></iframe></li>');
-                }
-            }else{
-                if(n.status==1){
-                    $('.system ul').append('<li class="item clearfix"  data-id="'+n.id+'"><a href="'+n.file_path+'"><div class="system_img"><img src="'+n.min_images+'" class="system_img-img"></div><div class="system_fots "><div class="system_wenzi">'+n.title+'</div><div class="system_hot"><div class="system_hot-img">热</div><div class="system_hot-fonts"><span><i class="J-ceguo-num"></i>测过</span></div></div></div><div class="erweima"><img src="'+n.code_images+'" alt=""></div></a></li>');
-                }else{
-                    $('.system ul').append('<li class="item clearfix items"  data-id="'+n.id+'"><a href="'+n.file_path+'" class="system_her"><h3>'+n.title+' </h3><div class="system_img"><img src="'+n.min_images+'" class="system_img-img"></div> <div class="system_img"><img src="'+n.min_images1+'" class="system_img-img"></div><div class="system_img"><img src="'+n.min_images2+'" class="system_img-img"></div> <div class="system_fots "> <div class="system_hot"><div class="system_hot-img">热</div><div class="system_hot-fonts"><span><i class="J-ceguo-num"></i>测过</span></div></div></div></a> </li>');
-                }
-            }
+            var html='';
+            html+='<li>';
+            html+='<img src="../img/dbzhijun/iphone.png" alt=""/>';
+            html+='<p class="shop-des">'+n.des+'</p>';
+            html+='<div class="info clearfix">';
+            html+='<div class="progress">';
+            html+='<p>进度 <span>66%</span></p>';
+            html+='<div class="progress-bar">';
+            html+='<div class="bar"></div>';
+            html+='</div>';
+            html+='</div>';
+            html+='<div class="enjoy">分享</div>';
+            html+='<div class="duobao">夺宝</div>';
+            html+='</div>';
+            html+='</li>';
         });
-        /*browserRedirect();*/
+        $testList.children('ul').append(html);
     }
 
     $(window).on('scroll', function() {
