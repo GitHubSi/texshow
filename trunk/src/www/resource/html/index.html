@@ -183,8 +183,8 @@
     }
     function generateDom(data){
         var $testList=$('#J_test_list');
+        var html='';
         $.each(data,function (i, n) {
-            var html='';
             html+='<li>';
             html+='<img src="../img/dbzhijun/iphone.png" alt=""/>';
             html+='<p class="shop-des">'+n.des+'</p>';
