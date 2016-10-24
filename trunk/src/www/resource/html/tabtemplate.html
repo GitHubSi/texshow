@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <link href="../css/database.css" rel="stylesheet">
+    <style>
+        .tab-h{
+            width:400px;height:40px;line-height: 40px;border:1px solid #ccc;border-right: 0;
+        }
+        .tab-h ul li{
+            float: left;width:25%;text-align: center;border-right:1px solid #ccc;
+        }
+        .tab-h li.active{
+            background: red;color:#fff;
+        }
+        .tab-b{
+            width:800px;height:500px;text-align: center;font-size: 40px;
+        }
+        .tab-b li{
+            width:800px;display: none;height:500px;
+        }
+        .tab-b li:first-child{
+            display: block;background: #003eff;
+        }
+        .tab-b li:nth-child(2){
+            background: #19ff4f;
+        }
+        .tab-b li:nth-child(3){
+            background: #ff1721;
+        }
+        .tab-b li:nth-child(4){
+            background: #fff90d;
+        }
+    </style>
+</head>
+<body>
+<div class="tab-h" id="tabH">
+    <ul>
+        <li class="active">第一项</li>
+        <li>第二项</li>
+        <li>第三项</li>
+        <li>第四项</li>
+    </ul>
+</div>
+<div class="tab-b" id="tabB">
+    <ul>
+        <li>内容1</li>
+        <li>内容2</li>
+        <li>内容3</li>
+        <li>内容4</li>
+    </ul>
+</div>
+</body>
+<script>
+var $tabH=$('#tabH');
+var $tabB=$('#tabB');
+var $tabHLi=$tabH.find('li');
+var $tabBLi=$tabB.find('li');
+$tabHLi.click(function () {
+    var index=$(this).index();
+    $tabHLi.removeClass('active');
+    $tabBLi.hide();
+    $tabHLi.eq(index).addClass('active');
+    $tabBLi.eq(index).show();
+})
+</script>
+</html>
