@@ -5,15 +5,16 @@
     <title>管理后台</title>
     <!--                       CSS                       -->
     <!-- Reset Stylesheet -->
-    <link rel="stylesheet" href="/resource/css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/resource/css/admin/reset.css" type="text/css" media="screen"/>
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="/resource/css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/resource/css/admin/style.css" type="text/css" media="screen"/>
     <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
-    <link rel="stylesheet" href="/resource/css/invalid.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/resource/css/admin/invalid.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/resource/css/admin/frame.css" type="text/css">
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script' type='text/css'/>
     <link rel="stylesheet" href="/resource/jsoneditor/dist/jsoneditor.css" type="text/css">
-    <link rel="stylesheet" href="/resource/css/frame.css" type="text/css">
+
     <!--                       Javascripts                       -->
     <!-- jQuery -->
     <script type="text/javascript" src="/resource/scripts/jquery-1.3.2.min.js"></script>
