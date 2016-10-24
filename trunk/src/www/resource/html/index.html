@@ -3,11 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <link href="./resource/css/database.css" rel="stylesheet">
-    <link rel="stylesheet" href="./resource/css/swiper.min.css">
-    <link href="./resource/css/my.css" rel="stylesheet">
-    <script src="./resource/js/jquery.min.js"></script>
-    <script src="./resource/js/swiper.min.js"></script>
+    <link href="../css/database.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link href="../css/my.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/swiper.min.js"></script>
     <title>首页</title>
     <script>
         (function (doc, win) {
@@ -64,11 +64,11 @@
     </div>
     <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
 </div>
-<div class="system" id="J_test_list">
+<div class="system">
     <div class="title">热门商品</div>
-    <ul class="clearfix">
+    <ul class="clearfix" id="J_test_list">
         <li>
-            <img src="./resource/img/dbzhijun/iphone.png" alt=""/>
+            <img src="../img/dbzhijun/iphone.png" alt=""/>
             <p class="shop-des">小米5s手机</p>
             <div class="info clearfix">
                 <div class="progress">
@@ -77,21 +77,21 @@
                         <div class="bar"></div>
                     </div>
                 </div>
-                <div class="enjoy">分享</div>
+                <div class="enjoy wxEnjoy">分享</div>
                 <div class="duobao">夺宝</div>
             </div>
         </li>
         <li>
-            <img src="./resource/img/dbzhijun/iphone.png" alt=""/>
+            <img src="../img/dbzhijun/iphone.png" alt=""/>
             <p class="shop-des">小米5s手机</p>
             <div class="info clearfix">
                 <div class="progress">
-                    <p>进度 <span>66%</span></p>
+                    <p>进度 <span>50%</span></p>
                     <div class="progress-bar">
-                        <div class="bar"></div>
+                        <div class="bar" style="width:50%;"></div>
                     </div>
                 </div>
-                <div class="enjoy">分享</div>
+                <div class="enjoy wxEnjoy">分享</div>
                 <div class="duobao">夺宝</div>
             </div>
         </li>
@@ -114,13 +114,18 @@
 <div id="J_footer" class="footer">
     <p>沪ICP备13005144号-3</p>
 </div>
+<!--分享弹窗-->
+
 <script>
+    //轮播  动态加载内容模块
+    (function () {
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         loop:true,
         spaceBetween: 30,
-        autoplay:5000
+        autoplay:5000,
+        autoplayDisableOnInteraction:false
     });
 
     //判断设备为手机端还是PC
@@ -186,21 +191,21 @@
         var html='';
         $.each(data,function (i, n) {
             html+='<li>';
-            html+='<img src="./resource/img/dbzhijun/iphone.png" alt=""/>';
+            html+='<img src="../img/dbzhijun/iphone.png" alt=""/>';
             html+='<p class="shop-des">'+n.des+'</p>';
             html+='<div class="info clearfix">';
             html+='<div class="progress">';
             html+='<p>进度 <span>66%</span></p>';
             html+='<div class="progress-bar">';
-            html+='<div class="bar"></div>';
+            html+='<div class="bar" style="width:50%;"></div>';
             html+='</div>';
             html+='</div>';
-            html+='<div class="enjoy">分享</div>';
+            html+='<div class="enjoy wxEnjoy">分享</div>';
             html+='<div class="duobao">夺宝</div>';
             html+='</div>';
             html+='</li>';
         });
-        $testList.children('ul').append(html);
+        $testList.append(html);
     }
 
     $(window).on('scroll', function() {
@@ -237,6 +242,20 @@
             return (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
         }
     }
+    })();
+    //分享
+    (function () {
+        var $testList=$('#J_test_list');
+        $testList.on('click','.wxEnjoy',function(){
+            var popup='<div class="popup-mask"><img src="../img/dbzhijun/enjoywx.png" alt=""/> </div>';
+            $('body').append(popup);
+
+        });
+        $('body').on('click','.popup-mask',function(){
+            $(this).remove();
+        });
+    })();
+
 </script>
 
 </body></html>

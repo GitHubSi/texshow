@@ -3,7 +3,7 @@ body{ background-color: #fff;width: 7.2rem; margin: 0 auto;}
 .carousel{width: 7.2rem; height: 3.3rem; background-color: #f3f3f3;}
 /*header*/
 header{
-    width:7.2rem;height:0.77rem;
+    width:7.2rem;height:0.8rem;border-bottom: 0.03rem solid #dcdcdc;
 }
 header ul li{
     float: left;width:33.333%;height:0.8rem;
@@ -109,27 +109,159 @@ header ul li a.active{
 .system li .info .duobao{
     background: #e84559;color:#fff;border:0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*分享弹窗*/
+.popup-mask,.popup-mask1{
+    position: fixed;width:7.2rem;height:100%;background: rgba(0,0,0,0.6);top:0;z-index: 999;
+}
+.popup-mask img{
+    display: block;position: absolute;top:0.03rem;left:1.25rem;width:5.44rem;
+}
+/*最新揭晓样式*/
+.publish-main{
+    width:100%;background: #f9f9f9;
+}
+.publish-main ul li{
+    padding:0.3rem 0.3rem;border-bottom: 1px solid #ebebeb;border-top: 1px solid #ebebeb;margin-bottom: 0.2rem;background: #fff;
+}
+.publish-main ul li:first-child{
+    border-top:none;
+}
+.publish-main ul li .img{
+    float: left;width:1.7rem;height:1.6rem;margin-top: 0.6rem;
+}
+.publish-main ul li .img img{
+    width:100%;
+}
+.publish-main ul li .info{
+    float: left;margin-left: 0.4rem;width:4.4rem;color:#636363;
+}
+.publish-main ul li .info h3{
+    color:#000000;font-size: 0.26rem;line-height: 0.5rem;
+}
+.publish-main ul li .info p{
+    line-height: 0.42rem;
+}
+.publish-main ul li .info p .b{
+    color:#2484dd;
+}
+.publish-main ul li .info p .r{
+    color:#e6364b;
+}
+/*个人中心样式*/
+.per-main{
+    width:100%;background: #f9f9f9;padding-bottom: 2.2rem;
+}
+.per-main .per-info{
+    padding:0.2rem 0.3rem;background: #fff;border-bottom: 1px solid #ebebeb;
+}
+.per-main .per-info .img{
+    width:1.54rem;height:1.54rem;float: left;
+}
+.per-main .per-info .img img{
+    width:100%;border-radius: 50%;
+}
+.per-main .per-info .info{
+    float: left;margin-left: 0.2rem;margin-top: 0.2rem;
+}
+.per-main .per-info .info h3{
+    font-size: 0.3rem;color:#000;
+}
+.per-main .per-info .info p{
+    font-size: 0.26rem;color:#494949;margin-top: 0.2rem;text-indent: 0.4rem;
+    background: url(../img/dbzhijun/i-duobaobi.png) no-repeat 0 center;background-size: 0.3rem;
+}
+.per-main .per-info .info p span{
+    color:#e84559;
+}
+.per-main ul{
+    margin-top: 0.2rem;background: #fff;padding:0 0.2rem;border-bottom: 1px solid #ebebeb;border-top: 1px solid #ebebeb;
+}
+.per-main ul li{
+    height:0.96rem;border-bottom: 1px solid #ebebeb;
+}
+.per-main ul li:last-child{
+    border:0;
+}
+.per-main ul li a{
+    display: block;width:100%;height:100%;
+}
+.per-main ul li p{
+    float: left;width:1.8rem;text-indent: 0.5rem;background-repeat: no-repeat;
+    background-position: 0 center;font-size: 0.3rem;color:#494949;line-height: 0.96rem;
+}
+.per-main ul li i{
+    display: block;float: right;width:0.4rem;background: url(../img/dbzhijun/i-arr.png) no-repeat 0 center;background-size: 0.17rem 0.28rem;height:100%;
+}
+.per-main ul li:nth-child(1) p{
+    background-size:0.25rem 0.41rem;background-image: url(../img/dbzhijun/i-geo.png);background-position: 0.1rem center ;
+}
+.per-main ul li:nth-child(2) p{
+    background-size:0.37rem 0.35rem;background-image: url(../img/dbzhijun/i-jilu.png);
+}
+.per-main ul li:nth-child(3) p{
+    background-size:0.44rem 0.41rem;background-image: url(../img/dbzhijun/i-award.png);
+}
+.per-main ul li:nth-child(4) p{
+    background-size:0.38rem 0.38rem;background-image: url(../img/dbzhijun/i-que.png);
+}
+/*产品详情页*/
+.product{
+    padding:0.25rem 0.3rem;border-bottom: 1px solid #ebebeb;background: #fff;
+}
+.product img{
+    display: block;float: left;width:3.12rem;height:2.85rem;
+}
+.product .info{
+    float: left;margin-left: 0.4rem;width:3rem;
+}
+.product .info p{
+    color:#000;font-size: 0.24rem;margin-top: 0.7rem;
+}
+.product .info .btns{
+    margin-top: 0.3rem;
+}
+.product  .info .btns .enjoy,.product  .info .btns .duobao{
+    margin-left: 0.13rem;width:0.92rem;height:0.52rem;line-height: 0.5rem;text-align: center;font-size: 0.26rem;color:#e84559;border: 1px solid #e84559;border-radius: 0.05rem;float: left;cursor: pointer;
+}
+.product  .info .btns  .duobao{
+    background: #e84559;color:#fff;border:0;
+}
+.totle-num,.date{
+    height:0.94rem;line-height: 0.94rem;font-size: 0.3rem;color:#494949;text-indent: 0.3rem;margin-top: 0.2rem;border-bottom: 1px solid #ebebeb;border-top: 1px solid #ebebeb;background: #fff;
+}
+.product-des{
+    margin-top: 0.2rem;border-top: 1px solid #ebebeb;background: #fff;text-align: center;padding-bottom: 0.1rem;
+}
+.product-des img{
+    width:100%;
+}
+.product-des p{
+    margin-top: 0.2rem;margin-bottom: 0.4rem;
+}
+.message{
+    width:100%;position: absolute;bottom:0;background: #fff;
+}
+.message h3{
+    line-height: 0.8rem;font-size: 0.26rem;color:#000;text-indent: 0.2rem;
+}
+.message .num-box{
+    font-size: 0.26rem;width:6.8rem;margin: 0.4rem auto 0;border-bottom: 1px solid #ebebeb;padding-bottom: 0.4rem;line-height: 0.6rem;
+}
+.message .num-box .des{
+    float: left;
+}
+.message .num-box .btns{
+    float: left;width:1.8rem;margin: 0 0.2rem;
+}
+.message .num-box .btns>div{
+    width:33.33%;height:0.6rem;background: #f0f0f0;border: 1px solid  #ebebeb;border-radius: 0.05rem;text-align: center;line-height: 0.6rem;font-size: 0.36rem;float: left;
+}
+.message .num-box .btns .text{
+    background: #fff;font-size: 0.24rem;
+}
+.btn-snatch{
+    margin:0.4rem auto 0.2rem;width:3.1rem;height:0.8rem;line-height: 0.8rem;text-align: center;font-size: 0.3rem;color:#fff;border-radius: 0.1rem;cursor: pointer;background: #e84559;
+}
+.message .close{
+    width:1rem;height:1rem;position: absolute;right:0;top:0;background: url(../img/dbzhijun/i-close.png) no-repeat 0.6rem 0.2rem;background-size: 0.22rem;
+}
