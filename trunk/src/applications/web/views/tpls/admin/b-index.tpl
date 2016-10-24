@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/resource/css/admin/reset.css" type="text/css" media="screen"/>
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="/resource/css/admin/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/resource/css/admin/theme.css" type="text/css" media="screen"/>
     <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
     <link rel="stylesheet" href="/resource/css/admin/invalid.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="/resource/css/admin/frame.css" type="text/css">
@@ -63,9 +64,9 @@
                     </ul>
                 </li>
 
-                <li><a href="#" class="nav-top-item"> Image Gallery </a>
+                <li><a href="#" class="nav-top-item">轮播图管理</a>
                     <ul>
-                        <li><a href="#">Upload Images</a></li>
+                        <li><a href="/headImg/add">添加</a></li>
                         <li><a href="#">Manage Galleries</a></li>
                         <li><a href="#">Manage Albums</a></li>
                         <li><a href="#">Gallery Settings</a></li>
