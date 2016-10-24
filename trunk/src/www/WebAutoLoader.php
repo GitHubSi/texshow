@@ -25,14 +25,14 @@ class WebAutoLoader
         'WeChatMagazineController' => '/src/applications/web/controllers/WeChatMagazineController.php',
         'HomeController' => '/src/applications/web/controllers/HomeController.php',
         'ShareItemController' => '/src/applications/web/controllers/ShareItemController.php',
-
         'ShareInviteCodeController' => '/src/applications/web/controllers/ShareInviteCodeController.php',
+        'MallController' => '/src/applications/web/controllers/MallController.php',
 
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
         'ResponseController' => '/src/applications/manage/controllers/ResponseController.php',
         'RedPacketSettingController' => '/src/applications/manage/controllers/RedPacketSettingController.php',
-
+        'HeadImgController' => '/src/applications/manage/controllers/HeadImgController.php',
         //api
 
         //mappers
@@ -44,6 +44,7 @@ class WebAutoLoader
         'WeChatNotifyMapper' => '/src/main/mappers/WeChatNotifyMapper.php',
         'OneShareMapper' => '/src/main/mappers/OneShareMapper.php',
         'ShareItemMapper' => '/src/main/mappers/ShareItemMapper.php',
+        'HeadImgMapper' => '/src/main/mappers/HeadImgMapper.php',
 
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',
@@ -58,8 +59,6 @@ class WebAutoLoader
 
         'WeChatOpenService' => '/src/main/services/WeChatOpenService.php',
         'OneShareService' => '/src/main/services/OneShareService.php',
-
-
 
         //utils
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
