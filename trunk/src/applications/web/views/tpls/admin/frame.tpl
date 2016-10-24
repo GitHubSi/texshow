@@ -1,6 +1,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <link rel="stylesheet" href="/resource/css/frame.css"/>
+    <link rel="stylesheet" href="/resource/css/admin/frame.css"/>
+    <link rel="stylesheet" href="/resource/css/admin/admin.css"/>
     <link rel="stylesheet" href="/resource/css/resp_index.css"/>
     <link href="/resource/css/response.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'/>
