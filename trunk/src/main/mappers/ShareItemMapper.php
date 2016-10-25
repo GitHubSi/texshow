@@ -29,6 +29,22 @@ class ShareItemMapper
         $this->_db = DB::getInstance(ConfigLoader::getConfig('MYSQL'));
     }
 
+    public function insertGood($name, $image, $desc, $totalScore, $startTime, $endTime)
+    {
+        return $this->_db->execute(
+            "INSERT INTO t_share_item (`name`, image, `desc`, total_score, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)",
+            array($name, $image, $desc, $totalScore, $startTime, $endTime)
+        );
+    }
+
+    public function updateGood($name, $image, $desc, $totalScore, $startTime, $endTime)
+    {
+        return $this->_db->execute(
+            "UPDATE t_share_item SET `name` = ?, image = ?, `desc` = ?, total_score = ?, start_time = ?, end_time = ? ",
+            array($name, $image, $desc, $totalScore, $startTime, $endTime)
+        );
+    }
+
     public function updateScoreNum($currentScore, $item)
     {
         return $this->_db->execute(
