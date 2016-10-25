@@ -50,7 +50,7 @@ class OneShareService
      */
     public function consumerScore($openId, $score, $item = 1)
     {
-        $itemInfo = $this->_shareItemMapper->getScoreNum($item);
+        $itemInfo = $this->_shareItemMapper->getGoodById($item);
         if (empty($itemInfo) || $itemInfo["current_score"] + $score > $itemInfo["total_score"]) {
             throw new Exception("商品信息不存在或者购买份数太多", 10001);
         }
@@ -85,7 +85,7 @@ class OneShareService
         $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
         $buyHistory = $this->_oneShareMapper->getCurrentBuyHistory($magaUserInfo["openid"], $record);
         foreach ($buyHistory as $key => $history) {
-            $goods = $this->_shareItemMapper->getScoreNum($history["item"]);
+            $goods = $this->_shareItemMapper->getGoodById($history["item"]);
             $history["good_name"] = $goods["name"];
             $buyHistory[$key] = $history;
         }
