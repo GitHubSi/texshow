@@ -15,6 +15,7 @@ class AbstractActivityAction extends Action
     protected $_data;
     protected $_weChatLogin = false;
     protected $_anonymityLogin = false;
+    protected $_isJson = false;
 
     public function __construct()
     {
