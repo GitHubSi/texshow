@@ -9,7 +9,10 @@
 class AbstractActivityAction extends Action
 {
     private $_salt;
+    private $_errCode = 0;
+    private $_errMsg = "";
 
+    protected $_data;
     protected $_weChatLogin = false;
     protected $_anonymityLogin = false;
 
@@ -28,6 +31,37 @@ class AbstractActivityAction extends Action
         }
 
         Request::getInstance()->setParam("openid", $openId);
+    }
+
+    public function dispatch($action)
+    {
+        try {
+            $this->preDispatch();
+            $this->$action();
+        } catch (KidException $e) {
+            $this->_errCode = $e->getCode();
+            $this->_errMsg = $e->getMessage();
+            Logger::getRootLogger()->error($this->_errMsg . ", code=" . $this->_errCode);
+        }
+
+        $this->postDispatch();
+    }
+
+    public function postDispatch()
+    {
+        if ($this->_isJson) {
+            header('Content-Type:application/json');
+            $result = array(
+                'code' => $this->_errCode,
+                'msg' => $this->_errMsg,
+                'data' => $this->_data,
+            );
+            echo json_encode($result);
+        } else {
+            if ($this->_errCode != 0) {
+                $this->_dealException();
+            }
+        }
     }
 
     public function getUserOpenid()
@@ -89,5 +123,10 @@ class AbstractActivityAction extends Action
     {
         $uid = floor(microtime(true) * 1000) . mt_rand(1, 1000);
         return $uid;
+    }
+
+    private function _dealException()
+    {
+        header("Location: http://act.wetolink.com/mall");
     }
 }
