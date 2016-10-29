@@ -28,10 +28,8 @@
                         <td>
                             <a href="#"
                                onclick="show_confirm('/goodsManage/offline?id={%$good.id%}');return false;">下线</a>
-                            <a href="#"
-                               onclick="show_confirm('/goodsManage/detail?id={%$good.id%}');return false;">详情</a>
-                            <a href="#"
-                               onclick="show_confirm('/goodsManage/modify?id={%$good.id%}');return false;">编辑</a>
+                            <a href="/goodsManage/info?type=detail&id={%$good.id%}">详情</a>
+                            <a href="/goodsManage/info?type=edit&id={%$good.id%}">编辑</a>
                         </td>
                     </tr>
                     {%/foreach%}
