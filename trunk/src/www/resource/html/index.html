@@ -22,7 +22,7 @@
                         } else if(clientWidth >= 1000){
                             docEl.style.fontSize = 100 * (1000 / 720) + 'px';
                         }else{docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';}
-                    }
+                    };
             // Abort if browser does not support addEventListener
             if (!doc.addEventListener) return;
             win.addEventListener(resizeEvt, recalc, false);
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="enjoy wxEnjoy">分享</div>
-                <div class="duobao">夺宝</div>
+                <div class="duobao" data-pro="iphone">夺宝</div>
             </div>
         </li>
         <li>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="enjoy wxEnjoy">分享</div>
-                <div class="duobao">夺宝</div>
+                <div class="duobao" data-pro="iphone">夺宝</div>
             </div>
         </li>
     </ul>
@@ -201,7 +201,7 @@
             html+='</div>';
             html+='</div>';
             html+='<div class="enjoy wxEnjoy">分享</div>';
-            html+='<div class="duobao">夺宝</div>';
+            html+='<div class="duobao" data-pro="iphone">夺宝</div>';
             html+='</div>';
             html+='</li>';
         });
@@ -253,6 +253,70 @@
         });
         $('body').on('click','.popup-mask',function(){
             $(this).remove();
+        });
+    })();
+    //夺宝
+    (function () {
+        var html='<div class="popup-mask1">';
+        html+='<div class="message">';
+        html+=' <h3>人次期数选择</h3>';
+        html+=' <div class="num-box clearfix">';
+        html+=' <div class="des">参与次数</div>';
+        html+=' <div class="btns">';
+        html+=' <div class="sub">-</div>';
+        html+=' <div class="text">2</div>';
+        html+=' <div class="add">+</div>';
+        html+=' </div>';
+        html+=' <div class="des"><!--(你拥有xxxx次投注机会)--></div>';
+        html+=' </div>';
+        html+=' <div class="btn-snatch">';
+        html+=' 立即夺宝';
+        html+=' </div>';
+        html+=' <div class="close"></div>';
+        html+=' </div>';
+        html+=' </div>';
+        var dataPro;
+        $('body').on('click','.duobao',function(){
+            $('body').append(html);
+            dataPro=$(this).attr('data-pro');
+        });
+        $('body').on('click','.close',function(){
+            $('.popup-mask1').remove();
+        });
+        //投注
+        var max=10;
+        var $testList=$('body');
+        var num;
+        $testList.on('click','.sub',function(){
+            var $text=$('.message').find('.text');
+            if(!num){
+                num=$text.text();
+            }
+            num--;
+            if(num<=0){
+                num=1;
+            }
+            $text.text(num);
+        });
+        $testList.on('click','.add',function(){
+            var $text=$('.message').find('.text');
+            if(!num){
+                num=$text.text();
+            }
+            num++;
+            if(num>=max){
+                num=max;
+            }
+            $text.text(num);
+        });
+        //提交
+        $testList.on('click','.btn-snatch',function(){
+            var $text=$('.message').find('.text');
+            var num=$text.text();
+
+            $.get('url',{num:num,dataPro:dataPro}, function () {
+
+            });
         });
     })();
 
