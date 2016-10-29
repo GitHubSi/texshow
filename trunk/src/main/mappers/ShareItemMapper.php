@@ -71,11 +71,12 @@ class ShareItemMapper
         );
     }
 
-    public function getAllGoods()
+    public function getAllGoods($lastId, $pageSize = PHP_INT_MAX)
     {
         return $this->_db->getAll(
             "SELECT `id`, `name`, `image`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
-            FROM t_share_item ORDER BY id DESC"
+            FROM t_share_item WHERE id < ? ORDER BY id DESC LIMIT {$pageSize}",
+            $lastId
         );
     }
 

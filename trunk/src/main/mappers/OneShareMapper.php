@@ -20,13 +20,13 @@ class OneShareMapper
     /**
      * @param $magaOpenId   订阅号openid
      * @param $score    购买的积分数
-     * @param $item     购买的商品
+     * @param $itemId     购买的商品
      */
-    public function addOneShare($magaOpenId, $score, $item)
+    public function addOneShare($magaOpenId, $score, $itemId)
     {
         return $this->_db->execute(
             "INSERT INTO t_one_share (openid, score, item, create_time) VALUES(?, ?, ?, now())",
-            array($magaOpenId, $score, $item)
+            array($magaOpenId, $score, $itemId)
         );
     }
 

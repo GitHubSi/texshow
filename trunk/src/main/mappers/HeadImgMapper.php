@@ -37,7 +37,7 @@ class HeadImgMapper
     public function getImgByState($state)
     {
         return $this->_db->getAll(
-            "SELECT id, `name`, img_url, redirect_url, state, create_time, update_time FROM t_head_img WHERE state = ? ",
+            "SELECT `id`, `name`, `img_url`, `redirect_url`, `state`, `create_time`, `update_time` FROM t_head_img WHERE `state` = ? ",
             $state
         );
     }
