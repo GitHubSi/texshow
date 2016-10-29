@@ -8,18 +8,21 @@
  */
 class OneShareService
 {
-    const EXTRA_ADD_NUM = 100000;
+    const EXTRA_ADD_NUM = 100000;       //for invite code
+    const GOODS_PAGE_SIZE = 20;
     const NEW_USER_START_TIME = "2016-09-04 00:00:00";
 
     private $_weChatMagazineUserMapper;
     private $_oneShareMapper;
     private $_shareItemMapper;
+    private $_headImageMapper;
 
     protected function __construct()
     {
         $this->_weChatMagazineUserMapper = new WeChatMagazineUserMapper();
         $this->_oneShareMapper = new OneShareMapper();
         $this->_shareItemMapper = new ShareItemMapper();
+        $this->_headImageMapper = new HeadImgMapper();
     }
 
     public static function getInstance()
@@ -42,17 +45,17 @@ class OneShareService
     }
 
     /**
-     * @param $openId       服务号的openid
+     * @param $openId       client openid
      * @param $score
-     * @param int $item 为1表示奖品为iphone
+     * @param int $itemId goods id
      * @return bool
      * @throws Exception
      */
-    public function consumerScore($openId, $score, $item = 1)
+    public function consumerScore($openId, $score, $itemId = 1)
     {
-        $itemInfo = $this->_shareItemMapper->getGoodById($item);
+        $itemInfo = $this->_shareItemMapper->getGoodById($itemId);
         if (empty($itemInfo) || $itemInfo["current_score"] + $score > $itemInfo["total_score"]) {
-            throw new Exception("商品信息不存在或者购买份数太多", 10001);
+            throw new Exception("商品信息不存在或者购买份数多于库存", 10001);
         }
 
         $userInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
@@ -65,13 +68,15 @@ class OneShareService
         try {
             $currentScore = $userInfo["score"] - $score;
             $this->_weChatMagazineUserMapper->updateScore($userInfo["openid"], $currentScore);
-            $this->_oneShareMapper->addOneShare($userInfo["openid"], $score, $item);
-            $this->_shareItemMapper->updateScoreNum($score, $item);
+            $this->_oneShareMapper->addOneShare($userInfo["openid"], $score, $itemId);
+            $this->_shareItemMapper->updateScoreNum($score, $itemId);
             $db->commit();
+
         } catch (Exception $e) {
             $db->rollback();
             throw new Exception("数据库错误" . $e->getCode() . $e->getTraceAsString(), 10003);
         }
+
         return true;
     }
 
@@ -121,6 +126,19 @@ class OneShareService
             $db->rollback();
         }
         return false;
+    }
+
+    public function getGoodList($includeHomePage = false)
+    {
+        if ($includeHomePage) {
+            $headImgList = $this->_headImageMapper->getImgByState(HeadImgMapper::NO_DELETE);
+        }
+        $goodList = $this->_shareItemMapper->getAllGoods(PHP_INT_MAX, self::GOODS_PAGE_SIZE);
+
+        return array(
+            "headImg" => $headImgList,
+            "goodList" => $goodList
+        );
     }
 
 }
