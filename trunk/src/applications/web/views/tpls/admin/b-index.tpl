@@ -51,10 +51,10 @@
                         <!-- Add the class "current" to current menu item -->
                         基本功能 </a>
                     <ul>
-                        <li><a href="/response/detail?type=magazine" {%if $action eq "magazine"%}class="current"{%/if%}>订阅号回复</a></li>
-                        <li><a href="/response/detail?type=client" {%if $action eq "client"%}class="current"{%/if%}>服务号回复</a></li>
+                        <li><a href="/response/detail?type=magazine">订阅号回复</a></li>
+                        <li><a href="/response/detail?type=client">服务号回复</a></li>
                         <!-- Add class "current" to sub menu items also -->
-                        <li><a href="/redPacketSetting/index" {%if $action eq "redset"%}class="current"{%/if%}>红包配置</a></li>
+                        <li><a href="/redPacketSetting/index">红包配置</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-top-item">一元夺宝</a>
@@ -64,10 +64,12 @@
                     </ul>
                 </li>
 
-                <li><a href="#" class="nav-top-item">轮播图管理</a>
+                <li><a href="#" class="nav-top-item">轮播图/商品管理</a>
                     <ul>
-                        <li><a href="/headImg/index">添加</a></li>
-                        <li><a href="/headImg/detail">详情</a></li>
+                        <li><a href="/headImg/index">轮播图添加</a></li>
+                        <li><a href="/headImg/detail">轮播图详情</a></li>
+                        <li><a href="/goodsManage/info?type=add">商品添加</a></li>
+                        <li><a href="/goodsManage/index">商品详情</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-top-item"> Events Calendar </a>
