@@ -10,6 +10,9 @@ class AbstractActivityAction extends Action
 {
     private $_salt;
 
+    protected $_weChatLogin = false;
+    protected $_anonymityLogin = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -18,9 +21,19 @@ class AbstractActivityAction extends Action
 
     public function preDispatch()
     {
-        //获取访问用户的openid
+        //only get openid as user identity
+        $openId = $this->getUserOpenid();
+        if (!empty($openId)) {
+            $this->_weChatLogin = true;
+        }
+
+        Request::getInstance()->setParam("openid", $openId);
+    }
+
+    public function getUserOpenid()
+    {
         $openId = "";
-        if (preg_match("/micromessenger/i", $_SERVER['HTTP_USER_AGENT'])) {
+        if (preg_match("/micromessenger/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
             $openId = $this->_simpleCheckCookieValid();
             if (!$openId) {
                 $code = $this->getParam("code");
@@ -32,10 +45,11 @@ class AbstractActivityAction extends Action
                     header('Location: ' . WeChatClientService::getInstance()->getUserOpenidUrl($localUrl));
                     exit;
                 }
+                $this->_setCookie($openId);
             }
-            $this->_setCookie($openId);
         }
-        Request::getInstance()->setParam("openid", $openId);
+
+        return $openId;
     }
 
     public function setWechatShare($title, $desc, $link, $imgUrl)
@@ -50,25 +64,30 @@ class AbstractActivityAction extends Action
         return json_encode($jsApiInfo);
     }
 
-    //TODO 不知道为啥不能设置过期时间
     private function _setCookie($openId)
     {
-        setcookie('wx', md5($openId . $this->_salt));
-        setcookie("openid", $openId);
+        setcookie('wx', md5($openId . $this->_salt), time() + SystemUtil::DAY, "/");
+        setcookie("openid", $openId, time() + SystemUtil::DAY, "/");
     }
 
     private function _simpleCheckCookieValid()
     {
-        $encodeUserId = $this->getParam("wx");
+        $encodeOpenid = $this->getParam("wx");
         $openId = $this->getParam("openid");
 
-        if (empty($encodeUserId) || empty($openId)) {
+        if (empty($encodeOpenid) || empty($openId)) {
             return false;
         }
 
-        if (md5($openId . $this->_salt) == $encodeUserId) {
+        if (md5($openId . $this->_salt) == $encodeOpenid) {
             return $openId;
         }
         return false;
+    }
+
+    public static function generateAnonymityUser()
+    {
+        $uid = floor(microtime(true) * 1000) . mt_rand(1, 1000);
+        return $uid;
     }
 }
