@@ -64,6 +64,7 @@ class WebAutoLoader
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
         'RedisClient' => '/src/main/utils/RedisClient.php',
         'SLXml' => '/src/main/utils/SLXml.php',
+        'SystemUtil' => '/src/main/utils/SystemUtil.php',
 
         //system
         'Action' => '/lib/Frame/Action.php',
