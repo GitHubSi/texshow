@@ -51,7 +51,7 @@ class ShareItemController extends AbstractActivityAction
         $item = 1;      //默认item=1表示iphone手机
 
         $noRegister = 0;
-        $goodInfo = $this->_shareItemMapper->getScoreNum($item);
+        $goodInfo = $this->_shareItemMapper->getGoodById($item);
         try {
             $magazineInfo = WeChatOpenService::getInstance()->getMagazineByClient($this->getParam("openid"));
             $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);

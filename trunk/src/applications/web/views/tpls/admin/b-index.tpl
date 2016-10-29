@@ -66,10 +66,8 @@
 
                 <li><a href="#" class="nav-top-item">轮播图管理</a>
                     <ul>
-                        <li><a href="/headImg/add">添加</a></li>
-                        <li><a href="#">Manage Galleries</a></li>
-                        <li><a href="#">Manage Albums</a></li>
-                        <li><a href="#">Gallery Settings</a></li>
+                        <li><a href="/headImg/index">添加</a></li>
+                        <li><a href="/headImg/detail">详情</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-top-item"> Events Calendar </a>
