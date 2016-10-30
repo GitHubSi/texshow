@@ -16,6 +16,7 @@ class AbstractActivityAction extends Action
     protected $_weChatLogin = false;
     protected $_anonymityLogin = false;
     protected $_isJson = false;
+    protected $_userInfo;
 
     public function __construct()
     {
@@ -29,6 +30,7 @@ class AbstractActivityAction extends Action
         $openId = $this->getUserOpenid();
         if (!empty($openId)) {
             $this->_weChatLogin = true;
+            $this->_userInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
         }
 
         Request::getInstance()->setParam("openid", $openId);
@@ -39,7 +41,7 @@ class AbstractActivityAction extends Action
         try {
             $this->preDispatch();
             $this->$action();
-        } catch (KidException $e) {
+        } catch (Exception $e) {
             $this->_errCode = $e->getCode();
             $this->_errMsg = $e->getMessage();
             Logger::getRootLogger()->error($this->_errMsg . ", code=" . $this->_errCode);

@@ -72,6 +72,8 @@
     </ul>
 </div>
 
+<input type="hidden" id="user_score" value="{%$userInfo.score%}"/>
+
 <!--loading框开始-->
 <div id="J_loading" class="loading" style="display: none;">
     <div class="spinner">
@@ -234,6 +236,12 @@
     })();
     //夺宝
     (function () {
+        //投注
+        var max = $("#user_score").val();
+        if ($.trim(max) == "") {
+            max = 0;
+        }
+
         var html = '<div class="popup-mask1">';
         html += '<div class="message">';
         html += ' <h3>人次期数选择</h3>';
@@ -241,7 +249,7 @@
         html += ' <div class="des">参与次数</div>';
         html += ' <div class="btns">';
         html += ' <div class="sub">-</div>';
-        html += ' <div class="text">2</div>';
+        html += ' <div class="text">' + max + '</div>';
         html += ' <div class="add">+</div>';
         html += ' </div>';
         html += ' <div class="des"><!--(你拥有xxxx次投注机会)--></div>';
@@ -261,8 +269,7 @@
         $('body').on('click', '.close', function () {
             $('.popup-mask1').remove();
         });
-        //投注
-        var max = 10;
+
         var $testList = $('body');
         var num;
         $testList.on('click', '.sub', function () {
@@ -272,7 +279,7 @@
             }
             num--;
             if (num <= 0) {
-                num = 1;
+                num = 0;
             }
             $text.text(num);
         });

@@ -12,12 +12,19 @@ class MallController extends AbstractActivityAction
     {
         $goodList = OneShareService::getInstance()->getGoodList(PHP_INT_MAX, true);
 
+        $this->_smarty->assign("userInfo", $this->_userInfo);
         $this->_smarty->assign("goodList", $goodList);
         $this->_smarty->display('mall/home.tpl');
     }
 
     public function buyAction()
     {
+        $this->_isJson = true;
+
+        if (empty($this->_userInfo)) {
+            throw new Exception("用户信息不存在", 409);
+        }
+
         $itemId = $this->getParam("item");
         $openId = $this->getParam("openid");
         $score = $this->getParam("num");
