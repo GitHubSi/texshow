@@ -9,7 +9,7 @@
 class OneShareService
 {
     const EXTRA_ADD_NUM = 100000;       //for invite code
-    const GOODS_PAGE_SIZE = 2;
+    const GOODS_PAGE_SIZE = 20;
     const NEW_USER_START_TIME = "2016-09-04 00:00:00";
 
     private $_weChatMagazineUserMapper;
