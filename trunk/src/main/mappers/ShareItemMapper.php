@@ -37,11 +37,12 @@ class ShareItemMapper
         );
     }
 
-    public function updateGood($name, $image, $desc, $totalScore, $startTime, $endTime)
+    public function updateGood($id, $name, $image, $desc, $totalScore, $startTime, $endTime)
     {
         return $this->_db->execute(
-            "UPDATE t_share_item SET `name` = ?, `image` = ?, `desc` = ?, `total_score` = ?, `start_time` = ?, `end_time` = ? ",
-            array($name, $image, $desc, $totalScore, $startTime, $endTime)
+            "UPDATE t_share_item SET `name` = ?, `image` = ?, `desc` = ?, `total_score` = ?, `start_time` = ?, `end_time` = ? 
+            WHERE id = ? ",
+            array($name, $image, $desc, $totalScore, $startTime, $endTime, $id)
         );
     }
 

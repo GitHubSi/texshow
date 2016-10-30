@@ -133,7 +133,11 @@ class OneShareService
         if ($includeHomePage) {
             $headImgList = $this->_headImageMapper->getImgByState(HeadImgMapper::NO_DELETE);
         }
+
         $goodList = $this->_shareItemMapper->getAllGoods(PHP_INT_MAX, self::GOODS_PAGE_SIZE);
+        foreach ($goodList as &$good) {
+            $good["rank"] = ceil($good["current_score"] / $good["total_score"] * 100) . "%";
+        }
 
         return array(
             "headImg" => $headImgList,

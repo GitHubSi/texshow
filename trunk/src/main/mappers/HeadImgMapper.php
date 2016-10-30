@@ -34,6 +34,13 @@ class HeadImgMapper
         );
     }
 
+    public function deleteHeadImg($id)
+    {
+        return $this->_db->execute(
+            "DELETE FROM t_head_img WHERE id = ? ", $id
+        );
+    }
+
     public function getImgByState($state)
     {
         return $this->_db->getAll(

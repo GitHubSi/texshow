@@ -52,7 +52,7 @@ class HeadImgController extends AbstractSecurityAction
     {
         $id = $this->getParam("id");
         if (ctype_digit($id) && $id > 0) {
-            $this->_headImgMapper->updateState($id, HeadImgMapper::IS_DELETE);
+            $this->_headImgMapper->deleteHeadImg($id);
         }
 
         header("Location: /headImg/detail?successMsg=添加成功");
