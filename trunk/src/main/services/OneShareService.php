@@ -9,7 +9,7 @@
 class OneShareService
 {
     const EXTRA_ADD_NUM = 100000;       //for invite code
-    const GOODS_PAGE_SIZE = 20;
+    const GOODS_PAGE_SIZE = 2;
     const NEW_USER_START_TIME = "2016-09-04 00:00:00";
 
     private $_weChatMagazineUserMapper;
@@ -128,13 +128,13 @@ class OneShareService
         return false;
     }
 
-    public function getGoodList($includeHomePage = false)
+    public function getGoodList($lastId, $includeHomePage = false)
     {
         if ($includeHomePage) {
             $headImgList = $this->_headImageMapper->getImgByState(HeadImgMapper::NO_DELETE);
         }
 
-        $goodList = $this->_shareItemMapper->getAllGoods(PHP_INT_MAX, self::GOODS_PAGE_SIZE);
+        $goodList = $this->_shareItemMapper->getAllGoods($lastId, self::GOODS_PAGE_SIZE);
         foreach ($goodList as &$good) {
             $good["rank"] = ceil($good["current_score"] / $good["total_score"] * 100) . "%";
         }

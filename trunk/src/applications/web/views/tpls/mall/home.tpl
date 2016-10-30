@@ -54,18 +54,18 @@
     <div class="title">热门商品</div>
     <ul class="clearfix" id="J_test_list">
         {%foreach $goodList["goodList"] as $good%}
-        <li>
+        <li data-pro="{%$good.id%}">
             <img src="{%$good.image%}" alt=""/>
             <p class="shop-des">{%$good.name%}</p>
             <div class="info clearfix">
                 <div class="progress">
                     <p>进度 <span>{%$good.rank%}</span></p>
                     <div class="progress-bar">
-                        <div class="bar"></div>
+                        <div class="bar" style="width: {%$good.rank%}"></div>
                     </div>
                 </div>
                 <div class="enjoy wxEnjoy">分享</div>
-                <div class="duobao" data-pro="iphone">夺宝</div>
+                <div class="duobao" data-pro="{%$good.id%}">夺宝</div>
             </div>
         </li>
         {%/foreach%}
@@ -127,28 +127,29 @@
          * 上拉加载数据
          * @return {[type]}     [description]
          */
+        var $testList = $('#J_test_list');
         var $loading = $('#J_loading'),
                 n = 1,
                 scrollTimer;
 
         function pullUpLoadData() {
+            var dataId = $testList.find('li').last().attr('data-pro');
             $.ajax({
                 type: "GET",
-                url: "",//每次加载n+1
-                dataType: "jsonp",
-                jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-                jsonpCallback: "",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+                url: "/mall/more?last_id=" + dataId,//每次加载n+1
+                dataType: "json",
                 beforeSend: function () {
                     $loading.show();
                 },
                 success: function (data) {
                     n++;
-                    if (data.status == 0) {
+                    var goodsList = data["data"]
+                    if (goodsList.length == 0) {
                         $loading.hide();
                         $('#J_load_more').show();
                         return false;
                     } else {
-                        generateDom(data);
+                        generateDom(goodsList);
                     }
 
                 },
@@ -165,18 +166,18 @@
             var $testList = $('#J_test_list');
             var html = '';
             $.each(data, function (i, n) {
-                html += '<li>';
-                html += '<img src="/resource/img/dbzhijun/iphone.png" alt=""/>';
-                html += '<p class="shop-des">' + n.des + '</p>';
+                html += '<li data-pro="' + n.id + '">';
+                html += '<img src=' + n.image + ' alt=""/>';
+                html += '<p class="shop-des">' + n.name + '</p>';
                 html += '<div class="info clearfix">';
                 html += '<div class="progress">';
-                html += '<p>进度 <span>66%</span></p>';
+                html += '<p>进度 <span>' + n.rank + '</span></p>';
                 html += '<div class="progress-bar">';
-                html += '<div class="bar" style="width:50%;"></div>';
+                html += '<div class="bar" style="width:' + n.rank + '"></div>';
                 html += '</div>';
                 html += '</div>';
                 html += '<div class="enjoy wxEnjoy">分享</div>';
-                html += '<div class="duobao" data-pro="iphone">夺宝</div>';
+                html += '<div class="duobao" data-pro="' + n.id + '">夺宝</div>';
                 html += '</div>';
                 html += '</li>';
             });
@@ -251,8 +252,9 @@
         html += ' <div class="close"></div>';
         html += ' </div>';
         html += ' </div>';
-        var dataPro;
+        var dataPro, dataId;
         $('body').on('click', '.duobao', function () {
+            dataId = $(this).attr('data-pro');
             $('body').append(html);
             dataPro = $(this).attr('data-pro');
         });
@@ -289,8 +291,7 @@
         $testList.on('click', '.btn-snatch', function () {
             var $text = $('.message').find('.text');
             var num = $text.text();
-
-            $.get('url',{num:num,dataPro:dataPro}, function () {
+            $.get('/mall/buy',{num:num, item:dataId}, function () {
 
             });
         });

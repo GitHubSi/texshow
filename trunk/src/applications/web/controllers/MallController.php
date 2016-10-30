@@ -10,7 +10,7 @@ class MallController extends AbstractActivityAction
 {
     public function indexAction()
     {
-        $goodList = OneShareService::getInstance()->getGoodList(true);
+        $goodList = OneShareService::getInstance()->getGoodList(PHP_INT_MAX, true);
 
         $this->_smarty->assign("goodList", $goodList);
         $this->_smarty->display('mall/home.tpl');
@@ -27,6 +27,19 @@ class MallController extends AbstractActivityAction
         }
 
         OneShareService::getInstance()->consumerScore($openId, $score, $itemId);
+    }
+
+    public function moreAction()
+    {
+        $this->_isJson = true;
+
+        $lastId = $this->getParam("last_id");
+        if (!ctype_digit($lastId)) {
+            $lastId = PHP_INT_MAX;
+        }
+
+        $goodList = OneShareService::getInstance()->getGoodList($lastId);
+        $this->_data = $goodList["goodList"];
     }
 
 }
