@@ -21,20 +21,32 @@ class HomeController extends AbstractActivityAction
     public function indexAction()
     {
         $openId = $this->getParam("openid");
-        if (empty($openId)) {
-            return;
+        $userInfo = array();
+        if (!empty($openId)) {
+
+            $clientUserInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
+            $magazineInfo = WeChatMagazineService::getInstance()->getUserInfoByUnionId($clientUserInfo["unionid"]);
+            if (!empty($magazineInfo)) {
+                $userDetailInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($magazineInfo["openid"]);
+
+                $userInfo["score"] = $magazineInfo["score"];
+                $userInfo["headimgurl"] = $userDetailInfo["headimgurl"];
+                $userInfo["nickname"] = $userDetailInfo["nickname"];
+            } else {
+                //check whether the user has subscribe server
+                if (isset($clientUserInfo["nickname"])) {
+                    $userInfo["score"] = 0;
+                    $userInfo["headimgurl"] = $clientUserInfo["headimgurl"];
+                    $userInfo["nickname"] = $clientUserInfo["nickname"];
+                }
+            }
+        } else {
+            $userInfo["score"] = 0;
+            $userInfo["nickname"] = "请关注公众号";
         }
 
-        $userInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($openId);
         $this->_smarty->assign("userInfo", $userInfo);
-
-        $dbUserInfo = WeChatClientService::getInstance()->getUserInfo($openId);
-        $this->_smarty->assign("score", $dbUserInfo['score']);
-
-        $salveList = UserRelationService::getInstance()->listUserScore($dbUserInfo["unionid"], PHP_INT_MAX, UserRelationMapper::NO_VALID, 10);
-        $this->_smarty->assign("salveList", $salveList);
-
-        $this->_smarty->display('activity/home.tpl');
+        $this->_smarty->display('mall/person.tpl');
     }
 
     public function listUserAction()
