@@ -27,6 +27,7 @@ class WebAutoLoader
         'ShareItemController' => '/src/applications/web/controllers/ShareItemController.php',
         'ShareInviteCodeController' => '/src/applications/web/controllers/ShareInviteCodeController.php',
         'MallController' => '/src/applications/web/controllers/MallController.php',
+        'LatestPublicController' => '/src/applications/web/controllers/LatestPublicController.php',
 
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
