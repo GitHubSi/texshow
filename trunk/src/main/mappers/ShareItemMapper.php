@@ -8,10 +8,8 @@
  */
 class ShareItemMapper
 {
-    const MEMBER_FULL = 1;
-    const REACH_LAST_DAY = 2;
-    const IS_ONLINE = 3;
-    const IS_OFFLINE = 4;
+    const IS_ONLINE = 1;
+    const IS_OFFLINE = 2;
 
     /**
      * name                 goods name
@@ -67,7 +65,7 @@ class ShareItemMapper
     {
         return $this->_db->getAll(
             "SELECT `id`, `name`, `image`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
-            FROM t_share_item WHERE state = ? ORDER BY id DESC",
+            FROM t_share_item WHERE state = ? ORDER BY update_time DESC",
             $state
         );
     }
