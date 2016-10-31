@@ -34,9 +34,9 @@
 <body>
 <header>
     <ul class="clearfix">
-        <li><a class="active" href="">首页</a></li>
-        <li><a href="">最新揭晓</a></li>
-        <li><a href="">个人中心</a></li>
+        <li><a class="active" href="/mall">首页</a></li>
+        <li><a href="/latestPublic">最新揭晓</a></li>
+        <li><a href="/home">个人中心</a></li>
     </ul>
 </header>
 <div class="swiper-container swiper-container-horizontal">

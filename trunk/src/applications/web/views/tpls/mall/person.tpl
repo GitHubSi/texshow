@@ -9,7 +9,7 @@
     <link href="/resource/css/my.css" rel="stylesheet">
     <script src="/resource/js/jquery.min.js"></script>
     <script src="/resource/js/swiper.min.js"></script>
-    <title>最新揭晓</title>
+    <title>个人中心</title>
     <script>
         (function (doc, win) {
             // 分辨率Resolution适配
@@ -35,27 +35,38 @@
 <header>
     <ul class="clearfix">
         <li><a href="/mall">首页</a></li>
-        <li><a class="active" href="/latestPublic">最新揭晓</a></li>
-        <li><a href="/home">个人中心</a></li>
+        <li><a href="/latestPublic">最新揭晓</a></li>
+        <li><a class="active" href="/home">个人中心</a></li>
     </ul>
 </header>
-<div class="publish-main">
+<div class="per-main">
+    <div class="per-info clearfix">
+        <div class="img">
+            <img src={%if !isset($userInfo.headimgurl)%}"/resource/img/dbzhijun/circle.png"{%else%}{%$userInfo.headimgurl%}{%/if%}
+                 alt=""/>
+        </div>
+        <div class="info">
+            <h3>{%$userInfo.nickname%}</h3>
+            <p>夺宝币：<span>{%$userInfo.score%}个</span></p>
+        </div>
+    </div>
     <ul>
-        {%if !empty($latestPublic)%}
-        {%foreach $latestPublic as $public%}
-        <li class="clearfix">
-            <div class="img"><img src="/resource/img/dbzhijun/fudai.png" alt=""/></div>
-            <div class="info">
-                <h3>{%$public.name%}－速开</h3>
-                <p>期 号：{%$public.batch%}</p>
-                <p>获得用户：<span class="b">{%$public.user_name%}</span></p>
-                <p>参与人次：{%$public.current_score%}人次</p>
-                <p>幸运好嘛：<span class="r">00000000</span></p>
-                <p>揭晓时间：{%$public.open_time%}</p>
-            </div>
+        <li><a href="">
+                <p>收货地址</p>
+                <i></i></a>
         </li>
-        {%/foreach%}
-        {%/if%}
+        <li><a href="">
+                <p>夺宝记录</p>
+                <i></i></a>
+        </li>
+        <li><a href="">
+                <p>中奖记录</p>
+                <i></i></a>
+        </li>
+        <li><a href="">
+                <p>常见问题</p>
+                <i></i></a>
+        </li>
     </ul>
 </div>
 </body>
