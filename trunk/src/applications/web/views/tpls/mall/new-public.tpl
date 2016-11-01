@@ -50,7 +50,7 @@
                 <p>期 号：{%$public.batch%}</p>
                 <p>获得用户：<span class="b">{%$public.user_name%}</span></p>
                 <p>参与人次：{%$public.current_score%}人次</p>
-                <p>幸运好嘛：<span class="r">00000000</span></p>
+                <p>幸运好嘛：<span class="r">{%$public.invite_code%}</span></p>
                 <p>揭晓时间：{%$public.open_time%}</p>
             </div>
         </li>

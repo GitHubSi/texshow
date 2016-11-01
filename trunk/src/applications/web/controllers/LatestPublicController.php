@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: neojos
- * Date: 2016/10/31
- * Time: 21:53
- */
+//最新中奖公告页
 class LatestPublicController extends AbstractActivityAction
 {
 
@@ -24,9 +19,16 @@ class LatestPublicController extends AbstractActivityAction
         if (!empty($latestPublic)) {
             foreach ($latestPublic as $key => &$publish) {
                 $publish["batch"] = str_pad($publish["id"], 10, "0", STR_PAD_LEFT);
-                $publish["user_name"] = "稍后开发";
-                $publish["invite_code"] = "087678";
-                $publish["open_time"] = $publish["create_time"];
+                if (empty($publish["openid"])) {
+                    $publish["user_name"] = "等待抽取...";
+                    $publish["invite_code"] = "等待确认...";
+                    $publish["open_time"] = "等待确认...";
+                } else {
+                    $userInfo = WeChatMagazineService::getInstance()->getUserInfo($publish["openid"], true);
+                    $publish["user_name"] = $userInfo["nick_name"];
+                    $publish["invite_code"] = $userInfo["head_img"];
+                    $publish["open_time"] = $publish["update_time"];
+                }
             }
         }
 
