@@ -46,13 +46,13 @@ class WeChatMagazineUserMapper
     {
         if ($includeUnSubscribe) {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
+                "SELECT id, openid, unionid, nick_name, head_img, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE openid = ? ",
                 $openId
             );
         } else {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
+                "SELECT id, openid, unionid, nick_name, head_img, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE openid = ? AND is_subscribe = ? ",
                 array($openId, self::SUBSCRIBE)
             );
@@ -62,7 +62,7 @@ class WeChatMagazineUserMapper
     public function getInfoById($id)
     {
         return $this->_db->getRow(
-            "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
+            "SELECT id, openid, unionid, nick_name, head_img, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE id = ? AND is_subscribe = ? ",
             array($id, self::SUBSCRIBE)
         );
@@ -72,13 +72,13 @@ class WeChatMagazineUserMapper
     {
         if ($includeUnSubscribe) {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
+                "SELECT id, openid, unionid, nick_name, head_img, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE unionid = ? ",
                 $unionId
             );
         } else {
             return $this->_db->getRow(
-                "SELECT id, openid, unionid, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
+                "SELECT id, openid, unionid, nick_name, head_img, is_subscribe, phone, score, redpacket, create_time, update_time, invite FROM wechat_magazine_user
                 WHERE unionid = ? AND is_subscribe = ? ",
                 array($unionId, self::SUBSCRIBE)
             );

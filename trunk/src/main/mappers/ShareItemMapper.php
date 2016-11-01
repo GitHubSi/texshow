@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: neojos
- * Date: 2016/7/12
- * Time: 22:56
- */
+//夺宝商品信息，同时存储该商品的中奖用户
 class ShareItemMapper
 {
     const IS_ONLINE = 1;
@@ -55,7 +50,7 @@ class ShareItemMapper
     public function getGoodById($itemId)
     {
         return $this->_db->getRow(
-            "SELECT `id`, `name`, `image`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time` 
+            "SELECT `id`, `name`, `image`, `openid`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time` 
             FROM t_share_item WHERE id = ?",
             $itemId
         );
@@ -64,7 +59,7 @@ class ShareItemMapper
     public function getGoodsByState($state)
     {
         return $this->_db->getAll(
-            "SELECT `id`, `name`, `image`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
+            "SELECT `id`, `name`, `image`, `openid`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
             FROM t_share_item WHERE state = ? ORDER BY update_time DESC",
             $state
         );
@@ -73,7 +68,7 @@ class ShareItemMapper
     public function getAllGoods($lastId, $pageSize = PHP_INT_MAX)
     {
         return $this->_db->getAll(
-            "SELECT `id`, `name`, `image`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
+            "SELECT `id`, `name`, `image`, `openid`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
             FROM t_share_item WHERE id < ? ORDER BY id DESC LIMIT {$pageSize}",
             $lastId
         );
