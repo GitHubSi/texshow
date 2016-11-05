@@ -44,6 +44,15 @@ class OneShareService
         return $userInfo["id"] + self::EXTRA_ADD_NUM;
     }
 
+    public function getShareItem($itemId)
+    {
+        $itemInfo = $this->_shareItemMapper->getGoodById($itemId);
+        if (empty($itemInfo)) {
+            throw new Exception("商品信息不存在", 404);
+        }
+        return $itemInfo;
+    }
+
     /**
      * @param $openId       client openid
      * @param $score
