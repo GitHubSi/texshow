@@ -22,10 +22,40 @@
                    class="form-control">
         </div>
 
-        <div class="input-group">
-            <span class="input-group-addon">商品描述</span>
-            <input id="desc" type="text" name="desc" placeholder="请输入商品描述图片" value="{%$good.desc%}"
-                   class="form-control">
+        <h5>商品介绍详情（每张图片都需要有文字介绍,暂时支持最多4张图片）</h5>
+        <div id="desc-parent-node">
+            <div class="input-group">
+                <span class="input-group-addon">图片链接</span>
+                <input id="desc" type="text" name="desc_img[]" placeholder="请输入商品图片链接" value="{%$good.desc[0].image%}"
+                       class="form-control">
+                <span class="input-group-addon">文字介绍</span>
+                <input id="desc" type="text" name="desc_title[]" placeholder="请输入商品描述图片" value="{%$good.desc[0].title%}"
+                       class="form-control">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">图片链接</span>
+                <input id="desc" type="text" name="desc_img[]" placeholder="请输入商品图片链接" value="{%$good.desc[1].image%}"
+                       class="form-control">
+                <span class="input-group-addon">文字介绍</span>
+                <input id="desc" type="text" name="desc_title[]" placeholder="请输入商品描述图片" value="{%$good.desc[1].title%}"
+                       class="form-control">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">图片链接</span>
+                <input id="desc" type="text" name="desc_img[]" placeholder="请输入商品图片链接" value="{%$good.desc[2].image%}"
+                       class="form-control">
+                <span class="input-group-addon">文字介绍</span>
+                <input id="desc" type="text" name="desc_title[]" placeholder="请输入商品描述图片" value="{%$good.desc[2].title%}"
+                       class="form-control">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">图片链接</span>
+                <input id="desc" type="text" name="desc_img[]" placeholder="请输入商品图片链接" value="{%$good.desc[3].image%}"
+                       class="form-control">
+                <span class="input-group-addon">文字介绍</span>
+                <input id="desc" type="text" name="desc_title[]" placeholder="请输入商品描述图片" value="{%$good.desc[3].title%}"
+                       class="form-control">
+            </div>
         </div>
 
         <div class="input-group">
