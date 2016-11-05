@@ -95,4 +95,56 @@ class GoodsManageController extends AbstractSecurityAction
         $this->_smarty->display('admin/b-index.tpl');
     }
 
+    public function recordHistoryAction()
+    {
+        $itemId = $this->getParam("id");
+        if (!ctype_digit($itemId)) {
+            header("Location: /GoodsManage/index?successMsg=类型参数错误");
+            return;
+        }
+
+        $goodsInfo = OneShareService::getInstance()->getShareItem($itemId);
+
+        $redisRankKey = OneShareService::RANK_BUY_GOOD_NUM . $itemId;
+        $rankListUser = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->zRevRangeByScore($redisRankKey, "+inf", "-inf", array(
+            'withscores' => TRUE, 'limit' => array(0, 40)
+        ));
+
+        $this->_smarty->assign("good", $goodsInfo);
+        $this->_smarty->assign('rankList', $rankListUser);
+        $this->_smarty->assign('tpl', "admin/good_manage/user-rank.tpl");
+        $this->_smarty->display('admin/b-index.tpl');
+    }
+
+    public function userDetailAction()
+    {
+        $openId = $this->getParam("openid");
+        $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($openId);
+        $this->_smarty->assign("userInfo", $userInfo);
+        $this->_smarty->assign('tpl', "admin/good_manage/userinfo.tpl");
+        $this->_smarty->display('admin/b-index.tpl');
+    }
+
+    public function prizeAction()
+    {
+        $openId = $this->getParam("openid");
+        $item = $this->getParam("id");
+
+        //check当前商品whether已经offline
+        $goodInfo = OneShareService::getInstance()->getShareItem($item);
+        if (empty($goodInfo) || $goodInfo["state"] == ShareItemMapper::IS_ONLINE) {
+            header("Location: /goodsManage/recordHistory?id=" . $item . "#商品还没有达到购买份额");
+            return;
+        }
+
+        if (!empty($goodInfo["openid"])) {
+            header("Location: /goodsManage/recordHistory?id=" . $item . "#该商品已经设置了中奖用户，请勿重复设置");
+            return;
+        }
+
+        //set the user to 中奖
+        $this->_shareItemMapper->updateOpenId($item, $openId);
+        header("Location: /goodsManage/recordHistory?id=" . $item . "#该商品已经成功设置了中奖用户");
+    }
 }
+
