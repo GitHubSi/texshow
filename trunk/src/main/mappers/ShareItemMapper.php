@@ -69,8 +69,8 @@ class ShareItemMapper
     {
         return $this->_db->getAll(
             "SELECT `id`, `name`, `image`, `openid`, `winner`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
-            FROM t_share_item WHERE id < ? ORDER BY id DESC LIMIT {$pageSize}",
-            $lastId
+            FROM t_share_item WHERE id < ? AND state = ? ORDER BY id DESC LIMIT {$pageSize}",
+            array($lastId, self::IS_ONLINE)
         );
     }
 

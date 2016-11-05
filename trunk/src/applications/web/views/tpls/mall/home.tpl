@@ -66,7 +66,7 @@
                         <div class="bar" style="width: {%$good.rank%}"></div>
                     </div>
                 </div>
-                <div class="enjoy wxEnjoy">分享</div>
+                <div class="enjoy wxEnjoy" data-pro="{%$good.id%}">分享</div>
                 <div class="duobao" data-pro="{%$good.id%}">夺宝</div>
             </div>
         </li>
@@ -93,6 +93,10 @@
     <p>凤凰夺宝</p>
 </div>
 <!--分享弹窗-->
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
+<script src="/resource/scripts/wechat.js?timestamp=1"></script>
 
 <script>
     //轮播  动态加载内容模块
@@ -180,7 +184,7 @@
                 html += '<div class="bar" style="width:' + n.rank + '"></div>';
                 html += '</div>';
                 html += '</div>';
-                html += '<div class="enjoy wxEnjoy">分享</div>';
+                html += '<div class="enjoy wxEnjoy" data-pro="' + n.id + '">分享</div>';
                 html += '<div class="duobao" data-pro="' + n.id + '">夺宝</div>';
                 html += '</div>';
                 html += '</li>';
@@ -231,6 +235,19 @@
             var popup = '<div class="popup-mask"><img src="/resource/img/dbzhijun/enjoywx.png" alt=""/> </div>';
             $('body').append(popup);
 
+            //set wechat share
+            var itemId = ($(this).attr("data-pro"));
+            var shareurl = "http://act.wetolink.com/mall/detail?item=" + itemId;
+            var shareimg = $(this).closest('li').find('img').attr('src');
+            var sharetitle = $(this).closest('li').find('.shop-des').text();
+
+            var jsapi = JSON.parse($("#wechat_share").text());
+            jsapi.sharetext = (sharetitle);
+            jsapi.shareurl = (shareurl);
+            jsapi.shareimg = (shareimg);
+
+            $("#wechat_share").text(JSON.stringify(jsapi));
+            share_wexin();
         });
         $('body').on('click', '.popup-mask', function () {
             $(this).remove();

@@ -70,3 +70,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function show_confirm(url) {
+        if (confirm("确认下线吗？下线之后商品即会下线，并且展示在开奖列表中")) {
+            document.location.href = url;
+        }
+    }
+</script>

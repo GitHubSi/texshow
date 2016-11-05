@@ -29,6 +29,6 @@ class ShareInviteCodeController extends AbstractActivityAction
         );
         $this->_smarty->assign("jsapi", $jsapi);
         $this->_smarty->assign("inviteCode", $inviteCode);
-        $this->_smarty->display('activity/share-invite-code.tpl');
+        $this->_smarty->display('mall/invite.tpl');
     }
 }

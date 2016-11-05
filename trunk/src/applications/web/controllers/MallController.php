@@ -8,10 +8,19 @@
  */
 class MallController extends AbstractActivityAction
 {
+    private $_shareContext = array(
+        "title" => "Tex商城直接分享文案！",
+        "content" => "Tex商城直接分享内容",
+        "url" => "http://act.wetolink.com/mall",
+        "img" => "http://act.wetolink.com/resource/img/p-1.jpg"
+    );
+
     public function indexAction()
     {
         $goodList = OneShareService::getInstance()->getGoodList(PHP_INT_MAX, true);
 
+        $this->_smarty->assign("jsapi", $this->setWechatShare($this->_shareContext["title"], $this->_shareContext["content"],
+            $this->_shareContext["url"], $this->_shareContext["img"]));
         $this->_smarty->assign("userInfo", $this->_userInfo);
         $this->_smarty->assign("goodList", $goodList);
         $this->_smarty->display('mall/home.tpl');

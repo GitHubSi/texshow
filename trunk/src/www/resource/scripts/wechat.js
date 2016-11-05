@@ -2,7 +2,7 @@
  * Created by acer on 2016/9/17.
  */
 
-$(function(){
+function share_wexin() {
     var shareData = $("#wechat_share").val();
     var wechatInfo = JSON.parse(shareData);
     var obj = {
@@ -32,4 +32,6 @@ $(function(){
             ]
         });
     });
-})
+};
+
+$(share_wexin());

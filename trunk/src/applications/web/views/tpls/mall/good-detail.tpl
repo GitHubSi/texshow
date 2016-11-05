@@ -53,6 +53,10 @@
     </div>
 </div>
 <input type="hidden" id="user_score" value="{%$userInfo.score%}"/>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
+<script src="/resource/scripts/wechat.js?timestamp=1"></script>
 </body>
 <script>
     (function () {

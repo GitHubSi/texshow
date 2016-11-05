@@ -147,5 +147,25 @@ class GoodsManageController extends AbstractSecurityAction
         $this->_shareItemMapper->updateOpenId($item, $openId, $userInfo["nickname"]);
         header("Location: /goodsManage/recordHistory?id=" . $item . "#该商品已经成功设置了中奖用户");
     }
+
+    public function offlineAction()
+    {
+        $itemId = $this->getParam("id");
+        if (!ctype_digit($itemId)) {
+            header("Location: /GoodsManage/index?successMsg=类型参数错误");
+            return;
+        }
+
+        //check当前商品whether已经offline
+        $goodInfo = OneShareService::getInstance()->getShareItem($itemId);
+        if (empty($goodInfo) || $goodInfo["state"] == ShareItemMapper::IS_OFFLINE) {
+            header("Location: /goodsManage/index?id=" . $itemId . "#系统错误，商品不存在或者已经下线");
+            return;
+        }
+
+        $this->_shareItemMapper->updateGoodsState($itemId, ShareItemMapper::IS_OFFLINE);
+        header("Location: /goodsManage/index?id=" . $itemId . "#商品下线成功");
+
+    }
 }
 
