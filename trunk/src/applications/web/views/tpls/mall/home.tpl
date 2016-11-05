@@ -55,7 +55,9 @@
     <ul class="clearfix" id="J_test_list">
         {%foreach $goodList["goodList"] as $good%}
         <li data-pro="{%$good.id%}">
-            <img src="{%$good.image%}" alt=""/>
+            <a href="/mall/detail?item={%$good.id%}">
+                <img src="{%$good.image%}" alt=""/>
+            </a>
             <p class="shop-des">{%$good.name%}</p>
             <div class="info clearfix">
                 <div class="progress">
