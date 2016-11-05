@@ -49,4 +49,25 @@ class MallController extends AbstractActivityAction
         $this->_data = $goodList["goodList"];
     }
 
+    public function detailAction()
+    {
+        $itemId = $this->getParam("item");
+        if (!ctype_digit($itemId) || $itemId <= 0) {
+            throw new Exception("商品item id输入非法", 402);
+        }
+        $shareItem = OneShareService::getInstance()->getShareItem($itemId);
+        $shareItem["desc"] = json_decode($shareItem["desc"], true);
+
+        $jsapi = $this->setWechatShare(
+            "这里有iPhone7免费送，帮我抢你也能参与哦！",
+            "据说iPhone7的预约排到了11月，凤凰科技免费送iPhone7，来的早机会大呦！",
+            "http://act.wetolink.com/shareItem/iphone/",
+            "http://act.wetolink.com/resource/img/p-1.jpg"
+        );
+        $this->_smarty->assign("jsapi", $jsapi);
+
+        $this->_smarty->assign("good", $shareItem);
+        $this->_smarty->assign("userInfo", $this->_userInfo);
+        $this->_smarty->display('mall/good-detail.tpl');
+    }
 }
