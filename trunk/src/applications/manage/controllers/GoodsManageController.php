@@ -37,11 +37,12 @@ class GoodsManageController extends AbstractSecurityAction
         $name = $this->getParam("name");
         $totalScore = $this->getParam("price");
         $image = $this->getParam("image");
-        $desc = $this->getParam("desc");
+        $descImgs = $this->getParam("desc_img");
+        $descTitles = $this->getParam("desc_title");
         $type = $this->getParam("type");
         $itemId = $this->getParam("id");
 
-        if (empty($name) || empty($totalScore) || empty($image) || empty($desc)) {
+        if (empty($name) || empty($totalScore) || empty($image) || empty($descImgs)) {
             header("Location: /GoodsManage/index?successMsg=参数不能为空");
             return;
         }
@@ -50,13 +51,13 @@ class GoodsManageController extends AbstractSecurityAction
             return;
         }
 
-        //just for extension in the future
-        $descArray = array(
-            array(
-                "title" => "",
-                "image" => $desc
-            )
-        );
+        $descArray = array();
+        foreach ($descImgs as $key => $descImg) {
+            $descArray[] = array(
+                "title" => $descTitles[$key],
+                "image" => $descImg
+            );
+        }
 
         $insertDay = date("Y-m-d H:i:s");
         if ($type == "add") {
@@ -84,9 +85,7 @@ class GoodsManageController extends AbstractSecurityAction
 
         if (!empty($itemId)) {
             $goodsInfo = $this->_shareItemMapper->getGoodById($itemId);
-
-            $descArr = json_decode($goodsInfo["desc"], true);
-            $goodsInfo["desc"] = $descArr[0]["image"];
+            $goodsInfo["desc"] = json_decode($goodsInfo["desc"], true);
         }
 
         $this->_smarty->assign("good", $goodsInfo);
