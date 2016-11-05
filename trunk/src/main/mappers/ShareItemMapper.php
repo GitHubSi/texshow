@@ -3,8 +3,8 @@
 //夺宝商品信息，同时存储该商品的中奖用户
 class ShareItemMapper
 {
-    const IS_ONLINE = 1;
-    const IS_OFFLINE = 2;
+    const IS_ONLINE = 0;
+    const IS_OFFLINE = 1;
 
     /**
      * name                 goods name
@@ -79,6 +79,14 @@ class ShareItemMapper
         return $this->_db->execute(
             "UPDATE t_share_item SET state = ? WHERE id = ? ",
             array($state, $id)
+        );
+    }
+
+    public function updateOpenId($id, $openid)
+    {
+        return $this->_db->execute(
+            "UPDATE t_share_item SET openid = ? WHERE id = ? ",
+            array($openid, $id)
         );
     }
 }
