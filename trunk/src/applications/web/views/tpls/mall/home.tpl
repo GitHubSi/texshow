@@ -296,6 +296,11 @@
         });
         //提交
         $testList.on('click', '.btn-snatch', function () {
+            var max = $("#user_score").val();
+            if ($.trim(max) == "" || max <= 0) {
+                return false;
+            }
+
             var $text = $('.message').find('.text');
             var num = $text.text();
             $.get('/mall/buy',{num:num, item:dataId}, function () {
