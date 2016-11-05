@@ -14,7 +14,6 @@ class LatestPublicController extends AbstractActivityAction
 
     public function indexAction()
     {
-        //TODO 明天完成这一部分的开发和设计
         $latestPublic = $this->_shareItemMapper->getGoodsByState(ShareItemMapper::IS_OFFLINE);
         if (!empty($latestPublic)) {
             foreach ($latestPublic as $key => &$publish) {

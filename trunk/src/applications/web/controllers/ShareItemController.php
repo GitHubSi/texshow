@@ -46,6 +46,7 @@ class ShareItemController extends AbstractActivityAction
         WeChatPayService::getInstance()->getInstance()->handleNotify();
     }
 
+    //商品详情页
     public function iphoneAction()
     {
         $item = 1;      //默认item=1表示iphone手机
