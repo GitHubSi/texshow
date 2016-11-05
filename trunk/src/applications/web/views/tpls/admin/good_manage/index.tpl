@@ -27,9 +27,10 @@
                         <td>{%$good.total_score%}</td>
                         <td>
                             <a href="#"
-                               onclick="show_confirm('/goodsManage/offline?id={%$good.id%}');return false;">下线</a>
-                            <a href="/goodsManage/info?type=detail&id={%$good.id%}">详情</a>
-                            <a href="/goodsManage/info?type=edit&id={%$good.id%}">编辑</a>
+                               onclick="show_confirm('/goodsManage/offline?id={%$good.id%}');return false;">下线</a> |
+                            <a href="/goodsManage/info?type=detail&id={%$good.id%}">详情</a>|
+                            <a href="/goodsManage/info?type=edit&id={%$good.id%}">编辑</a>|
+                            <a href="/goodsManage/recordHistory?id={%$good.id%}">查看购买情况</a>
                         </td>
                     </tr>
                     {%/foreach%}

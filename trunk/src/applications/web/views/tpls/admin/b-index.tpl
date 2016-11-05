@@ -130,10 +130,17 @@
     <!-- End #sidebar -->
     <div id="main-content">
         <!-- Main Content Section with everything -->
+        <div id="msg-panel" style="color: red; font-size: larger; line-height: 30px; height: 30px"></div>
         {%include file=$tpl%}
     </div>
     <!-- End #main-content -->
 </div>
+<script>
+    (function () {
+        var msg = decodeURIComponent(document.location.hash);
+        $("#msg-panel").append(msg);
+    })();
+</script>
 </body>
 <!-- Download From www.exet.tk-->
 </html>
