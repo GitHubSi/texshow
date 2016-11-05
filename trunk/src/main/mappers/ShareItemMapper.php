@@ -50,7 +50,7 @@ class ShareItemMapper
     public function getGoodById($itemId)
     {
         return $this->_db->getRow(
-            "SELECT `id`, `name`, `image`, `openid`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time` 
+            "SELECT `id`, `name`, `image`, `openid`, `winner`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time` 
             FROM t_share_item WHERE id = ?",
             $itemId
         );
@@ -59,7 +59,7 @@ class ShareItemMapper
     public function getGoodsByState($state)
     {
         return $this->_db->getAll(
-            "SELECT `id`, `name`, `image`, `openid`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
+            "SELECT `id`, `name`, `image`, `openid`, `winner`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
             FROM t_share_item WHERE state = ? ORDER BY update_time DESC",
             $state
         );
@@ -68,7 +68,7 @@ class ShareItemMapper
     public function getAllGoods($lastId, $pageSize = PHP_INT_MAX)
     {
         return $this->_db->getAll(
-            "SELECT `id`, `name`, `image`, `openid`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
+            "SELECT `id`, `name`, `image`, `openid`, `winner`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time`
             FROM t_share_item WHERE id < ? ORDER BY id DESC LIMIT {$pageSize}",
             $lastId
         );
@@ -82,11 +82,11 @@ class ShareItemMapper
         );
     }
 
-    public function updateOpenId($id, $openid)
+    public function updateOpenId($id, $openid, $winner)
     {
         return $this->_db->execute(
-            "UPDATE t_share_item SET openid = ? WHERE id = ? ",
-            array($openid, $id)
+            "UPDATE t_share_item SET openid = ? , winner = ? WHERE id = ? ",
+            array($openid, $winner, $id)
         );
     }
 }

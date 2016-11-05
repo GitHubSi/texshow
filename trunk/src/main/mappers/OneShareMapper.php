@@ -30,12 +30,12 @@ class OneShareMapper
         );
     }
 
-    public function getCurrentBuyHistory($openId, $limit = 5)
+    public function getCurrentBuyHistory($openId, $lastId = PHP_INT_MAX, $limit = 5)
     {
         return $this->_db->getAll(
-            "SELECT id, openid, score, item, is_return, create_time, update_time FROM t_one_share WHERE openid = ?
+            "SELECT id, openid, score, item, is_return, create_time, update_time FROM t_one_share WHERE id < ? AND openid = ?
             ORDER BY id DESC LIMIT {$limit}",
-            $openId
+            array($lastId, $openId)
         );
     }
 }

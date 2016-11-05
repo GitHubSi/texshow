@@ -11,6 +11,7 @@ class OneShareService
     const EXTRA_ADD_NUM = 100000;       //for invite code
     const GOODS_PAGE_SIZE = 20;
     const NEW_USER_START_TIME = "2016-09-04 00:00:00";
+    const RANK_BUY_GOOD_NUM = "mall:rank:";
 
     private $_weChatMagazineUserMapper;
     private $_oneShareMapper;
@@ -79,8 +80,11 @@ class OneShareService
             $this->_weChatMagazineUserMapper->updateScore($userInfo["openid"], $currentScore);
             $this->_oneShareMapper->addOneShare($userInfo["openid"], $score, $itemId);
             $this->_shareItemMapper->updateScoreNum($score, $itemId);
-            $db->commit();
 
+            $RedisRankKey = self::RANK_BUY_GOOD_NUM . $itemId;
+            RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->zIncrBy($RedisRankKey, $score, $userInfo["openid"]);
+
+            $db->commit();
         } catch (Exception $e) {
             $db->rollback();
             throw new Exception("数据库错误" . $e->getCode() . $e->getTraceAsString(), 10003);
@@ -89,18 +93,20 @@ class OneShareService
         return true;
     }
 
-    /**
-     * @param $openId   服务号的openid
-     * @param int $record
-     * @return mixed
-     */
-    public function getCurrentBuyHistory($openId, $record = 5)
+    //openid  为服务号的openid
+    public function getCurrentBuyHistory($openId, $lastId = PHP_INT_MAX, $record = 5)
     {
         $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
-        $buyHistory = $this->_oneShareMapper->getCurrentBuyHistory($magaUserInfo["openid"], $record);
+        $buyHistory = $this->_oneShareMapper->getCurrentBuyHistory($magaUserInfo["openid"], $lastId, $record);
         foreach ($buyHistory as $key => $history) {
             $goods = $this->_shareItemMapper->getGoodById($history["item"]);
+            $history["batch"] = str_pad($goods["id"], 10, "0", STR_PAD_LEFT);
             $history["good_name"] = $goods["name"];
+            if (!empty($goods["openid"])) {
+                $history["winner"] = $goods["winner"];
+            } else {
+                $history["winner"] = "正在输入...";
+            }
             $buyHistory[$key] = $history;
         }
         return $buyHistory;
