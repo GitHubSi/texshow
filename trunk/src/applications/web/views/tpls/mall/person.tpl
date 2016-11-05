@@ -55,7 +55,7 @@
                 <p>收货地址</p>
                 <i></i></a>
         </li>
-        <li><a href="">
+        <li><a href="/mall/history">
                 <p>夺宝记录</p>
                 <i></i></a>
         </li>

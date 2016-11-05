@@ -143,7 +143,8 @@ class GoodsManageController extends AbstractSecurityAction
         }
 
         //set the user to 中奖
-        $this->_shareItemMapper->updateOpenId($item, $openId);
+        $userInfo = WeChatMagazineService::getInstance()->getUserInfoByOpenID($openId);
+        $this->_shareItemMapper->updateOpenId($item, $openId, $userInfo["nickname"]);
         header("Location: /goodsManage/recordHistory?id=" . $item . "#该商品已经成功设置了中奖用户");
     }
 }

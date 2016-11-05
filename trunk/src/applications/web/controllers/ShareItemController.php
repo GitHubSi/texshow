@@ -76,22 +76,4 @@ class ShareItemController extends AbstractActivityAction
         $this->_smarty->assign("endTime", date("y/m/d", strtotime($goodInfo["end_time"])));
         $this->_smarty->display('activity/share-iphone.tpl');
     }
-
-    public function buyAction()
-    {
-        $item = 1;
-        $openId = $this->getParam("openid");
-        $score = $this->getParam("rob_num");
-
-        try {
-            if (!ctype_digit($score)) {
-                throw new Exception("参数错误", 20001);
-            }
-            OneShareService::getInstance()->consumerScore($openId, $score, $item);
-            header("Location: http://act.wetolink.com/home/magazine");
-        } catch (Exception $e) {
-            Logger::getRootLogger()->info($e->getMessage());
-            header("Location: http://act.wetolink.com/shareItem/iphone");
-        }
-    }
 }

@@ -23,9 +23,8 @@ class LatestPublicController extends AbstractActivityAction
                     $publish["invite_code"] = "等待确认...";
                     $publish["open_time"] = "等待确认...";
                 } else {
-                    $userInfo = WeChatMagazineService::getInstance()->getUserInfo($publish["openid"], true);
-                    $publish["user_name"] = $userInfo["nick_name"];
-                    $publish["invite_code"] = $userInfo["head_img"];
+                    $publish["user_name"] = $publish["winner"];
+                    $publish["invite_code"] = OneShareService::getInstance()->getInviteCode($publish["openid"]);
                     $publish["open_time"] = $publish["update_time"];
                 }
             }

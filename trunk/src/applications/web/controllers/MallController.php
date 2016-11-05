@@ -70,4 +70,37 @@ class MallController extends AbstractActivityAction
         $this->_smarty->assign("userInfo", $this->_userInfo);
         $this->_smarty->display('mall/good-detail.tpl');
     }
+
+    public function historyAction()
+    {
+        $ret = array();
+        try {
+            $openId = $this->getParam("openid");
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($openId, PHP_INT_MAX, 4);
+        } catch (Exception $e) {
+
+        }
+
+        $this->_smarty->assign("history", $ret);
+        $this->_smarty->display('mall/history.tpl');
+    }
+
+    public function moreHistoryAction()
+    {
+        $this->_isJson = true;
+        $lastId = $this->getParam("last_id");
+        if (!ctype_digit($lastId) || $lastId <= 0) {
+            throw new Exception("parameter error", 406);
+        }
+
+        $ret = array();
+        try {
+            $openId = $this->getParam("openid");
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($openId, $lastId);
+        } catch (Exception $e) {
+
+        }
+
+        $this->_data = $ret;
+    }
 }
