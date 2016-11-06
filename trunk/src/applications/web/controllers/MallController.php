@@ -145,4 +145,9 @@ class MallController extends AbstractActivityAction
         $this->_smarty->assign("history", $ret);
         $this->_smarty->display('mall/winner.tpl');
     }
+
+    public function addressAction()
+    {
+        $this->_smarty->display('mall/address.tpl');
+    }
 }
