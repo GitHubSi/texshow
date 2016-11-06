@@ -18,7 +18,7 @@ class GoodsManageController extends AbstractSecurityAction
 
     public function indexAction()
     {
-        $allGoods = $this->_shareItemMapper->getAllGoods(PHP_INT_MAX);
+        $allGoods = $this->_shareItemMapper->getAllGoods(PHP_INT_MAX, true, PHP_INT_MAX);
         foreach ($allGoods as $good) {
             if ($good["state"] == ShareItemMapper::IS_OFFLINE) {
                 $result["offline"][] = $good;
@@ -95,6 +95,7 @@ class GoodsManageController extends AbstractSecurityAction
         $this->_smarty->display('admin/b-index.tpl');
     }
 
+    //check good buy situation
     public function recordHistoryAction()
     {
         $itemId = $this->getParam("id");

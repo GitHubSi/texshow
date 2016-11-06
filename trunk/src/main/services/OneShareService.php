@@ -143,13 +143,14 @@ class OneShareService
         return false;
     }
 
+    //是否包含轮播图
     public function getGoodList($lastId, $includeHomePage = false)
     {
         if ($includeHomePage) {
             $headImgList = $this->_headImageMapper->getImgByState(HeadImgMapper::NO_DELETE);
         }
 
-        $goodList = $this->_shareItemMapper->getAllGoods($lastId, self::GOODS_PAGE_SIZE);
+        $goodList = $this->_shareItemMapper->getAllGoods($lastId);
         foreach ($goodList as &$good) {
             $good["rank"] = ceil($good["current_score"] / $good["total_score"] * 100) . "%";
         }

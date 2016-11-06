@@ -15,8 +15,9 @@
         </div>
 
         <div class="input-group">
-            <span class="input-group-addon">请输入图片链接:</span>
-            <input id="redirect_url" type="text" name="redirect_url" placeholder="请输入跳转链接" class="form-control">
+            <span class="input-group-addon">请输入跳转链接:</span>
+            <input id="redirect_url" type="text" name="redirect_url" placeholder="请输入跳转链接" class="form-control"
+                   value="http://act.wetolink.com/mall/detail?item=">
         </div>
 
         <div class="input-group">

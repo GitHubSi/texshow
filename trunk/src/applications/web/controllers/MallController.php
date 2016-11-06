@@ -51,7 +51,7 @@ class MallController extends AbstractActivityAction
 
         $lastId = $this->getParam("last_id");
         if (!ctype_digit($lastId)) {
-            $lastId = PHP_INT_MAX;
+            throw new Exception("parameter error,last_id is can't be null", 405);
         }
 
         $goodList = OneShareService::getInstance()->getGoodList($lastId);

@@ -12,6 +12,7 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>编号</th>
                         <th>名称</th>
                         <th>当前购买数</th>
                         <th>需要购买数</th>
@@ -22,6 +23,7 @@
                     <tbody>
                     {%foreach $goods["online"] as $good%}
                     <tr>
+                        <td>{%$good.id%}</td>
                         <td>{%$good.name%}</td>
                         <td>{%$good.current_score%}</td>
                         <td>{%$good.total_score%}</td>
@@ -48,6 +50,7 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>编号</th>
                         <th>名称</th>
                         <th>当前购买数</th>
                         <th>需要购买数</th>
@@ -58,9 +61,11 @@
                     <tbody>
                     {%foreach $goods["offline"] as $good%}
                     <tr>
+                        <td>{%$good.id%}</td>
                         <td>{%$good.name%}</td>
                         <td>{%$good.current_score%}</td>
                         <td>{%$good.total_score%}</td>
+                        <td><a href="/goodsManage/recordHistory?id={%$good.id%}">查看购买情况</a></td>
                     </tr>
                     {%/foreach%}
                     </tbody>
