@@ -51,7 +51,7 @@
         </div>
     </div>
     <ul>
-        <li><a href="">
+        <li><a href="/mall/address">
                 <p>收货地址</p>
                 <i></i></a>
         </li>
