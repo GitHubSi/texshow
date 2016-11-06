@@ -56,6 +56,15 @@ class ShareItemMapper
         );
     }
 
+    public function getGoodByOpenid($openId)
+    {
+        return $this->_db->getAll(
+            "SELECT `id`, `name`, `image`, `openid`, `winner`, `current_score`, `desc`, `total_score`, `state`, `create_time`, `update_time`, `start_time`, `end_time` 
+            FROM t_share_item WHERE openid = ?",
+            $openId
+        );
+    }
+
     public function getGoodsByState($state)
     {
         return $this->_db->getAll(

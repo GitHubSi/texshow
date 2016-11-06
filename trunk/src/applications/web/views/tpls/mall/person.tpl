@@ -59,7 +59,7 @@
                 <p>夺宝记录</p>
                 <i></i></a>
         </li>
-        <li><a href="">
+        <li><a href="/mall/winRecord">
                 <p>中奖记录</p>
                 <i></i></a>
         </li>

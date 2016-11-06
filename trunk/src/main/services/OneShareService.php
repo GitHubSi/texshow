@@ -94,7 +94,7 @@ class OneShareService
     }
 
     //openid  为服务号的openid
-    public function getCurrentBuyHistory($openId, $lastId = PHP_INT_MAX, $record = 5)
+    public function getCurrentBuyHistory($openId, $lastId = PHP_INT_MAX, $record = 20)
     {
         $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
         $buyHistory = $this->_oneShareMapper->getCurrentBuyHistory($magaUserInfo["openid"], $lastId, $record);

@@ -14,6 +14,14 @@ class MallController extends AbstractActivityAction
         "url" => "http://act.wetolink.com/mall",
         "img" => "http://act.wetolink.com/resource/img/p-1.jpg"
     );
+    private $_shareItemMapper;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_shareItemMapper = new ShareItemMapper();
+    }
 
     public function indexAction()
     {
@@ -80,12 +88,13 @@ class MallController extends AbstractActivityAction
         $this->_smarty->display('mall/good-detail.tpl');
     }
 
+    //夺宝纪录
     public function historyAction()
     {
         $ret = array();
         try {
             $openId = $this->getParam("openid");
-            $ret = OneShareService::getInstance()->getCurrentBuyHistory($openId, PHP_INT_MAX, 4);
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($openId, PHP_INT_MAX, 20);
         } catch (Exception $e) {
 
         }
@@ -94,6 +103,7 @@ class MallController extends AbstractActivityAction
         $this->_smarty->display('mall/history.tpl');
     }
 
+    //夺宝纪录-加载更多
     public function moreHistoryAction()
     {
         $this->_isJson = true;
@@ -111,5 +121,28 @@ class MallController extends AbstractActivityAction
         }
 
         $this->_data = $ret;
+    }
+
+    public function winRecordAction()
+    {
+
+        $ret = array();
+        try {
+            $openid = $this->getParam("openid");
+            $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openid);
+            $records = $this->_shareItemMapper->getGoodByOpenid($magaUserInfo["openid"]);
+
+            if (empty($records)) {
+                foreach ($records as $key => $record) {
+                    $history["batch"] = str_pad($record["id"], 10, "0", STR_PAD_LEFT);
+                    $ret[] = $history;
+                }
+            }
+        } catch (Exception $e) {
+            Logger::getRootLogger()->info(__CLASS__ . ":" . __FUNCTION__ . "exception");
+        }
+
+        $this->_smarty->assign("history", $ret);
+        $this->_smarty->display('mall/winner.tpl');
     }
 }
