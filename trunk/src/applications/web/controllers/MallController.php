@@ -15,12 +15,14 @@ class MallController extends AbstractActivityAction
         "img" => "http://act.wetolink.com/resource/img/p-1.jpg"
     );
     private $_shareItemMapper;
+    private $_weChatMagazineUserMapper;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->_shareItemMapper = new ShareItemMapper();
+        $this->_weChatMagazineUserMapper = new WeChatMagazineUserMapper();
     }
 
     public function indexAction()
@@ -148,6 +150,44 @@ class MallController extends AbstractActivityAction
 
     public function addressAction()
     {
+        try {
+            $openid = $this->getParam("openid");
+            $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openid);
+            if (!empty($magaUserInfo["addr"])) {
+                $addr = json_decode($magaUserInfo["addr"], true);
+                $this->_smarty->assign("address", $addr);
+            }
+        } catch (Exception $e) {
+            Logger::getRootLogger()->info(__CLASS__ . ":" . __FUNCTION__ . "exception");
+        }
+
         $this->_smarty->display('mall/address.tpl');
+    }
+
+    public function modifyAddressAction()
+    {
+        $this->_isJson = true;
+
+        $name = $this->getParam("name");
+        $phone = $this->getParam("phone");
+        $address = $this->getParam("addr");
+
+        if (empty($name) && empty($phone) && empty($address)) {
+            throw new Exception("parameter error", 406);
+        }
+
+        try {
+            $addr = json_encode(array(
+                "name" => $name,
+                "phone" => $phone,
+                "address" => $address
+            ));
+            $openid = $this->getParam("openid");
+
+            $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openid);
+            $this->_weChatMagazineUserMapper->updateUserAddr($addr, $magaUserInfo["openid"]);
+        } catch (Exception $e) {
+            Logger::getRootLogger()->info(__CLASS__ . ":" . __FUNCTION__ . "exception");
+        }
     }
 }
