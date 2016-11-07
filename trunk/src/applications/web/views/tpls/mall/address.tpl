@@ -43,6 +43,7 @@
             border-bottom: 1px solid #d5d5d5;
             font-size: 16px;
             line-height: 43px;
+            margin: 0 5px;
         }
 
         .group-address label {
@@ -109,32 +110,67 @@
 </head>
 <body>
 <div class="group-address">
-    <form action="/myaddress/sub" data-modiaddr={%$isAdd%}>
-        <div class="item-input clearfix">
-            <label for="user">收货人：</label>
+    <div class="item-input clearfix">
+        <label for="user">收货人：</label>
 
-            <div class="wrap-input">
-                <input id="user" name="receive_name" type="text" value=""
-                       maxlength="10" placeholder="请输入收货人姓名">
-            </div>
+        <div class="wrap-input">
+            <input id="user" name="name" type="text" value="{%if !empty($address.name)%}{%$address.name%}{%/if%}"
+                   maxlength="10" placeholder="请输入收货人姓名">
         </div>
-        <div class="item-input clearfix">
-            <label for="phone">联系方式：</label>
+    </div>
+    <div class="item-input clearfix">
+        <label for="phone">联系方式：</label>
 
-            <div class="wrap-input">
-                <input id="mobile" name="mobile" length="11" value="" maxlength="11"
-                       placeholder="请输入手机号码">
-            </div>
+        <div class="wrap-input">
+            <input id="mobile" name="phone" length="11" value="{%if !empty($address.phone)%}{%$address.phone%}{%/if%}"
+                   maxlength="11"
+                   placeholder="请输入手机号码">
         </div>
-        <div class="item-input clearfix expandingArea">
-            <label for="address">详细地址：</label>
+    </div>
+    <div class="item-input clearfix expandingArea">
+        <label for="address">详细地址：</label>
 
-            <div class="wrap-input">
-                <textarea id="address" name="addr" rows="7" maxlength="100" placeholder="街道、楼牌号等"></textarea>
-            </div>
+        <div class="wrap-input">
+            <textarea id="address" name="addr" rows="7" maxlength="100"
+                      placeholder="街道、楼牌号等">{%if !empty($address.address)%}{%$address.address%}{%/if%}
+            </textarea>
         </div>
-        <a id="js-address-commit" href="javascript:;" class="bottom-button">保存收货地址</a>
-    </form>
+    </div>
+    <a id="js-address-commit" href="javascript:;" class="bottom-button">保存收货地址</a>
 </div>
+
+<script>
+    $("#js-address-commit").click(function () {
+        var name = $("#user").val();
+        var phone = $("#mobile").val();
+        var addr = $("#address").val();
+
+        if (name.length <= 0 && phone.length <= 0 && addr.length <= 0) {
+            return false;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "/mall/modifyAddress?",
+            dataType: "json",
+            data: {
+                "name": name,
+                "phone": phone,
+                "addr": addr
+            },
+            success: function (data) {
+                var code = data["code"]
+                if (code == 0) {
+                    document.location.href = "/mall/address";
+                }
+            },
+            error: function () {
+                console.log('fail');
+            },
+            complete: function () {
+            }
+        });
+    });
+</script>
 </body>
 </html>
