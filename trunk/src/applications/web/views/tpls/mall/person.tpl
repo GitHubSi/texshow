@@ -67,6 +67,10 @@
                 <p>常见问题</p>
                 <i></i></a>
         </li>
+        <li><a href="/shareInviteCode">
+                <p>邀请码</p>
+                <i></i></a>
+        </li>
     </ul>
 </div>
 </body>
