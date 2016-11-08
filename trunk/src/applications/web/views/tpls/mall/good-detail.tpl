@@ -76,7 +76,7 @@
         html += ' <div class="text">' + max + '</div>';
         html += ' <div class="add">+</div>';
         html += ' </div>';
-        html += ' <div class="des">(你拥有' + max + '次投注机会)</div>';
+        html += ' <div class="des" id="pay-error-tips">(你拥有' + max + '次投注机会)</div>';
         html += ' </div>';
         html += ' <div class="btn-snatch">';
         html += ' 立即夺宝';
@@ -146,8 +146,25 @@
             var dataId = $("#good-detail").attr('data-pro');
             var $text = $('.message').find('.text');
             var num = $text.text();
-            $.get('/mall/buy',{num:num, item:dataId}, function () {
-
+            $.get('/mall/buy',{num:num, item:dataId}, function (data) {
+                if (data.code == 0) {
+                    //success
+                    $("#error-tip").remove();
+                    var payErrorTip = '<span id="error-tip" style="font-size: smaller; color: red">支付成功<span>';
+                    $("#pay-error-tips").append(payErrorTip);
+                    $("#error-tip").fadeOut(3000, function () {
+                        $("#error-tip").remove();
+                        $(".popup-mask, .popup-mask1").remove();
+                    });
+                } else {
+                    //fail
+                    $("#error-tip").remove();
+                    var payErrorTip = '<span id="error-tip" style="font-size: smaller; color: red">支付失败<span>';
+                    $("#pay-error-tips").append(payErrorTip);
+                    $("#error-tip").fadeOut(3000, function () {
+                        $("#error-tip").remove();
+                    });
+                }
             });
         });
     })()
