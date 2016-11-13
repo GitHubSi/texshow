@@ -26,7 +26,7 @@ class AbstractActivityAction extends Action
 
     public function preDispatch()
     {
-        //only get openid as user identity
+        //only get openid as user identity. notice: the openid belong to client,but the user info belong to magazine
         $openId = $this->getUserOpenid();
         if (!empty($openId)) {
             $this->_weChatLogin = true;
