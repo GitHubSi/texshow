@@ -55,39 +55,44 @@ class OneShareService
     }
 
     /**
-     * @param $openId       client openid
-     * @param $score
+     * @param $userInfo magazine user base info
+     * @param $buyNum
      * @param int $itemId goods id
      * @return bool
      * @throws Exception
      */
-    public function consumerScore($openId, $score, $itemId = 1)
+    public function consumerScore($userInfo, $buyNum, $itemId = 1)
     {
-        $itemInfo = $this->_shareItemMapper->getGoodById($itemId);
-        if (empty($itemInfo) || $itemInfo["current_score"] + $score > $itemInfo["total_score"]) {
-            throw new Exception("商品信息不存在或者购买份数多于库存", 10001);
+        if ($userInfo["score"] < $buyNum) {
+            throw new Exception("Pay error, 积分不足。openid=" . $userInfo["openid"], 10002);
         }
 
-        $userInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
-        if (empty($userInfo) || $userInfo["score"] < $score) {
-            throw new Exception("Pay error, 积分不足。openid=" . $openId, 10002);
+        $itemInfo = $this->_shareItemMapper->getGoodById($itemId);
+        if (empty($itemInfo) || $itemInfo["current_score"] + $buyNum > $itemInfo["total_score"]) {
+            throw new Exception("商品信息不存在或者购买份数多于库存", 10001);
         }
 
         $db = DB::getInstance(ConfigLoader::getConfig('MYSQL'));
         $db->startTrans();
         try {
-            $currentScore = $userInfo["score"] - $score;
+            $currentScore = $userInfo["score"] - $buyNum;
             $this->_weChatMagazineUserMapper->updateScore($userInfo["openid"], $currentScore);
-            $this->_oneShareMapper->addOneShare($userInfo["openid"], $score, $itemId);
-            $this->_shareItemMapper->updateScoreNum($score, $itemId);
+            $this->_oneShareMapper->addOneShare($userInfo["openid"], $buyNum, $itemId);
+            $this->_shareItemMapper->updateScoreNum($buyNum, $itemId);
 
+            //this operation is to avoid calculate the sum that user buy total num about the item
             $RedisRankKey = self::RANK_BUY_GOOD_NUM . $itemId;
-            RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->zIncrBy($RedisRankKey, $score, $userInfo["openid"]);
+            RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->zIncrBy($RedisRankKey, $buyNum, $userInfo["openid"]);
 
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();
             throw new Exception("数据库错误" . $e->getCode() . $e->getTraceAsString(), 10003);
+        }
+
+        $afterItemInfo = $this->_shareItemMapper->getGoodById($itemId);
+        if ($afterItemInfo["current_score"] >= $afterItemInfo["total_score"]) {
+            $this->_shareItemMapper->updateGoodsState($itemId, ShareItemMapper::IS_OFFLINE);
         }
 
         return true;
