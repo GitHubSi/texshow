@@ -99,7 +99,7 @@ class MallController extends AbstractActivityAction
     {
         $ret = array();
         if (!empty($this->_userInfo)) {
-            $ret = OneShareService::getInstance()->getCurrentBuyHistory($this->_userInfo["openid"], PHP_INT_MAX, 20);
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($this->_userInfo["openid"], PHP_INT_MAX);
         }
 
         $this->_smarty->assign("history", $ret);
@@ -110,17 +110,15 @@ class MallController extends AbstractActivityAction
     public function moreHistoryAction()
     {
         $this->_isJson = true;
+
         $lastId = $this->getParam("last_id");
         if (!ctype_digit($lastId) || $lastId <= 0) {
             throw new Exception("parameter error", 406);
         }
 
         $ret = array();
-        try {
-            $openId = $this->getParam("openid");
-            $ret = OneShareService::getInstance()->getCurrentBuyHistory($openId, $lastId);
-        } catch (Exception $e) {
-
+        if (!empty($this->_userInfo)) {
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($this->_userInfo["openid"], PHP_INT_MAX);
         }
 
         $this->_data = $ret;
@@ -128,12 +126,9 @@ class MallController extends AbstractActivityAction
 
     public function winRecordAction()
     {
-
         $ret = array();
-        try {
-            $openid = $this->getParam("openid");
-            $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openid);
-            $records = $this->_shareItemMapper->getGoodByOpenid($magaUserInfo["openid"]);
+        if (!empty($this->_userInfo)) {
+            $records = $this->_shareItemMapper->getGoodByOpenid($this->_userInfo["openid"]);
 
             if (empty($records)) {
                 foreach ($records as $key => $record) {
@@ -141,8 +136,6 @@ class MallController extends AbstractActivityAction
                     $ret[] = $history;
                 }
             }
-        } catch (Exception $e) {
-            Logger::getRootLogger()->info(__CLASS__ . ":" . __FUNCTION__ . "exception");
         }
 
         $this->_smarty->assign("history", $ret);
@@ -151,15 +144,11 @@ class MallController extends AbstractActivityAction
 
     public function addressAction()
     {
-        try {
-            $openid = $this->getParam("openid");
-            $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openid);
-            if (!empty($magaUserInfo["addr"])) {
-                $addr = json_decode($magaUserInfo["addr"], true);
-                $this->_smarty->assign("address", $addr);
+        if (!empty($this->_userInfo)) {
+            if (!empty($this->_userInfo["addr"])) {
+                $address = json_decode($this->_userInfo["addr"], true);
+                $this->_smarty->assign("address", $address);
             }
-        } catch (Exception $e) {
-            Logger::getRootLogger()->info(__CLASS__ . ":" . __FUNCTION__ . "exception");
         }
 
         $this->_smarty->display('mall/address.tpl');
@@ -169,26 +158,23 @@ class MallController extends AbstractActivityAction
     {
         $this->_isJson = true;
 
+        if (empty($this->_userInfo)) {
+            throw new Exception("还没有关注订阅号哦！", 405);
+        }
+
         $name = $this->getParam("name");
         $phone = $this->getParam("phone");
         $address = $this->getParam("addr");
 
         if (empty($name) && empty($phone) && empty($address)) {
-            throw new Exception("parameter error", 406);
+            return;
         }
 
-        try {
-            $addr = json_encode(array(
-                "name" => $name,
-                "phone" => $phone,
-                "address" => $address
-            ));
-            $openid = $this->getParam("openid");
-
-            $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openid);
-            $this->_weChatMagazineUserMapper->updateUserAddr($addr, $magaUserInfo["openid"]);
-        } catch (Exception $e) {
-            Logger::getRootLogger()->info(__CLASS__ . ":" . __FUNCTION__ . "exception");
-        }
+        $addressJsonFormat = json_encode(array(
+            "name" => $name,
+            "phone" => $phone,
+            "address" => $address
+        ));
+        $this->_weChatMagazineUserMapper->updateUserAddr($addressJsonFormat, $this->_userInfo["openid"]);
     }
 }
