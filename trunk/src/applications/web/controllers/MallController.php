@@ -118,7 +118,7 @@ class MallController extends AbstractActivityAction
 
         $ret = array();
         if (!empty($this->_userInfo)) {
-            $ret = OneShareService::getInstance()->getCurrentBuyHistory($this->_userInfo["openid"], PHP_INT_MAX);
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($this->_userInfo["openid"], $lastId);
         }
 
         $this->_data = $ret;
