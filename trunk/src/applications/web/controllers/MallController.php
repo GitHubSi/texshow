@@ -77,6 +77,7 @@ class MallController extends AbstractActivityAction
         if (!ctype_digit($itemId) || $itemId <= 0) {
             throw new Exception("商品item id输入非法", 402);
         }
+
         $shareItem = OneShareService::getInstance()->getShareItem($itemId);
         $shareItem["desc"] = json_decode($shareItem["desc"], true);
 
@@ -86,8 +87,8 @@ class MallController extends AbstractActivityAction
             "http://act.wetolink.com/shareItem/iphone/",
             "http://act.wetolink.com/resource/img/p-1.jpg"
         );
-        $this->_smarty->assign("jsapi", $jsapi);
 
+        $this->_smarty->assign("jsapi", $jsapi);
         $this->_smarty->assign("good", $shareItem);
         $this->_smarty->assign("userInfo", $this->_userInfo);
         $this->_smarty->display('mall/good-detail.tpl');
@@ -97,11 +98,8 @@ class MallController extends AbstractActivityAction
     public function historyAction()
     {
         $ret = array();
-        try {
-            $openId = $this->getParam("openid");
-            $ret = OneShareService::getInstance()->getCurrentBuyHistory($openId, PHP_INT_MAX, 20);
-        } catch (Exception $e) {
-
+        if (!empty($this->_userInfo)) {
+            $ret = OneShareService::getInstance()->getCurrentBuyHistory($this->_userInfo["openid"], PHP_INT_MAX, 20);
         }
 
         $this->_smarty->assign("history", $ret);

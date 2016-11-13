@@ -98,13 +98,12 @@ class OneShareService
         return true;
     }
 
-    //openid  为服务号的openid
-    public function getCurrentBuyHistory($openId, $lastId = PHP_INT_MAX, $record = 20)
+    public function getCurrentBuyHistory($magazineOpenid, $lastId = PHP_INT_MAX, $record = 20)
     {
-        $magaUserInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
-        $buyHistory = $this->_oneShareMapper->getCurrentBuyHistory($magaUserInfo["openid"], $lastId, $record);
+        $buyHistory = $this->_oneShareMapper->getCurrentBuyHistory($magazineOpenid, $lastId, $record);
         foreach ($buyHistory as $key => $history) {
             $goods = $this->_shareItemMapper->getGoodById($history["item"]);
+
             $history["batch"] = str_pad($goods["id"], 10, "0", STR_PAD_LEFT);
             $history["good_name"] = $goods["name"];
             if (!empty($goods["openid"])) {
