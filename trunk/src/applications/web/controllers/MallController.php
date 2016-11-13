@@ -29,8 +29,12 @@ class MallController extends AbstractActivityAction
     {
         $goodList = OneShareService::getInstance()->getGoodList(PHP_INT_MAX, true);
 
-        $this->_smarty->assign("jsapi", $this->setWechatShare($this->_shareContext["title"], $this->_shareContext["content"],
-            $this->_shareContext["url"], $this->_shareContext["img"]));
+        $this->_smarty->assign("jsapi",
+            $this->setWechatShare($this->_shareContext["title"],
+                $this->_shareContext["content"],
+                $this->_shareContext["url"],
+                $this->_shareContext["img"])
+        );
         $this->_smarty->assign("userInfo", $this->_userInfo);
         $this->_smarty->assign("goodList", $goodList);
         $this->_smarty->display('mall/home.tpl');
@@ -45,14 +49,13 @@ class MallController extends AbstractActivityAction
         }
 
         $itemId = $this->getParam("item");
-        $openId = $this->getParam("openid");
-        $score = $this->getParam("num");
+        $buyNum = $this->getParam("num");
 
-        if (!ctype_digit($itemId) || !ctype_digit($score) || $score <= 0 || $itemId <= 0) {
-            throw new Exception("商品item id或者购买num输入非法", 402);
+        if (!ctype_digit($itemId) || !ctype_digit($buyNum) || $buyNum <= 0 || $itemId <= 0) {
+            throw new Exception("购买商品不存在或者购买份数输入非法", 410);
         }
 
-        OneShareService::getInstance()->consumerScore($openId, $score, $itemId);
+        OneShareService::getInstance()->consumerScore($this->_userInfo, $buyNum, $itemId);
     }
 
     public function moreAction()
