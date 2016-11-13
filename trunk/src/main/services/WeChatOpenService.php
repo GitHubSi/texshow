@@ -26,13 +26,9 @@ class WeChatOpenService
         return $instance;
     }
 
-    /**
-     * @desc    通过服务号的openid获取订阅号的openid的信息
-     * @param $clientOpenId 服务号的openId
-     * @return mixed    array
-     */
     public function getMagazineByClient($clientOpenId)
     {
+        //usually, this function don't throw any exception in micro messenger user agent.
         $clientUserInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($clientOpenId);
         return WeChatMagazineService::getInstance()->getUserInfoByUnionId($clientUserInfo["unionid"]);
     }
