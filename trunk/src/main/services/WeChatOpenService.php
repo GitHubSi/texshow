@@ -28,7 +28,8 @@ class WeChatOpenService
 
     public function getMagazineByClient($clientOpenId)
     {
-        //usually, this function don't throw any exception in micro messenger user agent.
+        //usually, this function don't throw any exception in micro messenger user agent. because try to fetch user base info through client openid
+        //will return a data set that subscribe is zero,and openid,union id
         $clientUserInfo = WeChatClientService::getInstance()->getUserInfoByOpenID($clientOpenId);
         return WeChatMagazineService::getInstance()->getUserInfoByUnionId($clientUserInfo["unionid"]);
     }
