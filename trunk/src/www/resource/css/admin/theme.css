@@ -1071,9 +1071,6 @@ html {
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
-    line-height: 1.42857143;
-    color: #555555;
-    background-color: #ffffff;
 }
 input,
 button,
@@ -1210,8 +1207,7 @@ h2,
 .h2,
 h3,
 .h3 {
-    margin-top: 21px;
-    margin-bottom: 10.5px;
+    line-height: 40px;
 }
 h1 small,
 .h1 small,
@@ -1227,15 +1223,7 @@ h3 .small,
 .h3 .small {
     font-size: 65%;
 }
-h4,
-.h4,
-h5,
-.h5,
-h6,
-.h6 {
-    margin-top: 10.5px;
-    margin-bottom: 10.5px;
-}
+
 h4 small,
 .h4 small,
 h5 small,

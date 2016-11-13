@@ -2,3 +2,17 @@
     margin-right: 10px;
 }
 
+/*wechat auto response edit css */
+#tab_client_wrap table {
+    width: auto;
+}
+
+#tab_client_wrap table td {
+    padding: 1px;
+}
+
+#tab_client_wrap table tr {
+    padding: 1px;
+    margin-top: 2px;
+    align: left;
+}
