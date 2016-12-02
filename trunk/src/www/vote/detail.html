@@ -77,6 +77,21 @@
         .footer img{
             width:3.64rem;
         }
+        .popup{
+            width:100%;position: fixed;height:100%;background: rgba(0,0,0,0.6);top:0;left: 0;display: none;
+        }
+        .popup .con{
+            width:5.5rem;position: relative;top:50%;left: 50%;transform: translateX(-50%) translateY(-50%);background: #fff;padding:1rem 0 0.8rem 0;border-radius: 0.2rem;
+        }
+        .popup .con img{
+            display: block;width:3.02rem;height:3.05rem;margin:0 auto;
+        }
+        .popup .con p{
+            font-size: 0.28rem;color:#333;margin-top: 0.5rem;padding:0 1rem;text-align: center;
+        }
+        .popup .close{
+            width:0.7rem;height:0.7rem;border: 0.05rem solid #fff;border-radius: 50%;background: rgba(0,0,0,0.1);color:#fff;line-height: 0.7rem;text-align: center;font-size: 0.4rem;position: absolute;top:-0.8rem;right:-0.2rem;
+        }
     </style>
 </head>
 <body>
@@ -101,8 +116,26 @@
 <div class="footer">
     <img src="img/logo.png" alt=""/>
 </div>
+<div class="popup">
+    <div class="con">
+        <img src="img/erweima.png" alt=""/>
+        <p>扫描二维码公众账号
+            <br/>
+            输入“TOP001”为他投票
+            <br/>
+            投票后100%赢取现金红包
+        </p>
+        <div class="close">X</div>
+    </div>
+</div>
 </body>
 <script>
-
+var $btn=$('.btns').children();
+$btn.eq(0).click(function () {
+    $('.popup').show();
+});
+    $('.popup .close').click(function () {
+        $('.popup').hide();
+    }); 
 </script>
 </html>
