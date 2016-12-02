@@ -10,6 +10,7 @@ class VoteController extends AbstractActivityAction
 {
     const RULE_LINK = "";
     const PAGE_SIZE = 20;
+    const HUNDRAND = 100;
     const LIKED_RANK = "liked_rank";
 
     private $_voteLogMapper;
@@ -35,7 +36,6 @@ class VoteController extends AbstractActivityAction
     public function detailAction()
     {
         $id = $this->getParam("no");
-
         $userInfo = $this->_voteUserMapper->getUserById($id);
         if (!empty($userInfo)) {
             $userInfo = $this->_metaUserInfo($userInfo, true);
@@ -57,18 +57,18 @@ class VoteController extends AbstractActivityAction
     public function moreAction()
     {
 
-
     }
 
     private function _metaUserInfo($user, $isDetail = false)
     {
+        $user["id"] = $user["id"] + self::HUNDRAND;
         $user['msg'] = json_decode($user['msg'], true);
-
-        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
-        $userRank = $redis->zRangeByScore(self::LIKED_RANK, '-inf', '+inf', array('withscores' => TRUE, 'limit' => array(0, 1)));
-        $topUserLiked = array_shift($userRank);
-        $user['fail'] = $topUserLiked - $user['liked'];
-
+        if ($isDetail) {
+            $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+            $userRank = $redis->zRangeByScore(self::LIKED_RANK, '-inf', '+inf', array('withscores' => TRUE, 'limit' => array(0, 1)));
+            $topUserLiked = array_shift($userRank);
+            $user['fail'] = $topUserLiked - $user['liked'];
+        }
         return $user;
     }
 }

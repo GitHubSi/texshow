@@ -156,15 +156,15 @@
     <div class="banner" id="video-container">
         <img id="poster" src="/resource/img/vote/girl.png" alt="">
         <div class="back">返回</div>
-        <div class="i-play" id="pptit03" data-vid="01689db3-2b01-4353-a656-19ee60289358"></div>
+        <div class="i-play" id="pptit03" data-vid="{%$userInfo.msg.video%}"></div>
     </div>
-    <h3>612 票 距第一名还差 12 票</h3>
+    <h3>{%$userInfo.liked%} 票 距第一名还差 {%$userInfo.fail%} 票</h3>
     <div class="info">
-        <div class="num">619 号：余文文
+        <div class="num">{%$userInfo.id%} 号：{%$userInfo.msg.name%}
             <div class="huangguan"></div>
         </div>
-        <div class="title">心愿单：普吉岛机票1张</div>
-        <div class="desc">快节奏的生活中向往诗和远方，想去一个阳光耀眼的地方，感受生命。给我一张机票，随便什么地方。</div>
+        <div class="title">心愿单：{%$userInfo.msg.wish%}</div>
+        <div class="desc">{%$userInfo.msg.desc%}</div>
     </div>
     <div class="btns clearfix">
         <div class="btn">给TA投票</div>
