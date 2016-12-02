@@ -37,6 +37,7 @@ class WebAutoLoader
         'RedPacketSettingController' => '/src/applications/manage/controllers/RedPacketSettingController.php',
         'HeadImgController' => '/src/applications/manage/controllers/HeadImgController.php',
         'GoodsManageController' => '/src/applications/manage/controllers/GoodsManageController.php',
+        'VoteManageController' => '/src/applications/manage/controllers/VoteManageController.php',
         //api
 
         //mappers
