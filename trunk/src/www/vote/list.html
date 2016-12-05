@@ -1,0 +1,317 @@
+<html lang="en" style="font-size: 100px;"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <link href="css/database.css" rel="stylesheet">
+    <link href="css/detail.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <title>入围名单</title>
+    <script>
+        (function (doc, win) {
+            // 分辨率Resolution适配
+            var docEl = doc.documentElement,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function () {
+                        var clientWidth = docEl.clientWidth;
+                        if (!clientWidth) return;
+                        if (clientWidth >= 750 && clientWidth <= 1000 ) {
+                            docEl.style.fontSize = 100 + 'px';
+                        } else if(clientWidth >= 1000){
+                            docEl.style.fontSize = 100 * (1000 / 750) + 'px';
+                        }else{docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';}
+                    };
+            // Abort if browser does not support addEventListener
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            recalc();
+        })(document, window);
+    </script>
+    <style>
+        .footer{
+            width:3.8rem;padding:0.3rem 0;margin:0 auto;
+        }
+        .footer .img{
+            width:3.8rem;
+        }
+        .footer .img a{
+            width:1.94rem;float: left;
+        }
+        .footer .img a img{
+            width:100%;
+        }
+        .footer .img a:nth-child(2){
+            width:1.7rem;float: right;
+        }
+        .view2{
+            width:7.5rem;margin:0 auto;background: url(img/bg3.png) repeat;overflow: hidden;background-size: 7.5rem 17.76rem;
+        }
+        .view2 .title{
+            margin:0.6rem auto 0;/*font-size: 0.56rem;color:#fff;font-weight: bold;text-align: center;*/background: url(img/bg-title.png);width:2.43rem;height:0.53rem;background-size: cover;
+        }
+        .view2 ul{
+            width:5.66rem;margin:0.66rem auto 0;
+        }
+        .view2 ul li{
+            width:2.7rem;height:4.1rem;float: left;background: #fff;margin-bottom: 0.28rem;position: relative;
+        }
+        .view2 ul li:nth-child(2n){
+            float: right;
+        }
+        .view2 ul li img{
+            display: block;width:2.5rem;height:2.5rem;margin:0.1rem auto 0;
+        }
+        .view2 ul li p{
+            font-size: 0.24rem;color:#333;text-align: center;width:100%;height:0.4rem;overflow: hidden;line-height: 0.4rem;margin-top: 0.05rem;
+        }
+        .view2 ul li .num{
+            margin:0 auto;text-indent: 0.3rem;background: url(img/i-heart.png) no-repeat 0 0.03rem;background-size: 0.24rem 0.21rem;width:1rem;line-height: 0.32rem;color:#ff762c;
+        }
+        .view2 ul li:nth-child(1) .i-no{
+            background-image:url(img/no1.png);
+        }
+        .view2 ul li:nth-child(2) .i-no{
+            background-image:url(img/no2.png);
+        }
+        .view2 ul li:nth-child(3) .i-no{
+            background-image:url(img/no3.png);
+        }
+        .view2 ul li .i-no{
+            width:1.06rem;height:0.76rem;position: absolute;top:-0.26rem;left:-0.26rem;background-size: cover;background-repeat: no-repeat;
+        }
+        .btn-detail{
+            width:1.51rem;height:0.55rem;line-height:0.55rem;background: #ff762c;text-align: center;color:#fff;font-size: 0.24rem;margin:0.1rem auto 0;border-radius: 0.1rem;
+        }
+        .view2 .search{
+            width:5.5rem;height:0.96rem;margin:0.3rem auto 0;
+        }
+        .view2 .search input{
+            float: left;line-height: 0.96rem;width:4.4rem;border-bottom-left-radius:0.48rem;border-top-left-radius: 0.48rem;background: #fff;font-size: 0.26rem;color:#a3a3a3;text-indent: 0.5rem;
+        }
+        .view2 .search .fangdajing{
+            float: left;line-height: 0.96rem;width:1.1rem;background: #ff762c;border-bottom-right-radius: 0.48rem;border-top-right-radius: 0.48rem;height:100%;
+        }
+        .view2 .search .fangdajing i{
+            display: block;background: url(img/i-fangdajing.png) no-repeat;margin:0.23rem auto 0;width:0.48rem;height:0.5rem;background-size: cover;
+        }
+        /* loading */
+        .bg-loading{padding: 0.1rem 0; position: absolute; top: 1.5rem; left: 50%; width: 1.5rem; height: 0.5rem; margin-left: -0.75rem; z-index: 1; display: none;}
+        .bg-loading .txt{font-size: 0.3rem; padding: 0.2rem 0; text-align: center; color: #52ace5;}
+        .bg-loading .spinner {margin: 0 auto; width: 1.5rem; height: 0.3rem; text-align: center; }
+        .bg-loading .spinner > div {width: 0.3rem; height: 0.3rem; background-color: #52ace5; border-radius: 100%; display: inline-block; -webkit-animation: bouncedelay 1.4s infinite ease-in-out; animation: bouncedelay 1.4s infinite ease-in-out; -webkit-animation-fill-mode: both; animation-fill-mode: both;}
+        .bg-loading .spinner .bounce1 {-webkit-animation-delay: -0.32s; animation-delay: -0.32s;}
+        .bg-loading .spinner .bounce2 {-webkit-animation-delay: -0.16s; animation-delay: -0.16s;}
+        /* pull up loading */
+        .loading{padding:0.1rem 0; background-color: #f9f9f9;display: none}
+        .loading .txt{font-size: 0.22rem; padding: 0.1rem 0; text-align: center; color: #b3b3b3;}
+        .loading .spinner {margin: 0 auto; width: 1.5rem; text-align: center; }
+        .loading .spinner > div {width: 0.14rem; height: 0.14rem; background-color: #52ace5; border-radius: 100%; display: inline-block; -webkit-animation: bouncedelay 1.4s infinite ease-in-out; animation: bouncedelay 1.4s infinite ease-in-out; -webkit-animation-fill-mode: both; animation-fill-mode: both;}
+        .loading .spinner .bounce1 {-webkit-animation-delay: -0.32s; animation-delay: -0.32s;}
+        .loading .spinner .bounce2 {-webkit-animation-delay: -0.16s; animation-delay: -0.16s;}
+        @-webkit-keyframes bouncedelay { 0%, 80%, 100% { -webkit-transform: scale(0.0); } 40% { -webkit-transform: scale(1.0); } }
+        @keyframes bouncedelay { 0%, 80%, 100% { transform: scale(0.0); -webkit-transform: scale(0.0); } 40% { transform: scale(1.0); -webkit-transform: scale(1.0); }}
+
+    </style>
+</head>
+<body>
+<section class="view2">
+    <div class="title"></div>
+    <div class="search">
+        <input type="text" placeholder="输入选手编号">
+        <div class="fangdajing" id="search"><i></i></div>
+    </div>
+    <ul class="clearfix">
+        <li>
+            <a href=""><img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <div class="btn-detail">详情</div>
+            <div class="i-play"></div>
+            <div class="i-no"></div></a>
+        </li>
+        <li>
+            <a href=""><img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+           <div class="btn-detail">详情</div>
+            <div class="i-play"></div>
+            <div class="i-no"></div></a>
+        </li>
+        <li>
+            <a href=""><img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <div class="btn-detail">详情</div>
+            <div class="i-play"></div>
+            <div class="i-no"></div></a>
+        </li>
+        <li>
+            <img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <a href=""><div class="btn-detail">详情</div></a>
+            <div class="i-play"></div>
+            <div class="i-no"></div>
+        </li>
+        <li>
+            <img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <a href=""><div class="btn-detail">详情</div></a>
+            <div class="i-play"></div>
+            <div class="i-no"></div>
+        </li>
+        <li>
+            <img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <a href=""><div class="btn-detail">详情</div></a>
+            <div class="i-play"></div>
+            <div class="i-no"></div>
+        </li>
+        <li>
+            <img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <a href=""><div class="btn-detail">详情</div></a>
+            <div class="i-play"></div>
+            <div class="i-no"></div>
+        </li>
+        <li>
+            <img src="img/people1.png" alt="">
+            <p>1118号:窗前明</p>
+            <div class="num">1926</div>
+            <a href=""><div class="btn-detail">详情</div></a>
+            <div class="i-play"></div>
+            <div class="i-no"></div>
+        </li>
+    </ul>
+    <!--loading框开始-->
+    <div id="J_loading" class="loading" style="display: none;">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <p class="txt">数据加载中</p>
+    </div>
+    <div id="J_load_more" class="loading">
+        <p class="txt">没有更多数据了~</p>
+    </div>
+    <div class="footer clearfix" id="J_footer">
+        <div class="img"><a href=""><img src="img/logo1.png" alt=""/></a><a href=""><img src="img/logo2.png" alt=""></a></div>
+    </div>
+</section>
+
+</body>
+<script>
+    (function () {
+    /**
+     * 上拉加载数据
+     * @return {[type]}     [description]
+     */
+    var $loading = $('#J_loading'),
+            n=1,
+            scrollTimer;
+
+    function pullUpLoadData(){
+        $.ajax({
+            type: "GET",
+            url:"",//每次加载n+1
+            dataType: "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+            jsonpCallback:"",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+            beforeSend: function(){
+                $loading.show();
+            },
+            success: function(data){
+                n++;
+                if(data.status==0){
+                    $loading.hide();
+                    $('#J_load_more').show();
+                    return false;
+                }else{
+                    generateDom(data);
+                }
+
+            },
+            error: function(){
+                console.log('fail');
+            },
+            complete: function(){
+                $loading.hide();
+            }
+        });
+    }
+    function generateDom(data){
+        var $testList=$('#J_test_list');
+        var html='';
+        $.each(data,function (i, n) {
+            html+='<li>';
+            html+='<img src="img/people1.png" alt="">';
+            html+='<p>1118号:窗前明</p>';
+            html+='<div class="num">1926</div>';
+            html+='<a href=""><div class="btn-detail">详情</div></a>';
+            html+='<div class="i-play"></div>';
+            html+='<div class="i-no"></div>';
+            html+='</li>';
+        });
+        $testList.append(html);
+    }
+
+    $(window).on('scroll', function() {
+        var  scrollTop = getScrollTop(),
+                footerOT = $('#J_footer').offset().top,
+                cHeight = getClientHeight();
+        if(scrollTop + cHeight >= footerOT){
+            // 上拉加载数据(延迟执行，防止操作过快多次加载)
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function(){
+                pullUpLoadData();
+            }, 200);
+        }
+    });
+    /**
+     * 获取滚动高度
+     * @return {[type]} [description]
+     */
+    function getScrollTop(){
+        if (document.documentElement && document.documentElement.scrollTop) {
+            return document.documentElement.scrollTop;
+        } else if (document.body) {
+            return document.body.scrollTop;
+        }
+    }
+    /**
+     * 获取文档高度
+     * @return {[type]} [description]
+     */
+    function getClientHeight(){
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+            return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+        } else {
+            return (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;
+        }
+    }
+    })();
+    //查询
+    (function () {
+        var $search=$('#search');
+        $search.click(function () {
+
+        });
+    })();
+    //分享
+    (function () {
+        var $testList=$('#J_test_list');
+        $testList.on('click','.wxEnjoy',function(){
+            var popup='<div class="popup-mask"><img src="img/enjoywx.png" alt=""/> </div>';
+            $('body').append(popup);
+
+        });
+        $('body').on('click','.popup-mask',function(){
+            $(this).remove();
+        });
+    })();
+</script>
+</html>

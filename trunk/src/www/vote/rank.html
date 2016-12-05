@@ -1,0 +1,216 @@
+<html lang="en" style="font-size: 100px;"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <link href="css/database.css" rel="stylesheet">
+    <link href="css/detail.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/swiper.min.js"></script>
+    <title>top榜</title>
+    <script>
+        (function (doc, win) {
+            // 分辨率Resolution适配
+            var docEl = doc.documentElement,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function () {
+                        var clientWidth = docEl.clientWidth;
+                        if (!clientWidth) return;
+                        if (clientWidth >= 750 && clientWidth <= 1000 ) {
+                            docEl.style.fontSize = 100 + 'px';
+                        } else if(clientWidth >= 1000){
+                            docEl.style.fontSize = 100 * (1000 / 750) + 'px';
+                        }else{docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';}
+                    };
+            // Abort if browser does not support addEventListener
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            recalc();
+        })(document, window);
+    </script>
+    <style>
+        .footer{
+            width:3.8rem;padding:0.3rem 0;margin:0 auto;
+        }
+        .footer .img{
+            width:3.8rem;
+        }
+        .footer .img a{
+            width:1.94rem;float: left;
+        }
+        .footer .img a img{
+            width:100%;
+        }
+        .footer .img a:nth-child(2){
+            width:1.7rem;float: right;
+        }
+        .swiper-container {
+            /*  width: 320px;
+              height: 480px;*/
+            width:7.5rem;
+            height: 100%;
+            background:#fff;
+        }
+        .swiper-slide:nth-child(1){
+            width:100%;
+            height:100%;
+            background:url(img/bg1.png) no-repeat left top;
+            background-size:100% 100%;
+        }
+        .swiper-slide:nth-child(2){
+            width:100%;
+            height:100%;
+            background:url(img/bg2.png) no-repeat left top;
+            background-size:100% 100%;
+        }
+        .btn-rule{
+            width:3.65rem;height:1.25rem;background: url(img/btn-rule.png) no-repeat;background-size: cover;position: absolute;bottom:1.26rem;left:1.92rem;
+        }
+        .btn-next{
+            width:0.56rem;height:0.47rem;background: url(img/btn-next.png) no-repeat;background-size: cover;position: absolute;bottom:0.5rem;left:3.47rem;
+        }
+        .view2 .title{
+            width:2.48rem;height:1.01rem;background: url(img/top6.png) no-repeat;background-size: cover;margin:0 auto;
+        }
+        .view2 ul{
+            width:5.66rem;margin:0.66rem auto 0;
+        }
+        .view2 ul li{
+            width:2.7rem;height:4.1rem;float: left;background: #fff;margin-bottom: 0.28rem;position: relative;
+        }
+        .view2 ul li:nth-child(2n){
+            float: right;
+        }
+        .view2 ul li img{
+            display: block;width:2.5rem;height:2.5rem;margin:0.1rem auto 0;
+        }
+        .view2 ul li p{
+            font-size: 0.24rem;color:#333;text-align: center;width:100%;height:0.4rem;overflow: hidden;line-height: 0.4rem;margin-top: 0.05rem;
+        }
+        .view2 ul li .num{
+            margin:0 auto;text-indent: 0.3rem;background: url(img/i-heart.png) no-repeat 0 0.03rem;background-size: 0.24rem 0.21rem;width:1rem;line-height: 0.32rem;color:#ff762c;
+        }
+        .view2 ul li:nth-child(1) .i-no{
+            background-image:url(img/no1.png);
+        }
+        .view2 ul li:nth-child(2) .i-no{
+            background-image:url(img/no2.png);
+        }
+        .view2 ul li:nth-child(3) .i-no{
+            background-image:url(img/no3.png);
+        }
+        .view2 ul li .i-no{
+            width:1.06rem;height:0.76rem;position: absolute;top:-0.26rem;left:-0.26rem;background-size: cover;background-repeat: no-repeat;
+        }
+        .view2 ul li .i-play{
+            width:0.58rem;height:0.43rem;position: absolute;top:2rem;right:0.25rem;background-size: cover;background-repeat: no-repeat;background-image:url(img/i-paly.png);
+        }
+        .btn-detail{
+            width:1.51rem;height:0.55rem;line-height:0.55rem;background: #ff762c;text-align: center;color:#fff;font-size: 0.24rem;margin:0.1rem auto 0;border-radius: 0.1rem;
+        }
+        .btn-more{
+            width:1.68rem;height:0.6rem;font-size: 0.38rem;color:#fff;text-align: center;line-height: 0.6rem;border-bottom: 0.03rem solid #fff;margin:0.1rem auto 0;
+        }
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <section class="swiper-slide">
+            <div class="footer">
+                <div class="img"><a href=""><img src="img/logo1.png" alt=""/></a><a href=""><img src="img/logo2.png" alt=""></a></div>
+            </div>
+            <div class="btn-rule"></div>
+            <div class="btn-next"></div>
+        </section>
+        <section class="swiper-slide view2">
+            <div class="title"></div>
+            <ul class="clearfix">
+                <li><a href="">
+                <img src="img/people1.png" alt="">
+                    <p>1118号:窗前明</p>
+                    <div class="num">1926</div>
+                   <div class="btn-detail">详情</div>
+                    <div class="i-play"></div>
+                    <div class="i-no"></div></a>
+                </li>
+                <li>
+                    <a href=""><img src="img/people1.png" alt="">
+                    <p>1118号:窗前明</p>
+                    <div class="num">1926</div>
+                    <div class="btn-detail">详情</div>
+                    <div class="i-play"></div>
+                    <div class="i-no"></div></a>
+                </li>
+                <li>
+                    <a href=""><img src="img/people1.png" alt="">
+                    <p>1118号:窗前明</p>
+                    <div class="num">1926</div>
+                    <div class="btn-detail">详情</div>
+                    <div class="i-play"></div>
+                    <div class="i-no"></div></a>
+                </li>
+                <li>
+                    <img src="img/people1.png" alt="">
+                    <p>1118号:窗前明</p>
+                    <div class="num">1926</div>
+                    <a href=""><div class="btn-detail">详情</div></a>
+                    <div class="i-play"></div>
+                    <div class="i-no"></div>
+                </li>
+                <li>
+                    <img src="img/people1.png" alt="">
+                    <p>1118号:窗前明</p>
+                    <div class="num">1926</div>
+                    <a href=""><div class="btn-detail">详情</div></a>
+                    <div class="i-play"></div>
+                    <div class="i-no"></div>
+                </li>
+                <li>
+                    <img src="img/people1.png" alt="">
+                    <p>1118号:窗前明</p>
+                    <div class="num">1926</div>
+                    <a href=""><div class="btn-detail">详情</div></a>
+                    <div class="i-play"></div>
+                    <div class="i-no"></div>
+                </li>
+            </ul>
+            <a href=""><div class="btn-more">查看更多</div></a>
+        </section>
+    </div>
+</div>
+</body>
+<script>
+
+    scaleW=window.innerWidth/320;
+    scaleH=window.innerHeight/480;
+    var resizes = document.querySelectorAll('.resize');
+    for (var j=0; j<resizes.length; j++) {
+        resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+'px';
+        resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+'px';
+        resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+'px';
+        resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+'px';
+
+    }
+    var scales = document.querySelectorAll('.txt');
+    for (var i=0; i<scales.length; i++) {
+        ss=scales[i].style;
+        ss.webkitTransform = ss.MsTransform = ss.msTransform = ss.MozTransform = ss.OTransform =ss.transform='translateX('+scales[i].offsetWidth*(scaleW-1)/2+'px) translateY('+scales[i].offsetHeight*(scaleH-1)/2+'px)scaleX('+scaleW+') scaleY('+scaleH+') ';
+    }
+
+
+    var mySwiper = new Swiper ('.swiper-container', {
+        direction : 'vertical',
+        pagination: '.swiper-pagination',
+        mousewheelControl : true,
+        onInit: function(swiper){
+            //swiperAnimateCache(swiper);
+            //swiperAnimate(swiper);
+        },
+        onSlideChangeEnd: function(swiper){
+            //swiperAnimate(swiper);
+        }
+    })
+</script>
+</html>

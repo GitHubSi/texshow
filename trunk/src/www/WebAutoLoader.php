@@ -29,12 +29,15 @@ class WebAutoLoader
         'MallController' => '/src/applications/web/controllers/MallController.php',
         'LatestPublicController' => '/src/applications/web/controllers/LatestPublicController.php',
 
+        'VoteController' => '/src/applications/web/controllers/VoteController.php',
+
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
         'ResponseController' => '/src/applications/manage/controllers/ResponseController.php',
         'RedPacketSettingController' => '/src/applications/manage/controllers/RedPacketSettingController.php',
         'HeadImgController' => '/src/applications/manage/controllers/HeadImgController.php',
         'GoodsManageController' => '/src/applications/manage/controllers/GoodsManageController.php',
+        'VoteManageController' => '/src/applications/manage/controllers/VoteManageController.php',
         //api
 
         //mappers
@@ -47,6 +50,9 @@ class WebAutoLoader
         'OneShareMapper' => '/src/main/mappers/OneShareMapper.php',
         'ShareItemMapper' => '/src/main/mappers/ShareItemMapper.php',
         'HeadImgMapper' => '/src/main/mappers/HeadImgMapper.php',
+
+        'VoteLogMapper' => '/src/main/mappers/VoteLogMapper.php',
+        'VoteUserMapper' => '/src/main/mappers/VoteUserMapper.php',
 
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',

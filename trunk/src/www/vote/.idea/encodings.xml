@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/img/erweima.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/img/girl.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/img/i-huangguan.png" charset="UTF-8" />
@@ -8,5 +9,8 @@
     <file url="file://$PROJECT_DIR$/img/line-desc.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/img/line-desc.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/img/logo.png" charset="UTF-8" />
+=======
+    <file url="PROJECT" charset="UTF-8" />
+>>>>>>> a60393508b3c8786fe713c545fda602a90d304fa
   </component>
 </project>
