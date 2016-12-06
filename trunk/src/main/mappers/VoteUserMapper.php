@@ -49,12 +49,12 @@ class VoteUserMapper
         );
     }
 
-    public function getAllUser($lastId, $pageSize)
+    public function getAllUser($lastId, $lastLiked, $pageSize)
     {
         return $this->_db->getAll(
-            "SELECT `id`, `nick_name`, `msg`, `create_time`, `update_time` FROM t_vote_user 
-            WHERE id < ? ORDER BY liked DESC LIMIT {$pageSize}",
-            $lastId
+            "SELECT `id`, `nick_name`, `msg`, `liked`, `create_time`, `update_time` FROM t_vote_user 
+            WHERE (liked < ?  OR ( liked = ? AND id < ?)) ORDER BY liked DESC, id DESC LIMIT {$pageSize}",
+            array($lastLiked, $lastLiked, $lastId)
         );
     }
 }

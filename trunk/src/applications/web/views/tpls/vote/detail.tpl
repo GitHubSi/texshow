@@ -91,11 +91,9 @@
         .main .info .num .huangguan {
             width: 0.69rem;
             height: 0.48rem;
-            background: url(/resource/img/vote/i-huangguan.png) no-repeat;
-            background-size: cover;
             position: absolute;
             top: -0.35rem;
-            left: 2.45rem;
+            right: -0.35rem;
         }
 
         .main .info .num {
@@ -149,19 +147,93 @@
         .footer img {
             width: 3.64rem;
         }
+
+        .popup {
+            width: 100%;
+            position: fixed;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .popup .con {
+            width: 5.5rem;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            background: #fff;
+            padding: 1rem 0 0.8rem 0;
+            border-radius: 0.2rem;
+        }
+
+        .popup .con img {
+            display: block;
+            width: 3.02rem;
+            height: 3.05rem;
+            margin: 0 auto;
+        }
+
+        .popup .con p {
+            font-size: 0.28rem;
+            color: #333;
+            margin-top: 0.5rem;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .popup .close {
+            width: 0.7rem;
+            height: 0.7rem;
+            border: 0.05rem solid #fff;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            color: #fff;
+            line-height: 0.7rem;
+            text-align: center;
+            font-size: 0.4rem;
+            position: absolute;
+            top: -0.8rem;
+            right: -0.2rem;
+        }
+
+        .popup-share img {
+            width: 3.3rem;
+            height: 2.2rem;
+            margin-left: 4rem;
+        }
+
+        .footer .img img {
+            width: 55%;
+            float: left;
+        }
+
+        .footer .img img:nth-child(2) {
+            width: 45%;
+            float: left;
+        }
     </style>
 </head>
 <body>
 <div class="main">
-    <div class="banner" id="video-container">
-        <img id="poster" src="/resource/img/vote/girl.png" alt="">
-        <div class="back">返回</div>
+    <div class="banner" id="poster">
+        <img src="{%$userInfo.msg.poster%}" alt="">
+        <a id="poster-back" href="/vote/list">
+            <div class="back">返回</div>
+        </a>
         <div class="i-play" id="pptit03" data-vid="{%$userInfo.msg.video%}"></div>
     </div>
-    <h3>{%$userInfo.liked%} 票 距第一名还差 {%$userInfo.fail%} 票</h3>
+    <div class="banner" id="video-container" style="display: none"></div>
+    <h3>{%$userInfo.liked%} 票 {%if isset($userInfo["top1"])%}当前我排名第一哦 {%else%}距第一名还差 {%$userInfo.fail%} 票{%/if%}</h3>
     <div class="info">
-        <div class="num">{%$userInfo.id%} 号：{%$userInfo.msg.name%}
+        <div class="num">{%$userInfo.number%} 号：{%$userInfo.msg.name%}
+            {%if isset($userInfo["top1"])%}
+            <div class="huangguan" style="background: url(/resource/img/vote/i-huangguan.png) no-repeat;background-size: cover;"></div>
+            {%else%}
             <div class="huangguan"></div>
+            {%/if%}
         </div>
         <div class="title">心愿单：{%$userInfo.msg.wish%}</div>
         <div class="desc">{%$userInfo.msg.desc%}</div>
@@ -174,14 +246,34 @@
 <div class="footer">
     <img src="/resource/img/vote/logo.png" alt=""/>
 </div>
+<div class="popup popup-vote">
+    <div class="con">
+        <img src="/resource/img/vote/qrcode.jpg" alt="" style="border: 4px solid #fb9963"/>
+        <p>扫描二维码公众账号
+            <br/>
+            输入“TP{%$userInfo.number%}”为他投票
+            <br/>
+            投票后100%赢取现金红包
+        </p>
+        <div class="close">X</div>
+    </div>
+</div>
+<div class="popup popup-share">
+    <img src="/resource/img/vote/share.png" alt=""/>
+</div>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
+<script src="/resource/scripts/wechat.js?timestamp=1"></script>
+
 </body>
 <!--video-->
 <script src="http://y2.ifengimg.com/314bd925cdd17196/2014/0814/video.js"></script>
 <script src="http://y0.ifengimg.com/components/video/20140813/v2/videoMobile.js"></script>
 <script>
     (function () {
-        var sW = $(".banner").width();
-        var sH = $(".banner").height();
+        var sW = $("#video-container").width();
+        var sH = $("#video-container").height();
 
         var player1 = $('#pptit03');
         var vid1 = player1.attr('data-vid');
@@ -204,8 +296,30 @@
 
         player1.click(function () {
             $('#poster').hide();
+            $('#video-container').show();
             video1.play();
             $("#video-container").find(".JzClose").show();
+        });
+
+        var $btn = $('.btns').children();
+        $btn.eq(0).click(function () {
+            $('#video-container').hide();
+            $('#poster').show();
+            video1.pause();
+            $('.popup-vote').show();
+
+        });
+        $('.popup .close').click(function () {
+            $('.popup-vote').hide();
+        });
+        $btn.eq(1).click(function () {
+            $('#video-container').hide();
+            $('#poster').show();
+            video1.pause();
+            $('.popup-share').show();
+        });
+        $('.popup').click(function () {
+            $(this).hide();
         });
     })();
 </script>

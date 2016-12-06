@@ -49,7 +49,6 @@ class WeChatMagazineController extends AbstractWeChatAction
             } else {
                 WeChatMagazineService::getInstance()->subscribe($this->_openId);
             }
-            $this->_staticNumber(self::PREFIX_TODAY_SUBSCRIBE);
         } catch (Exception $e) {
             Logger::getRootLogger()->info("WeChatMagazineController line 48 exception");
         }
@@ -93,8 +92,6 @@ class WeChatMagazineController extends AbstractWeChatAction
     {
         //update user subscribe state to not subscribe
         WeChatMagazineService::getInstance()->unSubscribe($this->_openId);
-        $this->_staticNumber(self::PREFIX_TODAY_UN_SUBSCRIBE);
-
     }
 
     protected function textHandler()
@@ -144,20 +141,18 @@ class WeChatMagazineController extends AbstractWeChatAction
             return "";
         }
 
-        $response["MsgType"] = "text";
-        $response["Content"] = $responseArray['default'];
-        return $response;
-    }
+        try {
+            $custom = $this->delegateTextMsgTask($content, $this->_openId);
+        } catch (Exception $e) {
+            Logger::getRootLogger()->error(__FUNCTION__ . ":" . $e->getMessage());
+        }
 
-    private function _staticNumber($prefix)
-    {
-        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
-        $todayKey = $prefix . date('Y_m_d');
-        if ($redis->exists($todayKey)) {
-            $redis->incr($todayKey);
+        if ($custom) {
+            return "";
         } else {
-            $redis->incr($todayKey);
-            $redis->expire($todayKey, 86400);
+            $response["MsgType"] = "text";
+            $response["Content"] = $responseArray['default'];
+            return $response;
         }
     }
 
@@ -177,5 +172,27 @@ class WeChatMagazineController extends AbstractWeChatAction
         $sign = md5($stringB);
 
         return self::URL . $stringA . "&sign={$sign}";
+    }
+
+    private function delegateTextMsgTask($content, $openId, $messagePipe = "msg_list", $separator = "||")
+    {
+        $content = strtolower($content);
+        if (mb_substr($content, 0, 2) != "tp") {
+            return false;
+        }
+
+        $content = mb_substr($content, 2);
+        if (!ctype_digit($content)) {
+            return false;
+        }
+
+        if ($content <= 100) {
+            return false;
+        }
+
+        $content = $content - 100;
+        $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+        $redis->rPush($messagePipe, $openId . $separator . $content);
+        return true;
     }
 }

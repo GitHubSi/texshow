@@ -88,6 +88,7 @@ class WeChatService
         return $result;
     }
 
+    /*客服消息接口*/
     public function customSendImg($openId, $mediaId)
     {
         $accessToken = $this->getAccessToken();
@@ -101,6 +102,17 @@ class WeChatService
         return self::urlPost(
             self::URL_CUSTOM_MSG . "?access_token={$accessToken}",
             json_encode($params)
+        );
+    }
+
+    public function customSendText($openId, $text)
+    {
+        $accessToken = $this->getAccessToken();
+        $params = "{\"touser\": \"{$openId}\",\"msgtype\": \"text\", \"text\": {\"content\": \"{$text}\"}}";
+
+        return self::urlPost(
+            self::URL_CUSTOM_MSG . "?access_token={$accessToken}",
+            $params
         );
     }
 

@@ -19,7 +19,7 @@ class VoteManageController extends AbstractSecurityAction
 
     public function indexAction()
     {
-        $userList = $this->_voteUserMapper->getAllUser(PHP_INT_MAX, self::PAGE_SIZE);
+        $userList = $this->_voteUserMapper->getAllUser(PHP_INT_MAX, PHP_INT_MAX, self::PAGE_SIZE);
         foreach ($userList as &$user) {
             $user["msg"] = json_decode($user['msg'], true);
         }
