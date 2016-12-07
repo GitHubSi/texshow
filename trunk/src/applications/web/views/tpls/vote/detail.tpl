@@ -226,7 +226,7 @@
         <div class="i-play" id="pptit03" data-vid="{%$userInfo.msg.video%}"></div>
     </div>
     <div class="banner" id="video-container" style="display: none"></div>
-    <h3>{%$userInfo.liked%} 票 {%if isset($userInfo["top1"])%}当前我排名第一哦 {%else%}距第一名还差 {%$userInfo.fail%} 票{%/if%}</h3>
+    <h3>{%$userInfo.liked%} 票 {%if isset($userInfo["top1"])%}当前排名第一哦 {%else%}距第一名还差 {%$userInfo.fail%} 票{%/if%}</h3>
     <div class="info">
         <div class="num">{%$userInfo.number%} 号：{%$userInfo.msg.name%}
             {%if isset($userInfo["top1"])%}
@@ -249,11 +249,13 @@
 <div class="popup popup-vote">
     <div class="con">
         <img src="/resource/img/vote/qrcode.jpg" alt="" style="border: 4px solid #fb9963"/>
-        <p>扫描二维码公众账号
+        <p>长按选择识别图中二维码
+            <br/>
+            并关注公众号
             <br/>
             输入“TP{%$userInfo.number%}”为他投票
             <br/>
-            投票后100%赢取现金红包
+            投票后赢取现金红包
         </p>
         <div class="close">X</div>
     </div>

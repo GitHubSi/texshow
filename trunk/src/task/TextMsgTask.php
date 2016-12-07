@@ -43,10 +43,11 @@ while (true) {
         $existedUser = $voteUserMapper->getUserById($number);
         if (empty($existedUser)) {
             //参赛选手不存在
+            WeChatMagazineService::getInstance()->customSendText($openId, "抱歉，因为输入错误的用户代码无法投票");
             continue;
         }
 
-        $likedLog = $voteLogMapper->getLogByOpenId($openId);
+        $likedLog = $voteLogMapper->getVoteLog($openId, $number, date("Y-m-d"));
         if (!empty($likedLog)) {
             //已经给参数选手投过票了
             WeChatMagazineService::getInstance()->customSendText($openId, "抱歉，您已经成功投过票了，无法再次投票");
