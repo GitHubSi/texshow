@@ -1,3 +1,4 @@
+<doctype html>
 <html lang="en" style="font-size: 100px;">
 <head>
     <meta charset="UTF-8">
