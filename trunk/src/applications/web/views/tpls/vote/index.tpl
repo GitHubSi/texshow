@@ -6,7 +6,7 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <link href="/resource/css/vote/database.css" rel="stylesheet">
-    <link href="/resource/css/vote/detail.css?_t=17" rel="stylesheet">
+    <link href="/resource/css/vote/detail.css?_t=18" rel="stylesheet">
     <script src="/resource/js/jquery.min.js"></script>
     <link rel="stylesheet" href="/resource/css/vote/swiper.min.css">
     <script src="/resource/js/vote/swiper.min.js"></script>

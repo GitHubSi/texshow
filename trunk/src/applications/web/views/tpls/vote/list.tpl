@@ -37,7 +37,7 @@
         <input type="text" id="number" placeholder="输入选手编号">
         <div class="fangdajing" id="search"><i></i></div>
     </div>
-    <ul class="clearfix">
+    <ul class="clearfix" id="user-list">
         {%foreach $userList as $user%}
         <li data-pro="{%$user.id%}">
             <a href="/vote/detail?no={%$user.id%}">
@@ -53,6 +53,7 @@
         </li>
         {%/foreach%}
     </ul>
+
     <!--loading框开始-->
     <div id="J_loading" class="loading" style="display: none;">
         <div class="spinner">
@@ -65,6 +66,7 @@
     <div id="J_load_more" class="loading">
         <p class="txt">没有更多数据了~</p>
     </div>
+
     <div class="footer clearfix" id="J_footer">
         <div class="img">
             <a href=""><img src="/resource/img/vote/logo1.png" alt=""/></a>
@@ -83,10 +85,16 @@
                 n = 1,
                 scrollTimer;
 
-        var lastNo = $("li").last().attr("data-pro");
-        var liked = $("li").last().find(".num").text();
-
+        function hideNoMore() {
+            var hideNoMore = setTimeout("$('#J_load_more').hide()", 2000);
+            return hideNoMore;
+        }
+        
         function pullUpLoadData() {
+            pullRunning = 1;    //表示数据正在拉取
+
+            var lastNo = $("li").last().attr("data-pro");
+            var liked = $("li").last().find(".num").text();
             $.ajax({
                 type: "GET",
                 url: "/vote/more",//每次加载n+1
@@ -100,12 +108,16 @@
                 },
                 success: function (data) {
                     n++;
-                    if (data.status == 0) {
-                        $loading.hide();
-                        $('#J_load_more').show();
+                    var data_len = data.data.length;
+                    if (data_len == 0) {
+                        $loading.hide("normal", function () {
+                            $('#J_load_more').show("normal", function () {
+                                hideNoMore();
+                            });
+                        });
                         return false;
                     } else {
-                        generateDom(data);
+                        generateDom(data.data);
                     }
                 },
                 error: function () {
@@ -113,31 +125,37 @@
                 },
                 complete: function () {
                     $loading.hide();
+                    pullRunning = 0;
                 }
             });
         }
 
         function generateDom(data) {
-            var $testList = $('#J_test_list');
+            var $userList = $('#user-list');
             var html = '';
-            $.each(data, function (i, n) {
-                html += '<li>';
-                html += '<img src="img/people1.png" alt="">';
-                html += '<p>1118号:窗前明</p>';
-                html += '<div class="num">1926</div>';
-                html += '<a href=""><div class="btn-detail">详情</div></a>';
+            $.each(data, function (i, element) {
+                html += '<li data-pro="' + element.id + '">';
+                html += '<a href="/vote/detail?no=' + element.id + '">';
+                html += '<img src="' + element.msg.poster + '" alt="">';
+                html += '<p>' + element.number + '号:' + element.msg.name + '</p>';
+                html += '<div class="num">' + element.liked + '</div>';
+                html += '<a href="/vote/detail?no=' + element.id + '"><div class="btn-detail">详情</div></a>';
                 html += '<div class="i-play"></div>';
                 html += '<div class="i-no"></div>';
                 html += '</li>';
             });
-            $testList.append(html);
+            $userList.append(html);
         }
 
+        var pullRunning = 0;
         $(window).on('scroll', function () {
             var scrollTop = getScrollTop(),
                     footerOT = $('#J_footer').offset().top,
                     cHeight = getClientHeight();
             if (scrollTop + cHeight >= footerOT) {
+                if (pullRunning) {
+                    return;
+                }
                 // 上拉加载数据(延迟执行，防止操作过快多次加载)
                 clearTimeout(scrollTimer);
                 scrollTimer = setTimeout(function () {
