@@ -6690,34 +6690,22 @@ button.close {
 .form-control {
     box-shadow: none;
 }
+
 .tab-wrap {
-    padding: 21px 40px 40px;
-    box-shadow: 1px 1px #ffffff, 2px 2px #ecf0f1, 3px 3px #ffffff, 4px 4px #ecf0f1;
+    padding: 10px 0px;
     border: 1px solid #ecf0f1;
 }
+
 .nav-tabs ~ .tab-wrap,
 .nav-tabs ~ .tab-content .tab-wrap {
     border-top: 0;
 }
 .h40 {
-    margin-left: -40px;
-    padding-left: 30px;
+    padding-left: 10px;
     border-left: 10px solid;
     line-height: 2;
 }
-.tab-wrap > h1,
-.tab-pane > h1,
-.tab-wrap > h2,
-.tab-pane > h2,
-.tab-wrap > h3,
-.tab-pane > h3,
-.tab-wrap > h4,
-.tab-pane > h4 {
-    margin-left: -40px;
-    padding-left: 30px;
-    border-left: 10px solid;
-    line-height: 2;
-}
+
 .panel {
     box-shadow: 1px 1px #FFF, 2px 2px #ecf0f1, 3px 3px #fff, 4px 4px #ecf0f1;
 }

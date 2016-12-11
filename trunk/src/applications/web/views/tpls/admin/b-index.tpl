@@ -12,6 +12,7 @@
     <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
     <link rel="stylesheet" href="/resource/css/admin/invalid.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="/resource/css/admin/frame.css" type="text/css">
+    <link rel="stylesheet" href="/resource/css/admin/font-awesome.css" type="text/css">
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script' type='text/css'/>
     <link rel="stylesheet" href="/resource/jsoneditor/dist/jsoneditor.css" type="text/css">
@@ -72,11 +73,9 @@
                         <li><a href="/goodsManage/index">商品详情</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="nav-top-item"> Events Calendar </a>
+                <li><a href="#" class="nav-top-item">投票活动</a>
                     <ul>
-                        <li><a href="#">Calendar Overview</a></li>
-                        <li><a href="#">Add a new Event</a></li>
-                        <li><a href="#">Calendar Settings</a></li>
+                        <li><a href="/voteManage/index">添加用户</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-top-item"> Settings </a>
