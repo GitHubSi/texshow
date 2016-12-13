@@ -46,6 +46,7 @@ class VoteManageController extends AbstractSecurityAction
         $number = $this->getParam("id");
         $type = $this->getParam("type");
 
+        //todo 将来将管理后台的disply页面抽象到基类中
         $allType = array("add", "edit");
         if (!in_array($type, $allType)) {
             $this->_smarty->assign("error", "编辑类型错误");
@@ -111,5 +112,26 @@ class VoteManageController extends AbstractSecurityAction
         $this->_smarty->assign("userInfo", $userInfo);
         $this->_smarty->assign('tpl', 'admin/vote/edit.tpl');
         $this->_smarty->display('admin/b-index.tpl');
+    }
+
+    public function delAction()
+    {
+        $number = $this->getParam("id");
+        if (!ctype_digit($number)) {
+            return false;
+        }
+
+        $userInfo = $this->_voteUserMapper->getUserById($number);
+        if (empty($userInfo)) {
+            return false;
+        }
+
+        $effect = $this->_voteUserMapper->deleteUser($number);
+        if ($effect) {
+            //remove user from redis
+            $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
+            $redis->zRem(VoteController::LIKED_RANK, $number);
+        }
+        header("Location: /voteManage/index");
     }
 }
