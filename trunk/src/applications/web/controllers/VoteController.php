@@ -67,6 +67,24 @@ class VoteController extends AbstractActivityAction
         $this->_smarty->display('vote/list.tpl');
     }
 
+    //对外提供的接口
+    public function infoAction()
+    {
+        $this->_isJson = true;
+        $id = intval($this->getParam("id"));
+        if ($id <= 0) {
+            throw new Exception("parameter error", 400);
+        }
+
+        $userInfo = $this->_voteUserMapper->getUserById($id);
+        if (empty($userInfo)) {
+            throw new Exception("user don't existed", 400);
+        }
+
+        $detailInfo = $this->_metaUserInfo($userInfo, true);
+        $this->_data = $detailInfo;
+    }
+
     public function findAction()
     {
         $this->_isJson = true;
@@ -89,14 +107,21 @@ class VoteController extends AbstractActivityAction
 
         $lastNo = $this->getParam("last_id");
         $lastLiked = $this->getParam("last_liked");
-        if (!ctype_digit($lastNo)) {
-            throw new Exception("parameter error ", 400);
-        }
-        if (!ctype_digit($lastLiked)) {
+        $pageSize = $this->getParam("count");
+        if (!ctype_digit($lastNo) || !ctype_digit($lastLiked)) {
             throw new Exception("parameter error ", 400);
         }
 
-        $userList = $this->_voteUserMapper->getAllUser($lastNo, $lastLiked, self::PAGE_SIZE);
+        if ($lastNo == 0) {
+            $lastNo = PHP_INT_MAX;
+            $lastLiked = PHP_INT_MAX;
+        }
+
+        if (!ctype_digit($pageSize) || empty($pageSize)) {
+            $pageSize = self::PAGE_SIZE;
+        }
+
+        $userList = $this->_voteUserMapper->getAllUser($lastNo, $lastLiked, $pageSize);
         foreach ($userList as &$user) {
             $user = $this->_metaUserInfo($user);
         }
