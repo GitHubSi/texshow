@@ -69,7 +69,10 @@ while (true) {
             WeChatMagazineService::getInstance()->customSendText($openId, "Tex君说：系统出了点小故障，工程狮正在修复！");
             continue;
         }
-        WeChatMagazineService::getInstance()->customSendText($openId, "恭喜您投票成功，点击链接按步骤领取红包");
+
+        //WeChatMagazineService::getInstance()->customSendText($openId, "恭喜您投票成功，点击链接按步骤领取红包");
+        $picTextMsg = "{\"touser\":\"{$openId}\",\"msgtype\":\"news\",\"news\":{\"articles\":[{\"title\":\"恭喜您投票成功！点击消息领取新用户1元现金红包\",\"description\":\"\",\"url\":\"http:\/\/h5.8pig.com\/subject\/couponQRCode.html\",\"picurl\":\"http:\/\/p1.ifengimg.com\/04a169a73a8934ac\/2016\/51\/226033312852326226.jpg\"}]}}";
+        WeChatMagazineService::getInstance()->customSendPicText($picTextMsg);
     }
     $redis->lTrim($messagePipe, $stop + 1, -1);
 }

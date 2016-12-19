@@ -8,7 +8,7 @@
  */
 class VoteController extends AbstractActivityAction
 {
-    const RULE_LINK = "";
+    const RULE_LINK = "http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040710044517783";
     const PAGE_SIZE = 20;
     const HUNDRED = 100;
     const LIKED_RANK = "liked_rank";
@@ -31,6 +31,13 @@ class VoteController extends AbstractActivityAction
             $user = $this->_metaUserInfo($user);
         }
 
+        //redirect pc
+        if (!preg_match("/(iPhone|Android|iPad|BlackBerry|Windows Phone)/i", $_SERVER['HTTP_USER_AGENT'])) {
+            header("Location: http://tech.ifeng.com/test/special/nrxwmd/list.shtml");
+            return;
+        }
+
+        $this->_smarty->assign("ruleLink", self::RULE_LINK);
         $this->_smarty->assign("userList", $topFourUser);
         $this->_smarty->display("vote/index.tpl");
     }

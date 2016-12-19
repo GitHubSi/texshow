@@ -44,9 +44,7 @@
                     <a href=""><img src="/resource/img/vote/logo2.png" alt=""></a>
                 </div>
             </div>
-            <div class="btn-rule">
-                <a href="{%$ruleLink%}"></a>
-            </div>
+            <a href="{%$ruleLink%}"><div class="btn-rule"></div></a>
             <div class="btn-next"></div>
         </section>
         <section class="swiper-slide view2">

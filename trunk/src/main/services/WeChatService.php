@@ -116,6 +116,15 @@ class WeChatService
         );
     }
 
+    public function customSendPicText($params)
+    {
+        $accessToken = $this->getAccessToken();
+        return self::urlPost(
+            self::URL_CUSTOM_MSG . "?access_token={$accessToken}",
+            $params
+        );
+    }
+
     //pop up authorization page
     public function getUserInfoUrl($redirectURL)
     {
