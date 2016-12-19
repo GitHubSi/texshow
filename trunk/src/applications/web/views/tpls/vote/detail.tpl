@@ -1,3 +1,4 @@
+<doctype html>
 <html lang="en" style="font-size: 100px;">
 <head>
     <meta charset="UTF-8">
@@ -5,7 +6,7 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <link href="/resource/css/vote/database.css" rel="stylesheet">
-    <link href="/resource/css/vote/detail.css" rel="stylesheet">
+    <link href="/resource/css/vote/detail.css?_t=5" rel="stylesheet">
     <script src="/resource/js/jquery.min.js"></script>
     <title>投票详情页</title>
     <script>
@@ -30,138 +31,30 @@
             recalc();
         })(document, window);
     </script>
-    <style>
-        .main {
-            width: 7.5rem;
-            margin: 0 auto;
-            height: 10.21rem;
-        }
-
-        .main .banner {
-            width: 100%;
-            height: 4.51rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .main .banner img {
-            width: 100%;
-            height: 100%;
-        }
-
-        .main .banner .back {
-            width: 1.43rem;
-            height: 0.54rem;
-            font-size: 0.34rem;
-            line-height: 0.54rem;
-            position: absolute;
-            top: 0.36rem;
-            left: 0.47rem;
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            text-align: center;
-            border-radius: 0.1rem;
-        }
-
-        .main .banner .i-play {
-            width: 1.47rem;
-            height: 1.09rem;
-            background: url(/resource/img/vote/i-play.png) no-repeat;
-            position: absolute;
-            margin: auto auto;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-size: cover;
-        }
-
-        .main h3 {
-            color: #333;
-            font-size: 0.28rem;
-            margin-top: 0.15rem;
-            text-indent: 3.6rem;
-        }
-
-        .main .info {
-            width: 100%;
-            padding: 0 0.45rem;
-        }
-
-        .main .info .num .huangguan {
-            width: 0.69rem;
-            height: 0.48rem;
-            background: url(/resource/img/vote/i-huangguan.png) no-repeat;
-            background-size: cover;
-            position: absolute;
-            top: -0.35rem;
-            left: 2.45rem;
-        }
-
-        .main .info .num {
-            margin-top: 0.25rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .main .info .num, .main .info .title {
-            font-size: 0.4rem;
-            color: #1b1b1b;
-        }
-
-        .main .info .desc {
-            width: 6.59rem;
-            height: 2.75rem;
-            background: url(/resource/img/vote/line-desc.png) no-repeat;
-            padding: 0.8rem 0.15rem 0 0.2rem;
-            background-size: cover;
-            font-size: 0.3rem;
-            color: #333;
-        }
-
-        .main .btns {
-            width: 6.5rem;
-            margin: 0.3rem auto 0;
-        }
-
-        .main .btns .btn {
-            width: 3.18rem;
-            height: 0.83rem;
-            background: #ff762c;
-            color: #fff;
-            text-align: center;
-            font-size: 0.36rem;
-            line-height: 0.83rem;
-            border-radius: 0.1rem;
-            float: left;
-        }
-
-        .main .btns .btn:nth-child(2) {
-            margin-left: 0.14rem;
-        }
-
-        .footer {
-            width: 3.64rem;
-            padding: 0.2rem 0 0.1rem 0;
-            margin: 0 auto;
-        }
-
-        .footer img {
-            width: 3.64rem;
-        }
-    </style>
 </head>
 <body>
 <div class="main">
-    <div class="banner" id="video-container">
-        <img id="poster" src="/resource/img/vote/girl.png" alt="">
-        <div class="back">返回</div>
+    <div class="banner" id="poster">
+        <img src="{%$userInfo.msg.poster%}" alt="">
+        <a id="poster-back" href="/vote/list">
+            <div class="back">返回</div>
+        </a>
         <div class="i-play" id="pptit03" data-vid="{%$userInfo.msg.video%}"></div>
     </div>
-    <h3>{%$userInfo.liked%} 票 距第一名还差 {%$userInfo.fail%} 票</h3>
+    <div class="banner" id="video-container" style="display: none"></div>
+    <h3>{%$userInfo.liked%} 票 {%if isset($userInfo["top1"])%}当前排名第一哦 {%else%}距第一名还差 {%$userInfo.fail%} 票{%/if%}</h3>
+    <div style="clear: both"></div>
     <div class="info">
-        <div class="num">{%$userInfo.id%} 号：{%$userInfo.msg.name%}
+        <div class="num">{%$userInfo.number%} 号：{%$userInfo.msg.name%}
+            {%if isset($userInfo["top1"])%}
+            <div class="huangguan" style="background: url(/resource/img/vote/i-huangguan.png) no-repeat;background-size: contain;"></div>
+            {%elseif isset($userInfo["top2"])%}
+            <div class="huangguan" style="background: url(/resource/img/vote/i-huangguan-2.png) no-repeat;background-size: contain;"></div>
+            {%elseif isset($userInfo["top3"])%}
+            <div class="huangguan" style="background: url(/resource/img/vote/i-huangguan-3.png) no-repeat;background-size: contain;"></div>
+            {%else%}
             <div class="huangguan"></div>
+            {%/if%}
         </div>
         <div class="title">心愿单：{%$userInfo.msg.wish%}</div>
         <div class="desc">{%$userInfo.msg.desc%}</div>
@@ -171,17 +64,44 @@
         <div class="btn">我要分享</div>
     </div>
 </div>
-<div class="footer">
-    <img src="/resource/img/vote/logo.png" alt=""/>
+
+<div class="footer clearfix">
+    <div class="img">
+        <a href=""><img src="/resource/img/vote/log3.png" alt=""/></a>
+        <a href=""><img src="/resource/img/vote/log4.png" alt=""></a>
+    </div>
 </div>
+
+<div class="popup popup-vote">
+    <div class="con">
+        <img src="/resource/img/vote/qrcode.jpg" alt="" />
+        <p>长按选择识别图中二维码
+            <br/>
+            并关注公众号
+            <br/>
+            输入“TP{%$userInfo.number%}”为他投票
+            <br/>
+            投票后赢取现金红包
+        </p>
+        <div class="close">X</div>
+    </div>
+</div>
+<div class="popup popup-share">
+    <img src="/resource/img/vote/share.png" alt=""/>
+</div>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
+<script src="/resource/scripts/wechat.js?timestamp=1"></script>
+
 </body>
 <!--video-->
 <script src="http://y2.ifengimg.com/314bd925cdd17196/2014/0814/video.js"></script>
 <script src="http://y0.ifengimg.com/components/video/20140813/v2/videoMobile.js"></script>
 <script>
     (function () {
-        var sW = $(".banner").width();
-        var sH = $(".banner").height();
+        var sW = $("#video-container").width();
+        var sH = $("#video-container").height();
 
         var player1 = $('#pptit03');
         var vid1 = player1.attr('data-vid');
@@ -204,8 +124,30 @@
 
         player1.click(function () {
             $('#poster').hide();
+            $('#video-container').show();
             video1.play();
             $("#video-container").find(".JzClose").show();
+        });
+
+        var $btn = $('.btns').children();
+        $btn.eq(0).click(function () {
+            $('#video-container').hide();
+            $('#poster').show();
+            video1.pause();
+            $('.popup-vote').show();
+
+        });
+        $('.popup .close').click(function () {
+            $('.popup-vote').hide();
+        });
+        $btn.eq(1).click(function () {
+            $('#video-container').hide();
+            $('#poster').show();
+            video1.pause();
+            $('.popup-share').show();
+        });
+        $('.popup').click(function () {
+            $(this).hide();
         });
     })();
 </script>

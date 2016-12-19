@@ -1,4 +1,8 @@
 /********************************      Basic Structure      ********************************/
+* {
+    margin: 0px;
+    padding: 0px;
+}
 
 html {
     font-size: 100%;
@@ -335,6 +339,19 @@ a.remove-link:hover {
     height: 40px;
 }
 
+.content-box-header ul {
+    list-style: none;
+    list-style-type: none;
+}
+
+.content-box-header li{
+    display: inline-block;
+}
+
+.content-box-header li a {
+    text-decoration: none;
+}
+
 ul.content-box-tabs {
     float: right;
     padding: 12px 15px 0 0 !important;
@@ -376,8 +393,12 @@ ul.content-box-tabs li a.current {
 /************ Table ************/
 
 #main-content table {
-    width: 100%;
     border-collapse: collapse;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #main-content table thead th {
@@ -439,107 +460,6 @@ ul.content-box-tabs li a.current {
 
 .pagination a.current:hover {
     text-decoration: underline;
-}
-
-/************ Shortcut Buttons ************/
-
-.shortcut-button {
-    border: 1px solid #ccc;
-    background: #f7f7f7 url('/resource/images/shortcut-button-bg.gif') top left no-repeat;
-    display: block;
-    width: 120px;
-    margin: 0 0 20px 0;
-}
-
-.shortcut-button span {
-    border: 1px solid #fff;
-    display: block;
-    padding: 15px 10px 15px 10px;
-    text-align: center;
-    color: #555;
-    font-size: 13px;
-    line-height: 1.3em;
-}
-
-.shortcut-button span img {
-    margin-bottom: 10px;
-}
-
-.shortcut-button:hover {
-    background: #fff;
-
-}
-
-.shortcut-button span:hover {
-    color: #57a000;
-}
-
-ul.shortcut-buttons-set li {
-    float: left;
-    margin: 0 15px 0 0;
-    padding: 0 !important;
-    background: 0;
-}
-
-/*************** Forms ***************/
-
-form label {
-    display: block;
-    padding: 0 0 10px;
-    font-weight: bold;
-}
-
-form fieldset legend {
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding-top: 10px;
-}
-
-form p small {
-    font-size: 0.75em;
-    color: #777;
-}
-
-form input.text-input,
-form select,
-form textarea,
-form .wysiwyg {
-    padding: 6px;
-    font-size: 13px;
-    background: #fff url('/resource/images/bg-form-field.gif') top left repeat-x;
-    border: 1px solid #d5d5d5;
-    color: #333;
-}
-
-form .small-input {
-    width: 25% !important;
-}
-
-form .medium-input {
-    width: 50% !important;
-}
-
-form .large-input {
-    width: 97.5% !important;
-    font-size: 16px !important;
-    padding: 8px !important;
-}
-
-form textarea {
-    width: 97.5% !important;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-form select {
-    padding: 4px;
-    background: #fff;
-}
-
-form input[type="checkbox"],
-form input[type="radio"] {
-    padding: 0;
-    background: none;
-    border: 0;
 }
 
 /*************** Notifications ***************/
@@ -672,101 +592,6 @@ body#login {
 #login-wrapper #login-content p .button {
     width: auto;
     margin-top: 20px;
-}
-
-/********************************      jQuery plugins styles      ********************************/
-
-/*************** Facebox ***************/
-
-#facebox .b {
-    background: url(/resource/images/b.png);
-}
-
-#facebox .tl {
-    background: url(/resource/images/tl.png);
-}
-
-#facebox .tr {
-    background: url(/resource/images/tr.png);
-}
-
-#facebox .bl {
-    background: url(/resource/images/bl.png);
-}
-
-#facebox .br {
-    background: url(/resource/images/br.png);
-}
-
-#facebox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    text-align: left;
-}
-
-#facebox .popup {
-    position: relative;
-}
-
-#facebox table {
-    border-collapse: collapse;
-}
-
-#facebox td {
-    border-bottom: 0;
-    padding: 0;
-}
-
-#facebox .body {
-    padding: 10px;
-    background: #fff;
-    width: 370px;
-}
-
-#facebox .loading {
-    text-align: center;
-}
-
-#facebox .image {
-    text-align: center;
-}
-
-#facebox img {
-    border: 0;
-    margin: 0;
-}
-
-#facebox .footer {
-    border-top: 1px solid #DDDDDD;
-    padding-top: 5px;
-    margin-top: 10px;
-    text-align: right;
-}
-
-#facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
-    height: 10px;
-    width: 10px;
-    overflow: hidden;
-    padding: 0;
-}
-
-#facebox_overlay {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-}
-
-.facebox_hide {
-    z-index: -100;
-}
-
-.facebox_overlayBG {
-    background-color: #000;
-    z-index: 99;
 }
 
 /*************** jQuery WYSIWYG ***************/
