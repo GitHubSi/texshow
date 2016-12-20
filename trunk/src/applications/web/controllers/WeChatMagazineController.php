@@ -79,10 +79,11 @@ class WeChatMagazineController extends AbstractWeChatAction
         $response['ArticleCount'] = 1;
         $response['Articles'] = array(
             array(
-                'Title' => '凤凰科技×8只小猪 红包领取入口',
-                'Description' => '100%中奖红包就在这里，快来拿吧~',
-                'PicUrl' => 'http://pic.8pig.com/img/activity/common/data/ifeng/banner81998240545623880.jpg',
-                'Url' => $this->_makeRedirectUrl()
+                'Title' => '你任性我买单第三季投票开始啦！新用户投票领现金红包',
+                'Description' => '',
+                'PicUrl' => 'http://p0.ifengimg.com/04a169a73a8934ac/2016/51/11.jpg',
+//                'Url' => $this->_makeRedirectUrl()
+                'Url' => 'http://act.wetolink.com/vote/index'
             )
         );
         return $response;
