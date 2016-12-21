@@ -134,4 +134,20 @@ class VoteManageController extends AbstractSecurityAction
         }
         header("Location: /voteManage/index");
     }
+
+    public function addLikeAction()
+    {
+        $number = $this->getParam("id");
+        if (!ctype_digit($number)) {
+            return false;
+        }
+
+        $userInfo = $this->_voteUserMapper->getUserById($number);
+        if (empty($userInfo)) {
+            return false;
+        }
+
+        $this->_voteUserMapper->updateLiked($number, 1);
+        header("Location: /voteManage/index");
+    }
 }

@@ -30,7 +30,8 @@
                     <td>{%$user.liked%}</td>
                     <td>
                         <a href="/voteManage/detail?type=edit&id={%$user.id%}">编辑</a>|
-                        <a href="#" onclick="show_confirm('/voteManage/del?id={%$user.id%}')">删除</a>
+                        <a href="#" onclick="show_confirm('/voteManage/del?id={%$user.id%}')">删除</a>|
+                        <a href="/voteManage/addLike?id={%$user.id%}">点赞</a>
                     </td>
                 </tr>
                 {%/foreach%}
