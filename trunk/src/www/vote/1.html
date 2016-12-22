@@ -56,36 +56,42 @@
             width:100%;
             height:100%;
             background:url(img/bg.png) repeat left 1.2rem;
-            background-size:100% 100%;position: relative;
+            background-size:100% 100%;display: block;
         }
         .swiper-slide:nth-child(2){
             width:100%;
             height:100%;
-            background: #f8f8f8;
+            background: #f8f8f8;display: block;
         }
         .nav{
-            width:100%;height:0.8rem;padding:0.2rem 0.38rem;background: #fff;
+            width:100%;height:0.94rem;background: #fff;padding-left: 0.15rem;
+        }
+        .nav .swiper-slide:nth-child(1){
+            background: none; height: 0.6rem;
+        }
+        .nav .swiper-slide:nth-child(2){
+            background: none; height: 0.6rem;
         }
         .nav ul{
-            width:15.3rem;
+            width:19.3rem;
         }
         .nav li{
-            width: 1.13rem;
-            line-height: 0.42rem;
-            font-size: 0.28rem;
-            margin-right: 0.26rem;
-            height: 0.42rem;
-            display: inline-block;
-            white-space:nowrap;text-overflow:ellipsis;
+            width: 1.6rem;
+            line-height: 0.36rem;
+            font-size: 0.26rem;
+            height: 0.6rem;
+            float: left;
+            border-right: 1px solid #bfbfbf;margin-top: 0.15rem;
         }
-        .nav li.active{
-            border-bottom: 0.04rem solid #ff4848;
+        .nav li:last-child{border:0;}
+        .nav li.active a{
+            color:#ff4848;
         }
         .nav li:nth-child(5n){
             margin-right: 0;
         }
         .nav li a{
-            color:#444444;
+            color:#444444;display: block;width:1.1rem;margin: -0.05rem  auto 0;
         }
         .banner{
             width:7.14rem;height:4rem;margin:0.35rem auto 0;
@@ -93,24 +99,39 @@
         .banner img{
             width:100%;
         }
+        .mv-wrapper{
+            width:100%;height:6.94rem;background: rgba(255,255,255,0.7);padding-top: 0.5rem;position: relative;
+        }
+        .tag{
+            background: #47352b;color:#fff;font-size: 0.3rem;width:1.5rem;height:0.58rem;line-height: 0.58rem;text-align: center;position: absolute;top:-0.4rem;right:0.35rem;
+        }
         .mv{
-            width:6.81rem;height:3.83rem;border:0.06rem solid #383639;margin:0 auto;position:relative ;
+            width:6.81rem;height:3.83rem;border:0.06rem solid #383639;margin:0 auto 0;position:relative ;
         }
         .mv img{width:6.69rem;border: 0}
         .mv .play{
             position: absolute;bottom:0.44rem;right:0.36rem;width:0.78rem;height:0.78rem;background: url(img/i-play2.png) no-repeat;background-size: cover;
         }
         .view1 p{
-            font-size: 0.26rem;color:#444444;line-height: 0.42rem;width:6.8rem;margin:0.3rem auto;text-align: justify;
+            font-size: 0.25rem;color:#444444;line-height: 0.5rem;width:6.8rem;margin:0.3rem auto;text-align: justify;
+        }
+        footer{
+            width:100%;height:1.1rem;background: #d7d3d0;
         }
         .btn-next{
-            width:0.35rem;height:0.29rem;background: url(img/i-up.png) no-repeat;background-size: cover;margin:1.4rem auto 0;
+            width:0.35rem;height:0.29rem;background: url(img/i-up.png) no-repeat;background-size: cover;float: left;margin: 0.4rem 0.2rem 0 2.5rem;
         }
         .view1 .tips{
-            color: #444;text-align: center;margin-top: 0.1rem;
+            color: #494847;font-size: 0.26rem;float: left;margin-top: 0.4rem;
         }
         .view1 img{
             width:100%;
+        }
+        .pop-up{
+            width:100%;height:100%;background: url(img/pop-up.png) no-repeat;background-size:7.5rem 100%;position: fixed;z-index: 99999999;top:0;left:0;display: none;
+        }
+        .subject{
+            width:2.54rem;height:0.8rem;line-height: 0.8rem;color:#fff;text-align: center;display: block;border-radius: 0.05rem;border:1px solid #fff;bottom:2rem;left:2.5rem;font-size: 0.34rem;position: absolute;
         }
     </style>
 </head>
@@ -118,65 +139,84 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         <section class="swiper-slide view1">
-            <div class="nav">
-                <ul>
-                    <li class="active"><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
+            <div class="nav news-nav-list clearfix J_ttnews_nav_container" id="J_ttnews_nav_container">
+                <ul class="clearfix swiper-wrapper">
+                    <li class="active swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
                 </ul>
             </div>
             <div class="banner"><img src="img/banner.png" alt=""/></div>
-            <div class="mv">
-                <a href=""><img src="img/video_pic.png" alt="">
-                <div class="play"></div></a>
+            <div class="mv-wrapper">
+                <div class="tag">分享专题</div>
+                <div class="mv">
+                    <a href=""><img src="img/video_pic.png" alt="">
+                    <div class="play"></div></a>
+                </div>
+                <p>TOYOTA（丰田）汽车延续温馨品牌形象的传统，2016年再度推出「大故事家」活动，以「你的故事，我来拍」作为号召，邀请网友分享身边的动人故事。</p>
             </div>
-            <p>TOYOTA（丰田）汽车延续温馨品牌形象的传统，2016年再度推出「大故事家」活动，以「你的故事，我来拍」作为号召，邀请网友分享身边的动人故事。</p>
-            <div class="btn-next"></div>
-            <div class="tips">向上滑动箭头</div>
+            <footer>
+                <div class="btn-next"></div>
+                <div class="tips">向上滑动箭头</div>
+            </footer>
         </section>
         <section class="swiper-slide view1">
-            <div class="nav">
-                <ul>
-                    <li class="active"><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
-                    <li><a href="">外卖员的</a></li>
+            <div class="nav news-nav-list clearfix J_ttnews_nav_container">
+                <ul class="clearfix swiper-wrapper">
+                    <li class="active swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
+                    <li class="swiper-slide"><a href="">外卖员的外卖员的</a></li>
                 </ul>
             </div>
             <p>TOYOTA（丰田）汽车延续温馨品牌形象的传统，2016年
                 再度推出「大故事家」活动，以「你的故事，我来拍」作为
                 号召，邀请网友分享身边的动人故事。徵件主题为「Always
                 be There」，吸引了广大网友参与，期间收件达6000件作
-                品。最终由「一家人的日历」胜出，夺下金牌。以金奖作品
+                品。</p>
+            <p>最终由「一家人的日历」胜出，夺下金牌。以金奖作品
                 为蓝本，改编拍摄而成的「两个爸爸」，由卢建彰执导，演
                 员阵容可堪强大，包含戏剧泰斗金士杰、金钟影帝樊光耀以
                 及有小金城武」之称的涂善存演出，还有入围金钟奖最佳女
-                主角的谢盈萱客串演出。                                                        </p>
+                主角的谢盈萱客串演出.</p>
             <img src="img/video_pic.png" alt="">
             <p>T观众叫座又叫好的作品才是真正的好作品，摒除了品牌大片
                 一贯只会展现速度与激情的炫酷画面，TOYOTA在众车产品
                 牌中另辟蹊径走起了暖心真情路线。看来，国际大牌们为进
-                本土市场，拉近与受众之间的距离关系。                                 </p>
+                本土市场，拉近与受众之间的距离关系。 T观众叫座又叫好的作品才是真正的好作品，摒除了品牌大片
+                一贯只会展现速度与激情的炫酷画面，TOYOTA在众车产品
+                牌中另辟蹊径走起了暖心真情路线。看来，国际大牌们为进
+                本土市场，拉近与受众之间的距离关系。                                        </p>
         </section>
     </div>
 </div>
+<div class="pop-up">
+    <a href="https://www.baidu.com/" class="subject">进入专题</a>
+</div>
 </body>
 <script>
+    ttNewsNavSwiper = new Swiper('.J_ttnews_nav_container', {
+        freeMode : true,
+        speed: 500,
+        slidesPerView: 5.5
+    });
 
-    scaleW=window.innerWidth/320;
+
+
+   /* scaleW=window.innerWidth/320;
     scaleH=window.innerHeight/480;
     var resizes = document.querySelectorAll('.resize');
     for (var j=0; j<resizes.length; j++) {
@@ -190,7 +230,7 @@
     for (var i=0; i<scales.length; i++) {
         ss=scales[i].style;
         ss.webkitTransform = ss.MsTransform = ss.msTransform = ss.MozTransform = ss.OTransform =ss.transform='translateX('+scales[i].offsetWidth*(scaleW-1)/2+'px) translateY('+scales[i].offsetHeight*(scaleH-1)/2+'px)scaleX('+scaleW+') scaleY('+scaleH+') ';
-    }
+    }*/
 
 
     var mySwiper = new Swiper ('.swiper-container', {
@@ -204,9 +244,15 @@
         onSlideChangeEnd: function(swiper){
             //swiperAnimate(swiper);
         }
-    })
+    });
     $('.btn-next').click(function(){
         mySwiper.slideNext();
+    });
+    $('.tag').click(function () {
+        $('.pop-up').show();
+    });
+    $('.pop-up').click(function () {
+        $(this).hide();
     })
 </script>
 </html>
