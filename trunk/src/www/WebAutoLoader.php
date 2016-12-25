@@ -30,6 +30,7 @@ class WebAutoLoader
         'LatestPublicController' => '/src/applications/web/controllers/LatestPublicController.php',
 
         'VoteController' => '/src/applications/web/controllers/VoteController.php',
+        'PeopleController' => '/src/applications/web/controllers/PeopleController.php',
 
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
