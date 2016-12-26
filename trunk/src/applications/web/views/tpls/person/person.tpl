@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <link href="/resource/css/person/database.css?t=22" rel="stylesheet">
+    <link href="/resource/css/person/database.css?t=32" rel="stylesheet">
     <script src="/resource/js/jquery.min.js"></script>
     <script src="/resource/js/jquery.touchSwipe.js"></script>
     <link rel="stylesheet" href="/resource/css/vote/swiper.min.css">
@@ -38,8 +38,8 @@
     <div class="nav news-nav-list clearfix" id="nav-contain">
         <div class="swiper-container swiper-container1">
             <ul class="clearfix swiper-wrapper">
-                <li class="active swiper-slide swiper-slide1"><a href="">90后女骑士</a></li>
-                <li class="swiper-slide swiper-slide1"><a href="">敬请期待下期节目</a></li>
+                <li class="active swiper-slide swiper-slide0"><a href="/people?person=0">90后女骑士</a></li>
+                <li class="swiper-slide swiper-slide1"><a href="#">更多人物，明日更新</a></li>
             </ul>
         </div>
     </div>
@@ -67,6 +67,9 @@
     {%$user.detail%}
 </div>
 
+<div class="f-print">--------- 凤凰科技出品 ---------</div>
+
+
 <div class="pop-up">
     <a href="javascript:void(0);" class="subject">进入专题</a>
 </div>
@@ -75,11 +78,10 @@
 <textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
 <script src="/resource/scripts/wechat.js?timestamp=1"></script>
 
+<input type="hidden" id="nav-index" value="{%$navIndex%}">
 <script>
     $(document).ready(function () {
         var clientWidth = document.body.clientWidth;
-
-
         //初始化,元素的宽度
         $("body").css({
             "width": clientWidth + "px",
@@ -98,7 +100,16 @@
         spaceBetween: 30,
         freeMode: true
     });
-    swiper1.slideTo(0);
+
+    var navIndex = $("#nav-index").val();
+    swiper1.slideTo(navIndex, 1000, false);
+
+    $(".nav").find("li").each(function (index) {
+        $(this).removeClass("active");
+        if (index == navIndex) {
+            $(this).addClass("active")
+        }
+    })
 </script>
 
 <!--video-->
