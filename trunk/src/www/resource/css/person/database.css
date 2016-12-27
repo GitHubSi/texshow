@@ -218,7 +218,7 @@ label {
 .nav {
     height: 0.94rem;
     background: #fff;
-    padding-left: 0.15rem;
+    /*padding-left: 0.15rem;*/
 }
 
 .nav ul {
@@ -266,7 +266,7 @@ label {
 .swiper-slide {
     text-align: center;
     background: #fff;
-
+    width: 60%;
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -319,8 +319,10 @@ label {
     font-size: 0.35rem;
     color: #333;
     border-left: 0.1rem solid #e2dfdf;
-    margin: 0.2rem 0 0.2rem 0.35rem;
+    margin: 0.2rem auto;
     line-height: 0.5rem;
+    font-family: "楷体","楷体_GB2312";
+
 }
 
 .mv-wrapper {

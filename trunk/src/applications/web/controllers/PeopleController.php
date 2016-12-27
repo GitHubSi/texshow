@@ -32,6 +32,18 @@ class PeopleController extends AbstractActivityAction
         $this->_smarty->display('person/person.tpl');
     }
 
+    public function getJsApiAction()
+    {
+        $this->_isJson = true;
+
+        $title = $this->getParam("title");
+        $content = $this->getParam("content");
+        $url = $this->getParam("url");
+        $img = $this->getParam("img");
+        $shareContext = $this->setWechatShare($title, $content, $url, $img);
+        $this->_data = $shareContext;
+    }
+
     private function _getPeople($index)
     {
         $personList = array(
@@ -110,17 +122,15 @@ class PeopleController extends AbstractActivityAction
             1 => array(
                 "shareContext" => array(
                     "title" => "《2016那些熟悉的陌生人》之：“孤独的”地图采集员",
-                    "content" => "每一个外卖员背后，都藏有一个不为人知的故事。​",
-                    "img" => "http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg",
-                    "url" => "http://act.wetolink.com/people?person=0"
+                    "content" => '在地图的"另一端"，他孤独的跑了11年',
+                    "img" => "http://p0.ifengimg.com/a/2016/1226/00104d35dcdde1bsize610_w1920_h1080.jpg",
+                    "url" => "http://act.wetolink.com/people?person=1"
                 ),
                 "title" => "“孤独的”地图采集员",
-                "poster" => "http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg",
-                "video" => "013361b5-69b0-4565-af88-58b5a6529e4c",
+                "poster" => "http://p0.ifengimg.com/a/2016/1226/00104d35dcdde1bsize610_w1920_h1080.jpg",
+                "video" => "01576f88-c1ac-4e85-aa51-f2a07ec7c66a",
                 "summary" => "这一年，互联网行业依旧风云变幻，不停上演着一幕又一幕精彩戏码，但有这样一群人，他们的工作周而复始，尽管平凡，却铸就了整个互联网。",
                 "detail" => '<p><b>《2016那些熟悉的陌生人》之：“孤独的”地图采集员</b></p>
-
-<img src="http://p0.ifengimg.com/a/2016/1226/00104d35dcdde1bsize610_w1920_h1080.jpg" alt="" />
 <p>如今，生活在互联网时代下的我们，已经忘记了什么是“迷路”，无论是要搜索路线，还是查看方位，亦或是其他，我们都习惯性的打开手机中的地图。</p>
 <p>这时候会发现，通衢大道也好，羊肠小道也罢，地图的精准性变得越来越强，而这，离不开地图“另一端”的他们——地图采集员。</p>
 <p>他叫刘璇，是一名地图采集员，从事这份工作近11年。</p>
@@ -151,16 +161,15 @@ class PeopleController extends AbstractActivityAction
             2 => array(
                 "shareContext" => array(
                     "title" => "《2016熟悉陌生人》之：“黑白颠倒”的代驾员",
-                    "content" => "每一个外卖员背后，都藏有一个不为人知的故事。​",
-                    "img" => "http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg",
-                    "url" => "http://act.wetolink.com/people?person=0"
+                    "content" => '为了让你安全回家，他过着"黑白颠倒"的生活',
+                    "img" => "http://p3.ifengimg.com/a/2016/1226/2b18926927aa70dsize286_w1500_h844.jpg",
+                    "url" => "http://act.wetolink.com/people?person=2"
                 ),
                 "title" => "“黑白颠倒”的代驾员",
-                "poster" => "http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg",
-                "video" => "013361b5-69b0-4565-af88-58b5a6529e4c",
+                "poster" => "http://p3.ifengimg.com/a/2016/1226/2b18926927aa70dsize286_w1500_h844.jpg",
+                "video" => "01362def-c8f1-495a-9437-c3f2df01b926",
                 "summary" => "这一年，互联网行业依旧风云变幻，不停上演着一幕又一幕精彩戏码，但有这样一群人，他们的工作周而复始，尽管平凡，却铸就了整个互联网。",
                 "detail" => '<p><b>《2016熟悉陌生人》之：“黑白颠倒”的代驾员</b></p>
-<img src="http://p3.ifengimg.com/a/2016/1226/2b18926927aa70dsize286_w1500_h844.jpg" alt="" />
 
 <p>“开车不喝酒，喝酒不开车”，很多人做不到第一点，依然开车赴宴，把酒言欢，于是，第二点催生出了代驾这个行业。</p>
 <p>他叫王雪恒，来自山西，从事代驾员工作已经一年多。</p>

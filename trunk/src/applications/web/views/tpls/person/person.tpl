@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <link href="/resource/css/person/database.css?t=32" rel="stylesheet">
+    <link href="/resource/css/person/database.css?t=36" rel="stylesheet">
     <script src="/resource/js/jquery.min.js"></script>
     <script src="/resource/js/jquery.touchSwipe.js"></script>
     <link rel="stylesheet" href="/resource/css/vote/swiper.min.css">
@@ -38,7 +38,9 @@
     <div class="nav news-nav-list clearfix" id="nav-contain">
         <div class="swiper-container swiper-container1">
             <ul class="clearfix swiper-wrapper">
-                <li class="active swiper-slide swiper-slide0"><a href="/people?person=0">90后女骑士</a></li>
+                <li class="active swiper-slide swiper-slide0"><a href="/people?person=0">“90后”女骑士</a></li>
+                <li class="swiper-slide swiper-slide0"><a href="/people?person=1">“孤独的”地图采集员</a></li>
+                <li class="swiper-slide swiper-slide0"><a href="/people?person=2">“黑白颠倒”的代驾员</a></li>
                 <li class="swiper-slide swiper-slide1"><a href="#">更多人物，明日更新</a></li>
             </ul>
         </div>
@@ -95,9 +97,9 @@
     });
 
     var swiper1 = new Swiper('.swiper-container1', {
-        slidesPerView: 2,
+        slidesPerView: 3,
         paginationClickable: true,
-        spaceBetween: 30,
+        spaceBetween: 0,
         freeMode: true
     });
 

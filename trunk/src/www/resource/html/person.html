@@ -1,0 +1,354 @@
+<html lang="en" style="font-size: 100px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <link href="/resource/css/person/database.css?t=36" rel="stylesheet">
+    <script src="/resource/js/jquery.min.js"></script>
+    <script src="/resource/js/jquery.touchSwipe.js"></script>
+    <link rel="stylesheet" href="/resource/css/vote/swiper.min.css">
+    <script src="/resource/js/vote/swiper.min.js"></script>
+    <title>那些熟悉的陌生人</title>
+    <script>
+        (function (doc, win) {
+            // 分辨率Resolution适配
+            var docEl = doc.documentElement,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function () {
+                        var clientWidth = docEl.clientWidth;
+                        if (!clientWidth) return;
+                        if (clientWidth >= 750 && clientWidth <= 1000) {
+                            docEl.style.fontSize = 100 + 'px';
+                        } else if (clientWidth >= 1000) {
+                            docEl.style.fontSize = 100 * (1000 / 750) + 'px';
+                        } else {
+                            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                        }
+                    };
+            // Abort if browser does not support addEventListener
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            recalc();
+        })(document, window);
+    </script>
+</head>
+<body>
+
+<div class="page page1">
+    <div class="nav news-nav-list clearfix" id="nav-contain">
+        <div class="swiper-container swiper-container1">
+            <ul class="clearfix swiper-wrapper">
+                <li class="active swiper-slide swiper-slide0"><a id="person_0" href="#">“90后”女骑士</a></li>
+                <li class="swiper-slide swiper-slide0"><a id="person_1" href="#">“孤独的”地图采集员</a></li>
+                <li class="swiper-slide swiper-slide0"><a id="person_2" href="#">“黑白颠倒”的代驾员</a></li>
+                <li class="swiper-slide swiper-slide1"><a href="#">更多人物，明日更新</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner">
+        <img src="/resource/img/person/banner.png" alt=""/>
+    </div>
+
+    <div class="mv-wrapper">
+        <div class="tag">分享专题</div>
+
+        <div class="mv" id="poster">
+            <img id="mv-img" src="" alt="">
+            <div id="mv-src" class="i-play" data-vid=""></div>
+        </div>
+        <div class="mv" id="video-container" style="display: none"></div>
+
+        <div class="desc">
+            这一年，互联网行业依旧风云变幻，不停上演着一幕又一幕精彩戏码，但有这样一群人，他们的工作周而复始，尽管平凡，却铸就了整个互联网。
+        </div>
+    </div>
+</div>
+
+<div class="page page2">
+    <div id="chapter_0" class="none">
+        <p><b>《2016那些熟悉的陌生人》之：90后的女骑士</b></p>
+        <p>这一年，我们变得越来越懒惰，早餐、午餐、晚餐以及宵夜，几乎所有的用餐需求都可以通过叫外卖来解决。</p>
+        <p>无论是大风、暴雨，还是雾霾，当每一份外卖送至眼前，我们的目光可能都聚焦在食物上，而没有注意到拎着食物的他们。</p>
+        <p>她叫王小凤，今年24岁，来自四川广元，是一名女外卖骑士，从事这份工作一年零4个月。</p>
+        <img src="http://p3.ifengimg.com/a/2016/1225/64266fcecd76525size98_w1265_h710.jpg" alt=""/>
+        <p>“我的工作时间一般是从上午10点到下午2点，然后晚上5点到9点，夏天有时候会干到11点或12点才回家。”</p>
+        <p>因为工作时间都是饭点，所以，按时吃饭对他们来说，也是一种奢望。</p>
+        <p>送餐员这份工作，家人也并不是完全支持。</p>
+        <p>“他们觉得我年龄小，干这个工作天天骑着车很危险，但是，我的性格很适合这份工作，每天能见到很多人，所以我自己很喜欢现在的工作。”</p>
+        <p>不过，工作中也遇到过诸多苦恼。</p>
+        <p>有一次，她给一位顾客送餐，送到家门口怎么敲门都没人开，但却能听到里面传出的音乐声音，打了好几遍电话也没人接，没办法，她只好给顾客发信息说餐送到了家里没人，她等会再来送。</p>
+        <p>刚到楼下，顾客打电话过来，说刚才听音乐没注意手机，问她现在方便再送一下吗？</p>
+        <p>“好在我没走远，就又跑上楼给送了一趟，不然我只能先把别人的餐送完，再给他送了。”</p>
+        <p>有的时候，他们把餐送到了公司门口，顾客告知“稍等一下，马上就来。”可这一等，可能就是十几分钟。</p>
+        <p>被等待的顾客或许会心怀感激，但送餐员接下来要面临的，可能就是“送餐太慢”的抱怨。</p>
+        <p>“有的时候送完餐，顾客说声谢谢，我们的心理都会很温暖。有的时候看到前一天顾客给自己评的五星，我真会觉得这份工作越干越有劲。”</p>
+        <img src="http://p3.ifengimg.com/a/2016/1225/6fd75b18206ea21size90_w1259_h711.jpg" alt=""/>
+        <p>看到这，你可能会觉得这只是一位普通送餐员的日常工作，但了解王小凤背后的故事后，或许更能让我们对平凡力量心生敬畏。</p>
+        <p>92年出生的她，已经是一位6岁孩子的母亲，她的丈夫去年患上尿毒症，这也迫使她独自一人北上，扛起了整个家庭。</p>
+        <p>“我跟我老公的感情非常好，所以我希望多赚一些钱，帮他看病。”</p>
+        <p>她把每个月绝大部分的工资都寄回家里，给老公和孩子，自己在北京生活的非常拮据。</p>
+        <p>“有时候工作停下来，也会觉得自己很辛苦，但是想到有人可能比自己还困难，都能熬过来，自己为什么不能坚持下去？”</p>
+        <p>这样一坚持，就是一年多，而付出也得到了回报。</p>
+        <p>“这一年虽然很辛苦，但基本上自己赚的钱能补上家里的开销，所以再苦也是值得的。”</p>
+        <img src="http://p3.ifengimg.com/a/2016/1225/f60944859c0f6eesize121_w1261_h710.jpg" alt=""/>
+        <p>她从来没有对身边人说过自己的家庭，她觉得终究是要靠自己的双手和劳动成果，靠自己的坚强来帮助家庭渡过难关。</p>
+        <p>对于2017年，她也许下了自己的心愿。</p>
+        <p>“我希望能多赚一些钱，让老公好起来，尽量多陪我们几年，陪着我一起看着儿子成长，一起开开心心每一天。”</p>
+        <img src="http://p3.ifengimg.com/a/2016/1225/8652f78a0783111size102_w1266_h709.jpg" alt=""/>
+        <p><b>后记:</b></p>
+        <p>当被问及如何看待互联网对生活带来的影响时，她反问了一句，“啥网”？</p>
+        <p>的确，“互联网”这个词对她来说可能很陌生。</p>
+        <p>她可能也不知道，她所从事的工作这一年给互联网行业带来了多大的影响，正如我们也不知道，每一份外卖背后都藏有一个不为人知的故事。</p>
+    </div>
+    <div id="chapter_1" class="none">
+        <p><b>《2016那些熟悉的陌生人》之：“孤独的”地图采集员</b></p>
+        <p>如今，生活在互联网时代下的我们，已经忘记了什么是“迷路”，无论是要搜索路线，还是查看方位，亦或是其他，我们都习惯性的打开手机中的地图。</p>
+        <p>这时候会发现，通衢大道也好，羊肠小道也罢，地图的精准性变得越来越强，而这，离不开地图“另一端”的他们——地图采集员。</p>
+        <p>他叫刘璇，是一名地图采集员，从事这份工作近11年。</p>
+        <img src="http://p2.ifengimg.com/a/2016/1226/d6643e5155d5b5dsize923_w1000_h560.png" alt=""/>
+        <p>“我现在的工作主要是车采，每天就是在各个不同的城市跑，收集最新的数据，然后将这些数据发回公司，更新地图上的道路。”</p>
+        <p>“一年365天，我们大概有300天都在外面跑，全国各地，天南海北，都跑遍了。”</p>
+        <p>很多人可能会觉得，开着车到处跑，不就跟旅游一样，多好。</p>
+        <p>但很多时候，地图采集员的工作正如一句俗语所述，“如人饮水，冷暖自知。”</p>
+        <p>“在城市里采集的话还好，生活条件都比较方便，但是去新疆、西藏、青海这些比较偏远的地方，经常开完一天车找不到吃饭睡觉的地方，只好在车里将就了。”</p>
+        <p>长期在外的他们，对于家人，往往也是报喜不报忧。</p>
+        <p>“我亲身经历最危险的一次是在西藏的318国道上，遇到了泥石流，好在及时刹车躲过了石头的滚落，现在想想都挺害怕，当时命大吧。”</p>
+        <img src="http://p2.ifengimg.com/a/2016/1226/a2b6813ee6d10edsize1115_w1278_h715.png" alt=""/>
+        <p>“这种情况很少跟家里人说，怕他们担心。”</p>
+        <p>除了这些，对地图采集员来说，最大的挑战其实是孤独。</p>
+        <p>一人一车，每天行驶8个小时以上，而且每个地方都是如此陌生。</p>
+        <p>“每天的工作相对来说都很重复，刚工作的时候，每到一个新地方还比较兴奋，但时间长了，也会觉得很枯燥。”</p>
+        <p>“每天工作结束，把数据处理完，就会跟家里老婆孩子视频聊天，这可能是一天说话最多的时候。”</p>
+        <p>尽管如此，这份工作刘璇一干就是十年。</p>
+        <img src="http://p1.ifengimg.com/a/2016/1226/1bebdcda68a9912size1749_w1500_h846.png" alt=""/>
+        <p>“现在早就适应了这份工作，也慢慢喜欢上这个工作。有时候跟朋友一起开车出去玩，走到哪条我采集过的道路，我都会自豪的说这条路是哪年哪天我更新的，其实也很有成就感。”</p>
+        <p>回顾2016年，刘璇算了下，今年采集了大概26个城市以及福建和浙江的高速。</p>
+        <p>“现在使用地图软件的人越来越多，我们每天采集的数据最快第二天就能更新到软件上，每次想到能给这么多人带来便捷，都会特别欣慰和自豪。”</p>
+        <p>年复一年，日复一日，像刘璇一样的地图采集员还有很多，他们正处在地图的“另一端”，用一份份孤独，勾勒出一张活灵活现的地图。</p>
+    </div>
+    <div id="chapter_2" class="none">
+        <p><b>《2016熟悉陌生人》之：“黑白颠倒”的代驾员</b></p>
+        <p>“开车不喝酒，喝酒不开车”，很多人做不到第一点，依然开车赴宴，把酒言欢，于是，第二点催生出了代驾这个行业。</p>
+        <p>他叫王雪恒，来自山西，从事代驾员工作已经一年多。</p>
+        <p>他们昼伏夜出，自我调侃过着“美国时间”。</p>
+        <p>“每天五点多开始接单，有时在家里等，有时到外面等，每天会干到第二天凌晨六点多。”</p>
+        <p>王雪恒特意租住在东直门，那里离簋街近一些。</p>
+        <p>“簋街，在北京的人都知道，就是吃宵夜的地方，24小时营业。”</p>
+        <p>即便在簋街这样热闹的地方，每天的接单量也无法保证。</p>
+        <p>“一般八点半到九点是一个小高峰，其他时间都是偏随机的。有的时候前半夜一单都没有，但后半夜能接到一两单，有的时候前半夜接单，但后半夜等到天亮也没单。”</p>
+        <img src="http://p3.ifengimg.com/a/2016/1226/acc1ec4a9bd2a41size184_w1500_h843.jpg" alt=""/>
+        <p>冬天对代驾员来说，等单的时候是最难熬的。</p>
+        <p>“冬天太冷，有的时候没有地方呆，就只能在外面吹着。”</p>
+        <p>代驾员们也会聚在一起，边聊天边等单，而一个人的时候，王雪恒就看看新闻，聊聊微信，或者用手机看小说。</p>
+        <p>“在等单的时候，我习惯隔几分钟就刷一下屏幕，害怕信号断了影响接单。”</p>
+        <img src="http://p3.ifengimg.com/a/2016/1226/b5c18c5c71380c5size188_w1500_h843.jpg" alt=""/>
+        <p>但其实，真正的挑战是从接单那一刻起才开始。</p>
+        <p>代驾员不同于其他职业，他们面对的顾客是喝了酒的客人。这酒喝了多少，喝完酒的状态也都因人而异，所以他们的工作充满不确定性。</p>
+        <p>“有的时候，接完单客人打电话，感觉特别着急，让我们快点过去，但到了以后，客人又说稍等我一会，这一等可能就是好几个小时。”</p>
+        <p>“有的时候，我们接单赶过去，但到地方发现客人已经走了，他们也没有打电话告诉我们。”</p>
+        <p>除了这些，接到客人以后，遇到的情况更是错综复杂。</p>
+        <p>“有的时候，车上坐着两位客人，他们都要先送对方然后说出两个不同的地址，这时候也不知道该听谁的；有时候客人喝多了，上车就说你一直往前开，最后指挥着我开到五环又往回开。”</p>
+        <p>“最常遇到的是客人上车后说了一个地址，当我们送到时，发现他在后面已经睡的不省人事，怎么叫都不醒。这时候我们就试着从车里找各种联系方式，实在找不到的，只能等客人醒来。”</p>
+        <p>遇到上述种种情况，代驾员也会心情不爽，但没办法，既然选择干这行，就要接受可能面临的这些问题。</p>
+        <p>
+            嘉宾：现在基本到下午五点多开始上线，完了会在家等单，等到接单了我会出去，有时候接不到也会出去街上等，基本上回到家的时候是第二天早上六点多吧，六七点钟。完了，有时候白天客服会给我们打电话，但是我们因为我们现在有一个就是说跟4S店合作保养车的这个业务，就是奔驰宝马这些都有，底下什么基本上现在北京东西南北的各大4S店我们都在合作。</p>
+        <p>记者：好，比如说一般您在外面等的话，就是大家都一般会在什么地方等，比如说活多的就经常干知道哪儿活多都去哪儿等着是吗。</p>
+        <p>当然，代驾员也能感受到温暖的一面。</p>
+        <p>“客人虽然喝酒了，但有时候送到家时有他们的家人来接，会对我们百般感谢，问我们要不要喝点水之类的，这时候我们会觉得特别温暖。”</p>
+        <p>“我们总是想着客人其实也没恶意，只是因为喝了酒，所以遇到他们无理取闹，我们一般都不会跟他们计较。把他们安全送到家，我们的任务也就完成了。”</p>
+        <img src="http://p3.ifengimg.com/a/2016/1226/36ff4c5a8a50a02size229_w1500_h843.jpg" alt=""/>
+        <p>送完最后一个客人，代驾员或骑着滑板，或骑着电动自行车，还有的是骑着共享单车，穿行在沉睡的城市，朝着家的方向。</p>
+        <p>第二天，客人酒醒以后，可能已经记不清自己昨夜是如何回的家，也更不会记得是谁把自己送回家。</p>
+    </div>
+    <div id="chapter_3" class="none"></div>
+    <div id="chapter_4" class="none"></div>
+    <div id="chapter_5" class="none"></div>
+    <div id="chapter_6" class="none"></div>
+    <div id="chapter_7" class="none"></div>
+</div>
+<div class="f-print">--------- 凤凰科技出品 ---------</div>
+
+<div class="none">
+    <div id="video_0" data-pro="" data-poster="http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg"
+         data-video="013361b5-69b0-4565-af88-58b5a6529e4c"></div>
+    <div id="video_1" data-pro=""
+         data-poster="http://p0.ifengimg.com/a/2016/1226/00104d35dcdde1bsize610_w1920_h1080.jpg"
+         data-video="01576f88-c1ac-4e85-aa51-f2a07ec7c66a"></div>
+    <div id="video_2" data-pro="" data-poster="http://p3.ifengimg.com/a/2016/1226/2b18926927aa70dsize286_w1500_h844.jpg"
+         data-video="01362def-c8f1-495a-9437-c3f2df01b926"></div>
+    <div id="video_3" data-pro="" data-poster=""
+         data-video=""></div>
+    <div id="video_4" data-pro="" data-poster=""
+         data-video=""></div>
+    <div id="video_5" data-pro="" data-poster=""
+         data-video=""></div>
+    <div id="video_6" data-pro="" data-poster=""
+         data-video=""></div>
+    <div id="video_7" data-pro="" data-poster=""
+         data-video=""></div>
+</div>
+
+<div class="none" id="share" data-url="http://act.wetolink.com/person.html">
+    <div id="share_0" data-title="《2016，那些熟悉的陌生人》：90后女骑士" data-content="每一个外卖员背后，都藏有一个不为人知的故事。​"
+         data-url="" data-img="http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg"></div>
+    <div id="share_1" data-title="《2016那些熟悉的陌生人》之：“孤独的”地图采集员" data-content='在地图的"另一端"，他孤独的跑了11年'
+         data-url="" data-img="http://p0.ifengimg.com/a/2016/1226/00104d35dcdde1bsize610_w1920_h1080.jpg"></div>
+    <div id="share_2" data-title="《2016熟悉陌生人》之：“黑白颠倒”的代驾员" data-content='为了让你安全回家，他过着"黑白颠倒"的生活'
+         data-url="" data-img="http://p3.ifengimg.com/a/2016/1226/2b18926927aa70dsize286_w1500_h844.jpg"></div>
+    <div id="share_3" data-title="" data-content=""
+         data-url="" data-img=""></div>
+    <div id="share_4" data-title="" data-content=""
+         data-url="" data-img=""></div>
+    <div id="share_5" data-title="" data-content=""
+         data-url="" data-img=""></div>
+    <div id="share_6" data-title="" data-content=""
+         data-url="" data-img=""></div>
+    <div id="share_7" data-title="" data-content=""
+         data-url="" data-img=""></div>
+</div>
+
+<div class="pop-up">
+    <a href="javascript:void(0);" class="subject">进入专题</a>
+</div>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<textarea id="wechat_share" style="display: none"></textarea>
+<script src="/resource/scripts/wechat.js?timestamp=1"></script>
+
+<script>
+    $(document).ready(function () {
+        //global variable to avoid multiple video play
+        var video1;
+        var clientWidth = document.body.clientWidth;
+
+        //初始化,元素的宽度
+        $("body").css({
+            "width": clientWidth + "px",
+            "overflow-x": "hidden"
+        });
+        $(".nav").css("width", clientWidth + 'px');
+
+        //初始化海报
+        $(".nav").find("li").each(function (index, element) {
+            $(this).click(function () {
+                tab_change(index);
+
+                //change tab show identity with obvious,add active color to identity
+                $(".nav").find("li").removeClass("active");
+                $(this).addClass("active")
+            });
+        });
+
+        //default show page zero
+        tab_change(0);
+        $(".nav").find("li").first().addClass("active");
+        get_jsapi(0);
+
+        function tab_change(index) {
+            //initialize video parameter
+            var poster = $("#video_" + index).attr("data-poster");
+            var video_src = $("#video_" + index).attr("data-video");
+            $("#mv-img").attr("src", poster);
+            $("#mv-src").attr("data-vid", video_src);
+
+            //for simple to remove current video.first, remove current video\,recover begin
+            $("#video-container").children().remove();
+            $("#poster").show();
+            $("#video-container").hide();
+            create_video();
+
+            //display user detail introduce
+            $(".page2").children().hide();
+            $("#chapter_" + index).show();
+
+            get_jsapi(index);
+        }
+
+        //get jsapi for share
+        function get_jsapi(index) {
+            $.ajax({
+                type: "GET",
+                url: "http://act.wetolink.com/people/getJsApi?",
+                dataType: "json",
+                data: {
+                    title: $("#share_" + index).attr("data-title"),
+                    content: $("#share_" + index).attr("data-content"),
+                    img: $("#share_" + index).attr("data-img"),
+                    url: $("#share").attr("data-url"),
+                },
+                success: function (data) {
+                    $("#wechat_share").val(data.data);
+                    share_wexin();
+                }
+            });
+        }
+    });
+
+    $('.pop-up').click(function () {
+        $(this).hide();
+    });
+
+    var swiper1 = new Swiper('.swiper-container1', {
+        slidesPerView: 3,
+        paginationClickable: true,
+        spaceBetween: 0,
+        freeMode: true
+    });
+
+    var navIndex = $("#nav-index").val();
+    swiper1.slideTo(navIndex, 1000, false);
+
+    $(".nav").find("li").each(function (index) {
+
+        //add active color to identity
+        $(this).removeClass("active");
+        if (index == navIndex) {
+            $(this).addClass("active")
+        }
+    })
+</script>
+
+<!--video-->
+<script src="http://y2.ifengimg.com/314bd925cdd17196/2014/0814/video.js"></script>
+<script src="http://y0.ifengimg.com/components/video/20140813/v2/videoMobile.js"></script>
+<script>
+    function create_video() {
+        var sW = $("#video-container").width();
+        var sH = $("#video-container").height();
+
+        var player1 = $('#mv-src');
+        var vid1 = player1.attr('data-vid');
+
+        video1 = new SpecailVideo();
+        video1.create({
+            guid: vid1,
+            containerId: 'video-container', // 这个地方必须是id
+            AutoPlay: false, // 是否自动播放   height: sW*7/5改的是页面的宽度
+            width: sW,
+            height: sH,
+            subjectid: 'mirror-lff-0813', // 组id，尽量以专题名加业内实例化序号来生成，保证不重复
+            // 播放列表，如果没有，可以传回当前的guid或者传回''；
+            guidList: vid1,
+            // 播放下一条的回调，主要用于操作播放列表的样式。
+            getNextGuid: function (guid) {
+            }
+        });
+
+        player1.click(function () {
+            $('#poster').hide();
+            $('#video-container').show();
+            video1.play();
+        });
+
+        $('.tag').click(function () {
+            $('#video-container').hide();
+            $('#poster').show();
+            video1.pause();
+            $('.pop-up').show();
+        });
+    }
+</script>
+</body>
+</html>
