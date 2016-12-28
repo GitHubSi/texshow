@@ -34,14 +34,15 @@ class PeopleController extends AbstractActivityAction
 
     public function getJsApiAction()
     {
-        $this->_isJson = true;
+        header('Content-type: application/json');
 
         $title = $this->getParam("title");
         $content = $this->getParam("content");
         $url = $this->getParam("url");
         $img = $this->getParam("img");
         $shareContext = $this->setWechatShare($title, $content, $url, $img);
-        $this->_data = $shareContext;
+
+        echo "handler({$shareContext})";
     }
 
     private function _getPeople($index)
@@ -206,16 +207,44 @@ class PeopleController extends AbstractActivityAction
             ),
             3 => array(
                 "shareContext" => array(
-                    "title" => "《2016，那些熟悉的陌生人》：90后女骑士",
-                    "content" => "每一个外卖员背后，都藏有一个不为人知的故事。​",
+                    "title" => "《2016，那些熟悉的陌生人》：网约车司机",
+                    "content" => "身处“动荡中”的他们，将何去何从​",
                     "img" => "http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg",
-                    "url" => "http://act.wetolink.com/people?person=0"
+                    "url" => "http://act.wetolink.com/people?person=3"
                 ),
-                "title" => "90后女骑士",
+                "title" => "网约车司机",
                 "poster" => "http://p3.ifengimg.com/a/2016/1225/fd7d2aa7805a1c6size123_w1260_h706.jpg",
-                "video" => "013361b5-69b0-4565-af88-58b5a6529e4c",
+                "video" => "016c07f9-9cb3-43d8-b995-2a8b9f8acc85",
                 "summary" => "这一年，互联网行业依旧风云变幻，不停上演着一幕又一幕精彩戏码，但有这样一群人，他们的工作周而复始，尽管平凡，却铸就了整个互联网。",
-                "detail" => ''
+                "detail" => '<p><b>《2016熟悉的陌生人》之：“动荡”中的网约车司机</b></p>
+<p>2016年，对网约车行业来说，是动荡的一年。</p>
+<p>巨头的合并，是否意味着竞争走到了一个新的分水岭？各地新规的出台，又让原本已经放下心来的平台和司机重新审视新的机会。</p>
+<p>这或许是一个不够成熟的行业，因为它还面临着来自于市场和政府的多重压力。但这也是一个逐渐稳定的行业，因为前期的粗犷增长已经悄然消失，取而代之的是用户习惯的养成和司机服务的升级。</p>
+<p>补贴越来越少，为补贴吸引而来的投机者都已经退潮。现在留下来的，是千千万万为生活而努力的普通人。</p>
+<img src="http://p1.ifengimg.com/a/2016/1228/78ef030bdb7f045size591_w1920_h1080.jpg" alt="" />
+<p>他叫张伟，今年32岁，来自山东菏泽，是一名全职网约车司机，从事这份工作1年零8个月。</p>
+<p>“我之前是做摄影器材的，干了六、七年，来开专车也是听朋友介绍，听说收入高。”</p>
+<p>于是，张伟贷款买了一辆车，开始了网约车司机的工作。</p>
+<p>“基本上每天5点多起床，然后去一些居民区接单，一直干到晚上10点多钟。一周休一天，就汽车限号那天，所以限号前一晚上会干的晚一些，有时能到凌晨3点多。”</p>
+<p>“有的时候，接不到单心里也很着急，毕竟每天的成本都摆在那。”为了减少房租成本，张伟已经从南四环搬到了南六环。</p>
+<img src="http://p1.ifengimg.com/a/2016/1228/d81d82caf11b8c6size439_w1920_h1080.jpg" alt="" />
+<p>不过，现在他已经成为一名“老司机”，在接单方面也掌握了很多小技巧。</p>
+<p>“刚开始干的时候，有时在一个地方等了两个小时都没单，现在基本上等20分钟没单就换地方，而且也知道了什么时间该去什么地方。”</p>
+<p>但是，在接单过程中，总会遇到一些让他很懊恼的情况</p>
+<p>“有时接完单，发现离乘客只有1公里远，打电话跟乘客说几分钟就到，但刚要过去，手机就提示乘客取消了订单；还有时乘客距离比较远，而且道路很堵，我会跟乘客沟通是否愿意等，很多乘客说‘你过来吧，我等你’，但当我们快到了的时候，乘客说时间来不及了要取消。”</p>
+<p>遇到这种情况，他们心里也很烦，但也没办法。</p>
+
+<img src="http://p1.ifengimg.com/a/2016/1228/68f579b13f33f37size418_w1920_h1080.jpg" alt="" />
+<p>还有些情况，也会让张伟感到很自豪。</p>
+<p>“我曾连续三天早上接到过同一个客人的预约单，他因为要去上班，所以为父母叫车去医院检查身体，上下车的时候我都帮着搀扶一下老人。”</p>
+<p>“这时候我觉得从事的工作能帮助别人解决困难，也会打心眼儿里感到高兴。”</p>
+<p>但一年多过去，因为行业的变化，张伟的收入其实不增反降了一些。</p>
+<p>“现在确实没开始赚的多，以前一天出去七八个小时，就能拉到十几单，现在一天十几个小时也不一定能接这么多单，而且补贴也减少了一些。”</p>
+
+<img src="http://p1.ifengimg.com/a/2016/1228/7412779530af982size334_w1920_h1080.jpg" alt=""/>
+
+<p>即便如此，他对这份工作依然充满了期望。“我希望明年能好好的发展下去，收入更稳定一些。”</p>
+<p>对于网约车行业的未来，我们不做过多的揣测。但过去的几年，我们每个人应该都切切实实的感受到了在出行服务上的变化，而这些，离不开像张伟一样的网约车司机们。</p>'
             ),
             4 => array(
                 "shareContext" => array(
