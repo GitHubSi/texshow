@@ -40,6 +40,12 @@ while (true) {
         }
 
         try {
+
+            if (strtotime("2016-12-29 23:59:59") < time()) {
+                WeChatMagazineService::getInstance()->customSendText($openId, "抱歉，该活动已经结束！");
+                continue;
+            }
+
             //当前Task处理：你任性-我买单活动
             $existedUser = $voteUserMapper->getUserById($number);
             if (empty($existedUser)) {

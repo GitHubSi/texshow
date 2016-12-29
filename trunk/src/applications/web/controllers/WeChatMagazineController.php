@@ -191,10 +191,6 @@ class WeChatMagazineController extends AbstractWeChatAction
             return false;
         }
 
-        if (strtotime("2016-12-31 23:59:59") < time()) {
-            return false;
-        }
-
         $content = $content - 100;
         $redis = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"));
         $redis->rPush($messagePipe, $openId . $separator . $content);
