@@ -41,6 +41,8 @@
                 <li class="active swiper-slide swiper-slide0"><a href="/people?person=0">“90后”女骑士</a></li>
                 <li class="swiper-slide swiper-slide0"><a href="/people?person=1">“孤独的”地图采集员</a></li>
                 <li class="swiper-slide swiper-slide0"><a href="/people?person=2">“黑白颠倒”的代驾员</a></li>
+                <li class="swiper-slide swiper-slide0"><a href="/people?person=3">幕后英雄传站员</a></li>
+                <li class="swiper-slide swiper-slide0"><a href="/people?person=4">穿正装的老司机</a></li>
                 <li class="swiper-slide swiper-slide1"><a href="#">更多人物，明日更新</a></li>
             </ul>
         </div>
