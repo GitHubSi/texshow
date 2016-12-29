@@ -40,8 +40,15 @@ class PeopleController extends AbstractActivityAction
         $content = $this->getParam("content");
         $url = $this->getParam("url");
         $img = $this->getParam("img");
-        $shareContext = $this->setWechatShare($title, $content, $url, $img);
+        $signUrl = $this->getParam("sign_url");
 
+        $jsApiInfo = WeChatMagazineService::getInstance()->getJsApiInfo($signUrl);
+        $jsApiInfo['sharetext'] = $title;
+        $jsApiInfo['shareurl'] = $url;
+        $jsApiInfo["shareimg"] = $img;
+        $jsApiInfo['sharedesc'] = $content;
+
+        $shareContext = json_encode($jsApiInfo);
         echo "handler({$shareContext})";
     }
 
