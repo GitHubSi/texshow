@@ -39,6 +39,7 @@ class WebAutoLoader
         'HeadImgController' => '/src/applications/manage/controllers/HeadImgController.php',
         'GoodsManageController' => '/src/applications/manage/controllers/GoodsManageController.php',
         'VoteManageController' => '/src/applications/manage/controllers/VoteManageController.php',
+        'BallotManageController' => '/src/applications/manage/controllers/BallotManageController.php',
         //api
 
         //mappers
@@ -54,6 +55,8 @@ class WebAutoLoader
 
         'VoteLogMapper' => '/src/main/mappers/VoteLogMapper.php',
         'VoteUserMapper' => '/src/main/mappers/VoteUserMapper.php',
+
+        'BallotMapper' => '/src/main/mappers/BallotMapper.php',
 
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',
