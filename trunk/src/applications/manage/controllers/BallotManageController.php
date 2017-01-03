@@ -40,7 +40,6 @@ class BallotManageController extends AbstractSecurityAction
 
     public function modifyAction()
     {
-
         $name = $this->getParam("name");
         $imageUrl = $this->getParam("img_url");
         $ballotType = $this->getParam("ballot_type");
