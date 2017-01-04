@@ -62,17 +62,23 @@ class BallotController extends AbstractActivityAction
         }
 
         $this->_ballotLogMapper->addLog($userId, $this->_userInfo["openid"]);
+        $this->_ballotMapper->updateLiked($userId, 1);
     }
 
     public function getDataAction()
     {
         $callBack = $this->getParam("callback");
+        $type = $this->getParam("type");
+
         if (empty($callBack)) {
             $this->_isJson = true;
-            $this->_data = $this->_buildData();
+            $result = $this->_buildData();
+            $this->_data = $result[$type];
         } else {
             header('Content-Type:application/json');
-            echo $callBack . "(" . json_encode($this->_buildData()) . ")";
+            $result = $this->_buildData();
+            $result = $result[$type];
+            echo $callBack . "(" . json_encode($result) . ")";
         }
     }
 

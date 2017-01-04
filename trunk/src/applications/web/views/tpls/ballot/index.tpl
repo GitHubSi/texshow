@@ -171,7 +171,7 @@
         <img src="/resource/img/ballot/title.png"/>
     </div>
     <div class="button">
-        <img src="/resource/img/ballot/button.png"/>
+        <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044526293"><img src="/resource/img/ballot/button.png"/></a>
     </div>
     <div class="logo">
         <img src="/resource/img/ballot/logo.png"/>
@@ -241,6 +241,7 @@
     <div class="title-container">
         <img src="/resource/img/ballot/title2.png"/>
     </div>
+
     <div class="text">
         <img src="/resource/img/ballot/text.png"/>
     </div>
@@ -250,8 +251,8 @@
         <li class="container">
             <div class="top">
                 <img src="{%$item.msg.img_url%}" alt="">
-                <span class="tiket">{%$item.liked%}票</span>
-                <p class="star">投票</p>
+                <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
+                <p class="star" data-pro="{%$item.id%}">投票</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -265,8 +266,8 @@
         <li class="container">
             <div class="top">
                 <img src="{%$item.msg.img_url%}" alt="">
-                <span class="tiket">{%$item.liked%}票</span>
-                <p class="star">投票</p>
+                <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
+                <p class="star" data-pro="{%$item.id%}">投票</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -280,8 +281,8 @@
         <li class="container">
             <div class="top">
                 <img src="{%$item.msg.img_url%}" alt="">
-                <span class="tiket">{%$item.liked%}票</span>
-                <p class="star">投票</p>
+                <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
+                <p class="star" data-pro="{%$item.id%}">投票</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -295,8 +296,8 @@
         <li class="container">
             <div class="top">
                 <img src="{%$item.msg.img_url%}" alt="">
-                <span class="tiket">{%$item.liked%}票</span>
-                <p class="star">投票</p>
+                <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
+                <p class="star" data-pro="{%$item.id%}">投票</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -318,7 +319,7 @@
     <div class="layout_mask"></div>
     <div class="brief-error">
         <img src="/resource/img/ballot/error-text.png" alt="" class="brief">
-        <a href="#">
+        <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044526293">
             <img src="/resource/img/ballot/btn2.png" alt="" class="btn">
         </a>
     </div>
@@ -414,6 +415,7 @@
             $(this).hide();
         });
         $('#layout_3 .strong_company').show();
+        $('#layout_3 .text').find('img').attr("src", "/resource/img/ballot/strong-company.png")
     })
 
     $('#layout_2 .content .technology').click(function () {
@@ -424,6 +426,7 @@
             $(this).hide();
         });
         $('#layout_3 .technology').show();
+        $('#layout_3 .text').find('img').attr("src", "/resource/img/ballot/technology.png")
     })
 
     $('#layout_2 .content .new_company').click(function () {
@@ -434,22 +437,47 @@
             $(this).hide();
         });
         $('#layout_3 .new_company').show();
+        $('#layout_3 .text').find('img').attr("src", "/resource/img/ballot/new-company.png")
     })
     //============================== end =====
+
+    //===== like start ======
+    $(".star").click(function () {
+        var user_id = $(this).attr("data-pro");
+        var vote = $(this).prev();
+        $.ajax({
+            type: "GET",
+            url: "/ballot/like?user_id=" + user_id,//每次加载n+1
+            dataType: "json",
+            success: function (data) {
+                $('#layout_4 .brief-erweima').hide();
+                $('#layout_4 .brief-success').hide();
+                $('#layout_4 .brief-error').hide();
+
+                if (data.code == 0) {
+                    $('#layout_4').show()
+                    $('#layout_4 .brief-success').show();
+                    vote.text((Number(vote.attr("data-pro")) + 1 ) + "票");
+                } else if (data.code == 407) {
+                    $('#layout_4').show()
+                    $('#layout_4 .brief-erweima').show();
+                } else if (data.code == 408) {
+                    $('#layout_4').show()
+                    $('#layout_4 .brief-error').show();
+                }
+            }
+        });
+    });
+    //==== like end ====
 
     $('#layout_3 .button').click(function () {
         $('#layout_3').hide();
         $('#layout_2').show();
-    })
-
-    $('#layout_3 .container').click(function () {
-        $('#layout_4').show()
-        $('#layout_4 .brief-error').show()
-    })
+    });
 
     $('#layout_4 .layout_mask').click(function () {
         $('#layout_4').hide()
-    })
+    });
 </script>
 
 <!-- 页尾通栏  -->

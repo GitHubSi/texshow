@@ -76,6 +76,7 @@
                 <li><a href="#" class="nav-top-item">投票活动</a>
                     <ul>
                         <li><a href="/voteManage/index">添加用户</a></li>
+                        <li><a href="/ballotManage/index">投票二期</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-top-item"> Settings </a>
