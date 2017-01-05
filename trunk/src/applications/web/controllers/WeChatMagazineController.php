@@ -79,11 +79,11 @@ class WeChatMagazineController extends AbstractWeChatAction
         $response['ArticleCount'] = 1;
         $response['Articles'] = array(
             array(
-                'Title' => '你任性我买单第三季投票开始啦！新用户投票领现金红包',
+                'Title' => '凤凰科技年度盛典投票开启',
                 'Description' => '',
-                'PicUrl' => 'http://p0.ifengimg.com/04a169a73a8934ac/2016/51/11.jpg',
+                'PicUrl' => 'http://p2.ifengimg.com/a/2017_01/d8f2b35af9de4a8_size214_w600_h400.jpg',
 //                'Url' => $this->_makeRedirectUrl()
-                'Url' => 'http://act.wetolink.com/vote/index'
+                'Url' => 'http://act.wetolink.com/ballot'
             )
         );
         return $response;

@@ -26,6 +26,12 @@ class BallotController extends AbstractActivityAction
 
     public function indexAction()
     {
+        //redirect pc
+        if (!preg_match("/(iPhone|Android|iPad|BlackBerry|Windows Phone)/i", $_SERVER['HTTP_USER_AGENT'])) {
+            header("Location: http://tech.ifeng.com/it/special/fhkjnzsd/awards_choose.shtml?winzoom=1");
+            return;
+        }
+
         $ballotList = $this->_ballotMapper->getAllBallot();
 
         $result = array();
