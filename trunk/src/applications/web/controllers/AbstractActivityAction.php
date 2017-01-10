@@ -18,6 +18,8 @@ class AbstractActivityAction extends Action
     protected $_isJson = false;
     protected $_userInfo;
 
+    protected $_magaCls = "tex";
+
     public function __construct()
     {
         parent::__construct();
@@ -30,7 +32,7 @@ class AbstractActivityAction extends Action
         $openId = $this->getUserOpenid();
         if (!empty($openId)) {
             $this->_weChatLogin = true;
-            $this->_userInfo = WeChatOpenService::getInstance()->getMagazineByClient($openId);
+            $this->_userInfo = WeChatOpenService::getInstance()->getMagaByClient($openId, $this->_magaCls);
         }
 
         Request::getInstance()->setParam("openid", $openId);

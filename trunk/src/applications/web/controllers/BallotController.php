@@ -20,6 +20,8 @@ class BallotController extends AbstractActivityAction
     public function __construct()
     {
         parent::__construct();
+
+//        $this->_magaCls = "tech";
         $this->_ballotMapper = new BallotMapper();
         $this->_ballotLogMapper = new BallotLogMapper();
     }

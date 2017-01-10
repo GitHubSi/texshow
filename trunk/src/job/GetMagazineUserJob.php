@@ -8,34 +8,27 @@
  */
 require dirname(dirname(__FILE__)) . '/www/WebAutoLoader.php';
 
-//订阅号配置
-$weChatPass = ConfigLoader::getConfig('WECHAT');
-$appId = $weChatPass["magazine"]["id"];
-$appKey = $weChatPass["magazine"]["secret"];
-
-//服务号配置
-//$wechatPass = ConfigLoader::getConfig('WECHAT');
-//$appId = $wechatPass["client"]["id"];
-//$appKey = $wechatPass["client"]["secret"];
-
 $weChatUserListUrl = "https://api.weixin.qq.com/cgi-bin/user/get";
 $nextOpenId = "";
 
 while (1) {
     $paramArr = array(
-        'access_token' => WeChatMagazineService::getInstance()->getAccessToken(),
+        'access_token' => WeChatMagaTechService::getInstance()->getAccessToken(),
         'next_openid' => $nextOpenId
     );
-    $result = WeChatMagazineService::urlGet($weChatUserListUrl, $paramArr);
+    $result = WeChatMagaTechService::urlGet($weChatUserListUrl, $paramArr);
     $openIdList = $result['data']['openid'];
 
     foreach ($openIdList as $openId) {
         try {
-            $userInfo = WeChatMagazineService::getInstance()->getUserInfo($openId);
+            /*$userInfo = WeChatMagaTechService::getInstance()->getUserInfo($openId);
             if (empty($userInfo)) {
-                WeChatMagazineService::getInstance()->subscribe($openId);
+                WeChatMagaTechService::getInstance()->subscribe($openId);
                 $totalInsert++;
-            }
+            }*/
+            WeChatMagaTechService::getInstance()->subscribe($openId);
+            usleep(200);
+            $totalInsert++;
         } catch (Exception $e) {
             Logger::getRootLogger()->info("{$openId} insert failed");
         }
