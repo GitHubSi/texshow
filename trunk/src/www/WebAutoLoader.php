@@ -32,6 +32,7 @@ class WebAutoLoader
         'VoteController' => '/src/applications/web/controllers/VoteController.php',
         'PeopleController' => '/src/applications/web/controllers/PeopleController.php',
         'BallotController' => '/src/applications/web/controllers/BallotController.php',
+        'WeChatMagaTechController' => '/src/applications/web/controllers/WeChatMagaTechController.php',
 
         //manage
         'AbstractSecurityAction' => '/src/applications/manage/controllers/AbstractSecurityAction.php',
@@ -60,6 +61,8 @@ class WebAutoLoader
         'BallotMapper' => '/src/main/mappers/BallotMapper.php',
         'BallotLogMapper' => '/src/main/mappers/BallotLogMapper.php',
 
+        'WeChatMagaTechUserMapper' => '/src/main/mappers/WeChatMagaTechUserMapper.php',
+
         //services
         'RedPacketService' => '/src/main/services/RedPacketService.php',
         'WeChatClientService' => '/src/main/services/WeChatClientService.php',
@@ -73,6 +76,8 @@ class WebAutoLoader
 
         'WeChatOpenService' => '/src/main/services/WeChatOpenService.php',
         'OneShareService' => '/src/main/services/OneShareService.php',
+
+        'WeChatMagaTechService' => '/src/main/services/WeChatMagaTechService.php',
 
         //utils
         'ConfigLoader' => '/src/main/utils/ConfigLoader.php',
