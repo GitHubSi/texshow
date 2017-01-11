@@ -19,6 +19,7 @@ while (1) {
     $result = WeChatMagaTechService::urlGet($weChatUserListUrl, $paramArr);
     $openIdList = $result['data']['openid'];
 
+    $wechatMagaTechMapper = new WeChatMagaTechUserMapper();
     foreach ($openIdList as $openId) {
         try {
             /*$userInfo = WeChatMagaTechService::getInstance()->getUserInfo($openId);
@@ -26,8 +27,14 @@ while (1) {
                 WeChatMagaTechService::getInstance()->subscribe($openId);
                 $totalInsert++;
             }*/
+
+            $dbUserInfo = $wechatMagaTechMapper->getInfoByOpenId($openId, true);
+            if (!empty($dbUserInfo) && !empty($dbUserInfo["unionid"])) {
+                continue;
+            }
+
             WeChatMagaTechService::getInstance()->subscribe($openId);
-            usleep(200);
+            //usleep(200);
             $totalInsert++;
         } catch (Exception $e) {
             Logger::getRootLogger()->info("{$openId} insert failed");
