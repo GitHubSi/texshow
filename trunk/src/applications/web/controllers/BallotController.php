@@ -52,6 +52,15 @@ class BallotController extends AbstractActivityAction
             $result[$type] = $classic;
         }
 
+        $shareContext = array(
+            "title" => "凤凰科技年度盛典 四大奖项正式公布",
+            "content" => "年度十佳产品、创新技术、潜力公司、实力公司正式公布！",
+            "img" => "http://p2.ifengimg.com/04a169a73a8934ac/2017/2/9d9918db80e4bf3.jpg?winzoom=1",
+            "url" => "http://act.wetolink.com/ballot"
+        );
+
+        $jsapi = $this->_setWechatShare($shareContext["title"], $shareContext["content"], $shareContext["url"], $shareContext["img"]);
+        $this->_smarty->assign("jsapi", $jsapi);
         $this->_smarty->assign("result", $result);
         $this->_smarty->display('ballot/index.tpl');
     }
@@ -59,18 +68,25 @@ class BallotController extends AbstractActivityAction
     public function likeAction()
     {
         $this->_isJson = true;
-        if (empty($this->_userInfo)) {
+
+        /*if (empty($this->_userInfo)) {
             throw new Exception("user don't subscribe", 407);
-        }
+        }*/
 
         $userId = $this->getParam("user_id");
-        $voteInfo = $this->_ballotLogMapper->getVoteLog($this->_userInfo["openid"], $userId, date("Y-m-d"));
+
+        /*$voteInfo = $this->_ballotLogMapper->getVoteLog($this->_userInfo["openid"], $userId, date("Y-m-d"));
+
         if (!empty($voteInfo)) {
             throw new Exception("only need to vote a time every day", 408);
-        }
+        }*/
 
-        $this->_ballotLogMapper->addLog($userId, $this->_userInfo["openid"]);
-        $this->_ballotMapper->updateLiked($userId, 1);
+        $produceInfo = $this->_ballotMapper->getBallotItemById($userId);
+        $this->_data = $produceInfo;
+        return;
+
+        /*$this->_ballotLogMapper->addLog($userId, $this->_userInfo["openid"]);
+        $this->_ballotMapper->updateLiked($userId, 1);*/
     }
 
     public function getDataAction()
@@ -112,5 +128,17 @@ class BallotController extends AbstractActivityAction
         }
 
         return $result;
+    }
+
+    private function _setWechatShare($title, $desc, $link, $imgUrl)
+    {
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $jsApiInfo = WeChatMagaTechService::getInstance()->getJsApiInfo($url);
+        $jsApiInfo['sharetext'] = $title;
+        $jsApiInfo['shareurl'] = $link;
+        $jsApiInfo["shareimg"] = $imgUrl;
+        $jsApiInfo['sharedesc'] = $desc;
+
+        return json_encode($jsApiInfo);
     }
 }

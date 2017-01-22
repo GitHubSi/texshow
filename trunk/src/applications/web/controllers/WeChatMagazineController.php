@@ -58,7 +58,7 @@ class WeChatMagazineController extends AbstractWeChatAction
         }
 
         //subscribe info
-        /*$responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
+        $responseContent = RedisClient::getInstance(ConfigLoader::getConfig("REDIS"))->get(ResponseController::MAGAZINE_RESPONSE);
         $responseArray = json_decode($responseContent, true);
         if (is_array($responseArray)) {
             if (isset($responseArray['subscribe'])) {
@@ -73,9 +73,10 @@ class WeChatMagazineController extends AbstractWeChatAction
                 }
                 return $response;
             }
-        }*/
+        }
 
-        $response["MsgType"] = "news";
+        return "";
+        /*$response["MsgType"] = "news";
         $response['ArticleCount'] = 1;
         $response['Articles'] = array(
             array(
@@ -85,8 +86,8 @@ class WeChatMagazineController extends AbstractWeChatAction
 //                'Url' => $this->_makeRedirectUrl()
                 'Url' => 'http://act.wetolink.com/ballot'
             )
-        );
-        return $response;
+        );*/
+//        return $response;
     }
 
     protected function unsubscribeHandler()

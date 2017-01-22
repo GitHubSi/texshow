@@ -43,6 +43,7 @@ class BallotManageController extends AbstractSecurityAction
         $name = $this->getParam("name");
         $imageUrl = $this->getParam("img_url");
         $ballotType = $this->getParam("ballot_type");
+        $prizeReason = $this->getParam("prize_reason");
 
         $ballotId = $this->getParam("id");
         $type = $this->getParam("type");
@@ -63,6 +64,7 @@ class BallotManageController extends AbstractSecurityAction
                 array(
                     'name' => trim($name),
                     'img_url' => trim($imageUrl),
+                    'prize_reason' => $prizeReason
                 )
             );
         }

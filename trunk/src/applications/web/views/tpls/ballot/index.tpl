@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>科技频道H5</title>
+    <title>凤凰科技年度盛典</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -122,7 +122,7 @@
     #layout_3 .container .bottom {width: 2.52; height: 1.06rem; position: relative;line-height:.34rem;overflow:hidden;font-size:.24rem;background-color: #4edcd7;}
     #layout_3 .container .bottom p{width: 1.6rem;margin: .23rem auto 0;height:.6rem;overflow: hidden;text-align: center;}
     #layout_3 .container .tiket {position: absolute;top: .55rem; display: inline-block;left: 0; right: 0; text-align: center;z-index:15}
-    #layout_3 .container .star {margin-top: -.12rem;display: inline-block; height:.29rem; text-align: center;padding-left:.35rem;background:url(/resource/img/ballot/star.png) no-repeat;background-size:.26rem .24rem;margin-top:1.1rem;background-position:0 .05rem;position:relative;z-index: 15}
+    #layout_3 .container .star {margin-top: -.12rem;display: inline-block; height:.29rem; text-align: center;background-size:.26rem .24rem;margin-top:1.1rem;background-position:0 .05rem;position:relative;z-index: 15}
     #layout_3 .container .top img{width:2.52rem;height:2.14rem;overflow:hidden;position:absolute;top:0;left:0;z-index:0}
     #layout_3 .logo {width: 4.51rem; height: .47rem; margin: .30rem auto 0.37rem;}
     #layout_3 .button {width: 1.98rem; height: .79rem; margin: .30rem auto 0;}
@@ -131,7 +131,7 @@
         /*第四屏*/
     #layout_4{width:100%;height:100%;position:absolute;top:0;left:0;text-align:center;}
     #layout_4 .layout_mask{width:100%;height:100%;position:fixed;top:0;left:0;bottom:0;right:0;background:#000;opacity:0.7}
-    #layout_4 .brief-error,#layout_4 .brief-success,#layout_4 .brief-erweima{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:none}
+    #layout_4 .brief-error,#layout_4 .brief-success,#layout_4 .brief-erweima,#layout_4 .brief-text{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:none}
     #layout_4 .brief-error{width:4.14rem}
     #layout_4 .brief-error .brief{width:4.14rem;height:1.88rem;overflow:hidden;}
     #layout_4 .brief-error .btn{width:2.62rem;height:1.04rem;overflow:hidden;}
@@ -139,6 +139,7 @@
     #layout_4 .brief-success .brief{width:1.87rem;height:1.15rem;overflow:hidden;}
     #layout_4 .brief-erweima{width:4.91rem;height:4.72rem;overflow:hidden;}
     #layout_4 .brief-erweima .erweima{width:4.91rem;height:4.72rem;overflow:hidden;}
+    #layout_4 .brief-text{text-align:center;font-size:.5rem;padding:0 15%;z-index:999;color:#fff}
         /*横屏提示*/
     .mask{width:100%;height:100%;background:#32373b;position:absolute;left:0;top:0;z-index:99999;display:none}
     .mask-box{width:100%;height:252px;position:absolute;top:50%;left:0;margin-top:-119px}
@@ -161,7 +162,7 @@
         <img src="http://p1.ifengimg.com/ae2b95e1d35710ab/2016/31/olympic160803_logo300.png" width="100%">
     </div>
     <div class="load_txt">
-        凤凰视频
+        凤凰科技
     </div>
     <div class="load_num"></div>
 </section>
@@ -171,10 +172,11 @@
 <!-- page 1 S -->
 <section class="layout anim" id="layout_1">
     <div class="title-container">
-        <img src="/resource/img/ballot/title.png"/>
+        <img src="http://p2.ifengimg.com/976263f9e894a215/2017/2/title2.png"/>
     </div>
     <div class="button">
-        <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044526293"><img src="/resource/img/ballot/button.png"/></a>
+        <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044526293">
+            <img src="http://p1.ifengimg.com/04a169a73a8934ac/2017/4/17156dcbac59326.png"/></a>
     </div>
     <div class="logo">
         <img src="/resource/img/ballot/logo.png"/>
@@ -188,7 +190,7 @@
 <!-- page 2 S -->
 <section class="layout anim" id="layout_2">
     <div class="title-container">
-        <img src="/resource/img/ballot/title2.png"/>
+        <img src="http://p2.ifengimg.com/976263f9e894a215/2017/2/title2.png"/>
     </div>
     <div class="content">
         <div class="container production">
@@ -197,7 +199,7 @@
             </div>
             <h1 class="center">十佳产品</h1>
             <div class="bottom">
-                <span>投票</span>
+                <span>获奖名单</span>
                 <img src="/resource/img/ballot/arrow.png"/>
             </div>
         </div>
@@ -207,7 +209,7 @@
             </div>
             <h1 class="center">实力公司</h1>
             <div class="bottom">
-                <span>投票</span>
+                <span>获奖名单</span>
                 <img src="/resource/img/ballot/arrow.png"/>
             </div>
         </div>
@@ -217,7 +219,7 @@
             </div>
             <h1 class="center">技术创新</h1>
             <div class="bottom">
-                <span>投票</span>
+                <span>获奖名单</span>
                 <img src="/resource/img/ballot/arrow.png"/>
             </div>
         </div>
@@ -227,7 +229,7 @@
             </div>
             <h1 class="center">潜力公司</h1>
             <div class="bottom">
-                <span>投票</span>
+                <span>获奖名单</span>
                 <img src="/resource/img/ballot/arrow.png"/>
             </div>
         </div>
@@ -242,11 +244,11 @@
 <!-- page 3 S -->
 <section id="layout_3">
     <div class="title-container">
-        <img src="/resource/img/ballot/title2.png"/>
+        <img src="http://p2.ifengimg.com/976263f9e894a215/2017/2/title2.png"/>
     </div>
 
     <div class="text">
-        <img src="/resource/img/ballot/text.png"/>
+        <img src="http://p0.ifengimg.com/04a169a73a8934ac/2017/4/8fc82af75ce8826.png"/>
     </div>
 
     <ul class="content production">
@@ -256,7 +258,7 @@
                 <div class="make"></div>
                 <img src="{%$item.msg.img_url%}" alt="">
                 <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
-                <p class="star" data-pro="{%$item.id%}">投票</p>
+                <p class="star" data-pro="{%$item.id%}">获奖理由</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -272,7 +274,7 @@
                 <div class="make"></div>
                 <img src="{%$item.msg.img_url%}" alt="">
                 <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
-                <p class="star" data-pro="{%$item.id%}">投票</p>
+                <p class="star" data-pro="{%$item.id%}">获奖理由</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -288,7 +290,7 @@
                 <div class="make"></div>
                 <img src="{%$item.msg.img_url%}" alt="">
                 <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
-                <p class="star" data-pro="{%$item.id%}">投票</p>
+                <p class="star" data-pro="{%$item.id%}">获奖理由</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -304,7 +306,7 @@
                 <div class="make"></div>
                 <img src="{%$item.msg.img_url%}" alt="">
                 <span class="tiket" data-pro="{%$item.liked%}">{%$item.liked%}票</span>
-                <p class="star" data-pro="{%$item.id%}">投票</p>
+                <p class="star" data-pro="{%$item.id%}">获奖理由</p>
             </div>
             <div class="bottom">
                 <p>{%$item.msg.name%}</p>
@@ -325,7 +327,7 @@
 <section id="layout_4" style="display:none;z-index:999">
     <div class="layout_mask"></div>
     <div class="brief-error">
-        <img src="/resource/img/ballot/error-text.png" alt="" class="brief">
+        <img src="http://p1.ifengimg.com/a/2017/0112/472f2f95577c3e6size6_w414_h188.png" alt="" class="brief">
         <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044526293">
             <img src="/resource/img/ballot/btn2.png" alt="" class="btn">
         </a>
@@ -334,8 +336,9 @@
         <img src="/resource/img/ballot/success-text.png" alt="" class="brief">
     </div>
     <div class="brief-erweima">
-        <img src="/resource/img/ballot/erweima.png" alt="" class="erweima">
+        <img src="http://p1.ifengimg.com/a/2017/0112/32aea88b2f67c2csize44_w491_h472.png" alt="" class="erweima">
     </div>
+    <div class="brief-text"></div>
 </section>
 <!-- page4 E--
 
@@ -422,7 +425,7 @@
             $(this).hide();
         });
         $('#layout_3 .strong_company').show();
-        $('#layout_3 .text').find('img').attr("src", "/resource/img/ballot/strong-company.png")
+        $('#layout_3 .text').find('img').attr("src", "http://p0.ifengimg.com/04a169a73a8934ac/2017/4/a91a1ee63655cd2.png")
     })
 
     $('#layout_2 .content .technology').click(function () {
@@ -433,7 +436,7 @@
             $(this).hide();
         });
         $('#layout_3 .technology').show();
-        $('#layout_3 .text').find('img').attr("src", "/resource/img/ballot/technology.png")
+        $('#layout_3 .text').find('img').attr("src", "http://p0.ifengimg.com/04a169a73a8934ac/2017/4/69c2c61844f4e68.png")
     })
 
     $('#layout_2 .content .new_company').click(function () {
@@ -444,8 +447,20 @@
             $(this).hide();
         });
         $('#layout_3 .new_company').show();
-        $('#layout_3 .text').find('img').attr("src", "/resource/img/ballot/new-company.png")
+        $('#layout_3 .text').find('img').attr("src", "http://p0.ifengimg.com/04a169a73a8934ac/2017/4/37115cca5940118.png")
     })
+
+    $('#layout_2 .content .production').click(function () {
+        $('#layout_1,#layout_2').hide();
+        $('#layout_3').show();
+
+        $('#layout_3').find("ul").each(function (index, elem) {
+            $(this).hide();
+        });
+        $('#layout_3 .production').show();
+        $('#layout_3 .text').find('img').attr("src", "http://p0.ifengimg.com/04a169a73a8934ac/2017/4/8fc82af75ce8826.png")
+    })
+
     //============================== end =====
 
     //===== like start ======
@@ -460,17 +475,26 @@
                 $('#layout_4 .brief-erweima').hide();
                 $('#layout_4 .brief-success').hide();
                 $('#layout_4 .brief-error').hide();
+                $('#layout_4 .brief-text').hide();
 
                 if (data.code == 0) {
-                    $('#layout_4').show()
-                    $('#layout_4 .brief-success').show();
-                    vote.text((Number(vote.attr("data-pro")) + 1 ) + "票");
+//                    $('#layout_4').show();
+//                    $('#layout_4 .brief-success').show();
+//                    vote.text((Number(vote.attr("data-pro")) + 1 ) + "票");
+                    $('#layout_4').show();
+                    var msg = JSON.parse(data.data.msg);
+                    $('#layout_4 .brief-text').text(msg.prize_reason);
+                    $('#layout_4 .brief-text').show();
                 } else if (data.code == 407) {
-                    $('#layout_4').show()
+                    $('#layout_4').show();
                     $('#layout_4 .brief-erweima').show();
                 } else if (data.code == 408) {
-                    $('#layout_4').show()
+                    $('#layout_4').show();
                     $('#layout_4 .brief-error').show();
+                } else if (data.code == 406) {
+                    $('#layout_4').show();
+                    $('#layout_4 .brief-text').text("获奖名单稍后公布");
+                    $('#layout_4 .brief-text').show();
                 }
             }
         });
@@ -487,6 +511,9 @@
     });
 </script>
 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<textarea id="wechat_share" style="display: none">{%$jsapi%}</textarea>
+<script src="/resource/scripts/wechat.js?timestamp=1"></script>
 <!-- 页尾通栏  -->
 </body>
 </html>

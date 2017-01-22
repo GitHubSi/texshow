@@ -43,6 +43,12 @@
                     </div>
 
                     <div class="input-group">
+                        <span class="input-group-addon">获奖理由</span>
+                        <input id="poster" type="text" name="prize_reason" placeholder="请输入获奖理由" required
+                               value="{%$userInfo.msg.prize_reason|default:''%}" class="form-control">
+                    </div>
+
+                    <div class="input-group">
                         <div class="input-group-btn">
                             {%if $type eq "add"%}
                             <input id="submit" type="submit" class="btn btn-danger pull-right" value='添加'</input>
