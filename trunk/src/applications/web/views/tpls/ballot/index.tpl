@@ -139,7 +139,7 @@
     #layout_4 .brief-success .brief{width:1.87rem;height:1.15rem;overflow:hidden;}
     #layout_4 .brief-erweima{width:4.91rem;height:4.72rem;overflow:hidden;}
     #layout_4 .brief-erweima .erweima{width:4.91rem;height:4.72rem;overflow:hidden;}
-    #layout_4 .brief-text{text-align:center;font-size:.5rem;padding:0 15%;z-index:999;color:#fff}
+    #layout_4 .brief-text{text-align:center;font-size:.3rem;padding:0 05%;z-index:999;color:#fff}
         /*横屏提示*/
     .mask{width:100%;height:100%;background:#32373b;position:absolute;left:0;top:0;z-index:99999;display:none}
     .mask-box{width:100%;height:252px;position:absolute;top:50%;left:0;margin-top:-119px}
@@ -175,7 +175,7 @@
         <img src="http://p2.ifengimg.com/976263f9e894a215/2017/2/title2.png"/>
     </div>
     <div class="button">
-        <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044526293">
+        <a href="http://share.iclient.ifeng.com/sharenews.f?aid=cmpp_040620044535718">
             <img src="http://p1.ifengimg.com/04a169a73a8934ac/2017/4/17156dcbac59326.png"/></a>
     </div>
     <div class="logo">
