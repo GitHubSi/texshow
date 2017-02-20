@@ -22,6 +22,7 @@ class ResponseController extends AbstractSecurityAction
 
     public function indexAction()
     {
+        $this->_useFrame = false;
         $this->_smarty->display('admin/index.tpl');
     }
 
@@ -44,20 +45,12 @@ class ResponseController extends AbstractSecurityAction
 
     public function detailAction()
     {
-        $type = $this->getParam("type");
-        if ($type == 'client') {
-            $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
-            $this->_smarty->assign('client_response', $clientResponse);
-            $this->_smarty->assign('action', "client");
-            $this->_smarty->assign('tpl', 'admin/auto-reply-client.tpl');
-        } else {
-            $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
-            $this->_smarty->assign('magazine_response', $magazineResponse);
-            $this->_smarty->assign('action', "magazine");
-            $this->_smarty->assign('tpl', 'admin/auto-reply-magazine.tpl');
-        }
+        $clientResponse = $this->_redis->get(self::CLIENT_RESPONSE);
+        $magazineResponse = $this->_redis->get(self::MAGAZINE_RESPONSE);
 
-        $this->_smarty->display('admin/b-index.tpl');
+        $this->_smarty->assign('client_response', $clientResponse);
+        $this->_smarty->assign('magazine_response', $magazineResponse);
+        $this->_smarty->assign('tpl', 'admin/response-text.tpl');
     }
 
     public function editAction()

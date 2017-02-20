@@ -1,146 +1,69 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>管理后台</title>
-    <!--                       CSS                       -->
-    <!-- Reset Stylesheet -->
-    <link rel="stylesheet" href="/resource/css/admin/reset.css" type="text/css" media="screen"/>
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="/resource/css/admin/style.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="/resource/css/admin/theme.css" type="text/css" media="screen"/>
-    <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
-    <link rel="stylesheet" href="/resource/css/admin/invalid.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="/resource/css/admin/frame.css" type="text/css">
-    <link rel="stylesheet" href="/resource/css/admin/font-awesome.css" type="text/css">
 
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script' type='text/css'/>
+    <link rel="stylesheet" href="/resource/css/admin/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/resource/css/admin/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="/resource/jsoneditor/dist/jsoneditor.css" type="text/css">
 
-    <!--                       Javascripts                       -->
-    <!-- jQuery -->
-    <script type="text/javascript" src="/resource/scripts/jquery-1.3.2.min.js"></script>
-    <!-- jQuery Configuration -->
-    <script type="text/javascript" src="/resource/scripts/simpla.jquery.configuration.js"></script>
-    <!-- Facebox jQuery Plugin -->
-    <script type="text/javascript" src="/resource/scripts/facebox.js"></script>
-    <!-- jQuery WYSIWYG Plugin -->
-    <script type="text/javascript" src="/resource/scripts/jquery.wysiwyg.js"></script>
-    <!-- jQuery Datepicker Plugin -->
-    <script type="text/javascript" src="/resource/scripts/jquery.datePicker.js"></script>
-    <script type="text/javascript" src="/resource/scripts/jquery.date.js"></script>
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="/resource/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/resource/jsoneditor/dist/jsoneditor.js"></script>
 </head>
+
 <body>
-<div id="body-wrapper">
-    <!-- Wrapper for the radial gradient background -->
-    <div id="sidebar">
-        <div id="sidebar-wrapper">
-            <!-- Sidebar with logo and menu -->
-            <h1 id="sidebar-title"><a href="#">管理后台</a></h1>
-            <!-- Logo (221px wide) -->
-            <a href="#"><img id="logo" src="/resource/images/logo.png" alt="Simpla Admin logo"/></a>
-            <!-- Sidebar Profile links -->
-            <div id="profile-links"><a href="#" title="Sign Out">退出</a></div>
-            <ul id="main-nav">
-                <!-- Accordion Menu -->
-                <li><a href="#/" class="nav-top-item no-submenu">
-                        <!-- Add the class "no-submenu" to menu items with no sub menu -->
-                        Dashboard </a></li>
-                <li><a href="#" class="nav-top-item">
-                        <!-- Add the class "current" to current menu item -->
-                        基本功能 </a>
-                    <ul>
-                        <li><a href="/response/detail?type=magazine">订阅号回复</a></li>
-                        <li><a href="/response/detail?type=client">服务号回复</a></li>
-                        <!-- Add class "current" to sub menu items also -->
-                        <li><a href="/redPacketSetting/index">红包配置</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" class="nav-top-item">一元夺宝</a>
-                    <ul>
-                        <li><a href="#">活动抽奖</a></li>
-                        <li><a href="#">配置夺宝</a></li>
-                    </ul>
-                </li>
+<div class="panel panel-default">
+    <div class="panel-body">管理后台</div>
+</div>
 
-                <li><a href="#" class="nav-top-item">轮播图/商品管理</a>
-                    <ul>
-                        <li><a href="/headImg/index">轮播图添加</a></li>
-                        <li><a href="/headImg/detail">轮播图详情</a></li>
-                        <li><a href="/goodsManage/info?type=add">商品添加</a></li>
-                        <li><a href="/goodsManage/index">商品详情</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" class="nav-top-item">投票活动</a>
-                    <ul>
-                        <li><a href="/voteManage/index">添加用户</a></li>
-                        <li><a href="/ballotManage/index">投票二期</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" class="nav-top-item"> Settings </a>
-                    <ul>
-                        <li><a href="#">General</a></li>
-                        <li><a href="#">Design</a></li>
-                        <li><a href="#">Your Profile</a></li>
-                        <li><a href="#">Users and Permissions</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- End #main-nav -->
-            <div id="messages" style="display: none">
-                <!-- Messages are shown when a link with these attributes are clicked: href="#messages" rel="modal"  -->
-                <h3>3 Messages</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="panel panel-default">
+                <div class="alert alert-info">
+                    <strong>功能列表</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#base-info" class="list-group-item" data-toggle="collapse">基本功能</a>
+                        <div id="base-info" class="collapse">
+                                <a href="/response/detail?type=magazine" class="list-group-item active">订阅号回复</a>
+                                <a href="/response/detail?type=client" class="list-group-item">服务号回复</a>
+                                <a href="/redPacketSetting/index" class="list-group-item">微信红包设置</a>
+                        </div>
 
-                <p><strong>17th May 2009</strong> by Admin<br/>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet
-                    congue.
-                    <small><a href="#" class="remove-link" title="Remove message">Remove</a></small>
-                </p>
-                <p><strong>2nd May 2009</strong> by Jane Doe<br/>
-                    Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis,
-                    tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.
-                    <small><a href="#" class="remove-link" title="Remove message">Remove</a></small>
-                </p>
-                <p><strong>25th April 2009</strong> by Admin<br/>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet
-                    congue.
-                    <small><a href="#" class="remove-link" title="Remove message">Remove</a></small>
-                </p>
-                <form action="#" method="post">
-                    <h4>New Message</h4>
-                    <fieldset>
-                        <textarea class="textarea" name="textfield" cols="79" rows="5"></textarea>
-                    </fieldset>
-                    <fieldset>
-                        <select name="dropdown" class="small-input">
-                            <option value="option1">Send to...</option>
-                            <option value="option2">Everyone</option>
-                            <option value="option3">Admin</option>
-                            <option value="option4">Jane Doe</option>
-                        </select>
-                        <input class="button" type="submit" value="Send"/>
-                    </fieldset>
-                </form>
+                        <a href="#nav-mall" class="list-group-item" data-toggle="collapse">商品管理</a>
+                        <div id="nav-mall" class="collapse">
+                            <a href="/headImg/index" class="list-group-item">轮播图添加</a>
+                            <a href="/headImg/detail" class="list-group-item">轮播图详情</a>
+                            <a href="/goodsManage/info?type=add" class="list-group-item">商品添加</a>
+                            <a href="/goodsManage/index" class="list-group-item">商品详情</a>
+                        </div>
+
+                        <a href="#nav-vote" class="list-group-item" data-toggle="collapse">投票活动</a>
+                        <div id="nav-vote" class="collapse">
+                            <a href="/voteManage/index" class="list-group-item">添加用户</a>
+                            <a href="/ballotManage/index" class="list-group-item">投票二期</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- End #messages -->
+        </div>
+        <div class="col-md-9">
+            {%include file=$tpl%}
         </div>
     </div>
-    <!-- End #sidebar -->
-    <div id="main-content">
-        <!-- Main Content Section with everything -->
-        <div id="msg-panel" style="color: red; font-size: larger; line-height: 30px; height: 30px"></div>
-        {%include file=$tpl%}
-    </div>
-    <!-- End #main-content -->
 </div>
+
 <script>
     (function () {
         var msg = decodeURIComponent(document.location.hash);
         $("#msg-panel").append(msg);
     })();
 </script>
+
 </body>
-<!-- Download From www.exet.tk-->
 </html>

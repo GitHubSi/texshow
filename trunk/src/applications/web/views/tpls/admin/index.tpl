@@ -1,7 +1,5 @@
 <head>
     <link rel="stylesheet" href="/resource/css/resp_index.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
-    <script src="http://libs.baidu.com/jquery/1.7.0/jquery.min.js"></script>
 </head>
 <body>
 <div class="lg-container">
